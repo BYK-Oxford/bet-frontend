@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --dark-bg: #1E1E20;
+  --text-color: #FFFFFF;
+  --selection-color: #03BEC2;
 }
 
 @theme inline {
@@ -20,7 +23,16 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--dark-bg);
+  color: var(--text-color);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Anchor tags and links color */
+a {
+  color: var(--text-color);
+}
+
+a:hover {
+  color: var(--selection-color);
 }
