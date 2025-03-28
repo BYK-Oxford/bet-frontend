@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sports Betting App",
-  description: "Betting odds, statistics, and more.",
+  title: "Bet Genie",
+  description: "Find the best chances to win!",
 };
 
 export default function RootLayout({

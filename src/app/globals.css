@@ -5,6 +5,7 @@
   --foreground: #171717;
   --dark-bg: #1E1E20;
   --text-color: #FFFFFF;
+  --secondary-text: #A0A0A0;
   --selection-color: #03BEC2;
 }
 
@@ -35,4 +36,36 @@ a {
 
 a:hover {
   color: var(--selection-color);
+}
+
+
+
+/* For Sidebar */
+.sidebar {
+  background: var(--dark-bg);
+}
+
+.sidebar-btn {
+  color: var(--secondary-text);
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar-btn:hover {
+  color: var(--text-color);
+}
+
+.sidebar-btn.active {
+  color: var(--text-color);
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.sidebar-btn.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  height: 12px;
+  width: 4px;
+  background: var(--selection-color);
+  border-radius: 2px;
 }
