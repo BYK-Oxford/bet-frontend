@@ -4,21 +4,19 @@ import { House, Trophy, Calendar, Users, GearSix, SoccerBall } from "@phosphor-i
 
 type MenuItem = {
   name: string;
-  icon: ReactNode; // ✅ Use ReactNode instead of JSX.Element
+  icon: ReactNode;
 };
-
 
 // Sidebar menu items
 const menuItems: MenuItem[] = [
-  { name: "Football", icon: <SoccerBall size={24} weight="fill" /> }, 
-  
+  { name: "Football", icon: <SoccerBall size={24} weight="fill" /> },
 ];
 
 export default function Sidebar() {
-  const [selected, setSelected] = useState<string>("Home");
+  const [selected, setSelected] = useState<string>(menuItems[0].name);
 
   return (
-    <aside className="sidebar w-20 h-screen p-4 fixed flex flex-col items-center space-y-6">
+    <aside className="sidebar w-15 h-screen p-4 fixed flex flex-col items-center space-y-6">
       <div className="mb-6">
         <h1 className="text-lg font-bold">Bet Genie</h1>
       </div>
