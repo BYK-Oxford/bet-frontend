@@ -54,6 +54,10 @@ a:hover {
   color: var(--text-color);
 }
 
+.sidebar-btn.active svg {
+  color: var(--text-color); 
+}
+
 .sidebar-btn.active::before {
   content: "";
   position: absolute;
