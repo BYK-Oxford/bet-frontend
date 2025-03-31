@@ -1,6 +1,7 @@
 "use client";
 import HomeBanner from "./HomeBanner";
 import MatchHeader from "./MatchHeader";
+import MatchList from "./MatchList";
 
 
 export default function HomeCenter() {
@@ -12,9 +13,9 @@ export default function HomeCenter() {
       leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg"
       onPrev={() => console.log("Previous")}
       onNext={() => console.log("Next")}
-      onSeeAll={() => console.log("See All")}
+      onSeeAll={() => console.log("See All")}/>
+      <MatchList/>
 
-    />
   </div>
   );
 }

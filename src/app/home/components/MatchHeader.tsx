@@ -24,11 +24,11 @@ export default function MatchHeader({
         <Image
           src={leagueLogo}
           alt={leagueName}
-          width={30}
-          height={30}
+          width={25}
+          height={25}
           className="rounded-full"
         />
-        <h2 className="text-lg font-semibold text-white">{leagueName}</h2>
+        <h2 className="text-md font-semibold text-white">{leagueName}</h2>
       </div>
 
       <div className="flex items-center gap-5">
