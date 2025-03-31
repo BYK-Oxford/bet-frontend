@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ReactNode, useState } from "react";
-import { House, Trophy, Calendar, Users, GearSix, SoccerBall } from "@phosphor-icons/react";
+import { useState, useEffect } from "react";
+import { SoccerBall, Trophy, Calendar } from "@phosphor-icons/react";
 
 type MenuItem = {
   name: string;
   href: string;
-  icon: ReactNode;
+  icon: React.ReactNode;
 };
 
 // Sidebar menu items
@@ -18,8 +18,17 @@ const menuItems: MenuItem[] = [
 ];
 
 export default function Sidebar() {
-  const pathname = usePathname();  // Get the current path
-  const [selected, setSelected] = useState<string>(menuItems[0].name);
+  const pathname = usePathname(); // Get the current path
+  const [selected, setSelected] = useState<string>(pathname === "/" ? "/home" : pathname); // Default to /home if on root
+
+  useEffect(() => {
+    // Update selected state based on the pathname when the component re-renders
+    if (pathname === "/") {
+      setSelected("/home");
+    } else {
+      setSelected(pathname);
+    }
+  }, [pathname]);
 
   return (
     <aside className="sidebar w-15 h-screen p-4 fixed flex flex-col items-center space-y-6">
@@ -28,14 +37,12 @@ export default function Sidebar() {
       </div>
 
       {menuItems.map((item) => {
-        const isActive = pathname === item.href; // Check if the current path matches the item's href
+        const isActive = selected === item.href; // Check if the current path matches the item's href
         return (
           <Link key={item.name} href={item.href}>
             <button
-              onClick={() => setSelected(item.name)} // Update the selected state on click
-              className={`sidebar-btn flex items-center justify-center w-12 h-12 rounded-lg transition-all ${
-                isActive ? "active" : ""
-              }`}
+              onClick={() => setSelected(item.href)} // Update the selected state on click
+              className={`sidebar-btn flex items-center justify-center w-12 h-12 rounded-lg transition-all ${isActive ? "active" : ""}`}
             >
               {item.icon}
             </button>
