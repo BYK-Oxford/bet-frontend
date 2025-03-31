@@ -1,9 +1,10 @@
-import HomeBanner from "./components/HomeBanner";
+import HomeCenter from "./components/HomeCenter";
 import HomeSidebar from "./components/HomeSidebar";
+import ValueForMoney from "./components/ValueForMoney";
 
 export default function HomePage() {
   return (
-    <div className="flex gap-6 p-6">
+    <div className="flex gap-4 p-4">
       {/* Sidebar (Left Side) */}
       <div className="w-50">
         <HomeSidebar />
@@ -11,7 +12,11 @@ export default function HomePage() {
 
       {/* Main Content (Right Side) */}
       <div className="flex-1">
-        <HomeBanner />
+        <HomeCenter />
+      </div>
+
+      <div className="w-60">
+        <ValueForMoney />
       </div>
     </div>
   );

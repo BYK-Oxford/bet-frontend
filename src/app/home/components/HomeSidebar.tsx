@@ -2,7 +2,7 @@ import InfoBox from "./InfoBox";
 
 export default function HomeSidebar() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Top Leagues Box */}
       <InfoBox
         title="Top Leagues"

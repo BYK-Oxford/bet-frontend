@@ -5,7 +5,7 @@ interface InfoBoxProps {
   
   export default function InfoBox({ title, items }: InfoBoxProps) {
     return (
-      <div className="bg-[#2E2E30] p-6 rounded-lg max-w-xs w-full">
+      <div className="bg-[#2E2E30] p-3 rounded-lg max-w-xs w-full">
         <h2 className="text-white text-sm font-bold mb-2 border-b border-[rgba(255,255,255,0.1)] pb-2">{title}</h2>
         <ul className="space-y-2">
           {items.slice(0, 4).map((item, index) => (

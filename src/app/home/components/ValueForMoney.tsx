@@ -1,10 +1,10 @@
 import Image from "next/image";
 
-export default function HomeBanner() {
+export default function ValueForMoney() {
   return (
-    <div className="relative w-full h-50 rounded-lg overflow-hidden">
+    <div className="relative w-full h-64 rounded-lg overflow-hidden">
       <Image
-        src="/img1.jpg"
+        src="/public/img1.jpg"
         alt="Sports Betting Banner"
         layout="fill"
         objectFit="cover"
