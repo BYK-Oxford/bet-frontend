@@ -68,3 +68,41 @@ a:hover {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
 }
+/* Button Base Styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem; /* 6px */
+  padding: 0.2rem 1rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+/* Primary Button (using your selection color) */
+.btn-primary {
+  background-color: var(--selection-color);
+  color: var(--text-color);
+}
+
+.btn-primary:hover {
+  background-color: transparent;
+  color: var(--selection-color);
+  border-color: var(--selection-color);
+}
+
+/* Icon Button Variant */
+.btn-icon {
+  padding: 0.25rem;
+  background-color: transparent;
+  border-color: var(--secondary-text);
+  color: var(--secondary-text);
+}
+
+.btn-icon:hover {
+  border-color: var(--selection-color);
+  color: var(--text-color);
+}
