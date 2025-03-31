@@ -1,16 +1,24 @@
 interface InfoBoxProps {
     title: string;
-    items: string[];
+    items: { name: string; imageUrl: string }[]; // Items now include both name and imageUrl
   }
   
   export default function InfoBox({ title, items }: InfoBoxProps) {
     return (
-      <div className="bg-gray-800 p-4 rounded-lg">
-        <h2 className="text-white text-lg font-bold mb-3">{title}</h2>
+      <div className="bg-[#2E2E30] p-6 rounded-lg max-w-xs w-full">
+        <h2 className="text-white text-sm font-bold mb-2 border-b border-[rgba(255,255,255,0.1)] pb-2">{title}</h2>
         <ul className="space-y-2">
           {items.slice(0, 4).map((item, index) => (
-            <li key={index} className="text-gray-300 hover:text-white cursor-pointer">
-              {item}
+            <li
+              key={index}
+              className={`flex items-center text-gray-300 text-xs hover:text-white cursor-pointer ${index < items.length - 1 ? 'border-b border-[rgba(255,255,255,0.1)] pb-2' : ''}`}
+            >
+              <img
+                src={item.imageUrl}
+                alt="Leagues icon"
+                className="w-[24px] h-[24px] rounded-full mr-3 bg-white object-cover" 
+              />
+              {item.name}
             </li>
           ))}
         </ul>

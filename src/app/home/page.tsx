@@ -5,7 +5,7 @@ export default function HomePage() {
   return (
     <div className="flex gap-6 p-6">
       {/* Sidebar (Left Side) */}
-      <div className="w-64">
+      <div className="w-50">
         <HomeSidebar />
       </div>
 
