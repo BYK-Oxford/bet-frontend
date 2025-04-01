@@ -1,5 +1,6 @@
 "use client";
 import HomeBanner from "./HomeBanner";
+import MatchDetailHeader from "../../match_detail/components/MatchDetailHeader";
 import MatchHeader from "./MatchHeader";
 import MatchList from "./MatchList";
 import MatchListHeader from "./MatchListHeader";
@@ -34,6 +35,17 @@ export default function HomeCenter() {
           <MatchNewData/>
         </div>
       </div>
+
+      <MatchDetailHeader
+        date="March 31, 2025"
+        time="18:00"
+        team1="Liverpool"
+        team2="Arsenal"
+        logo1="https://brandlogos.net/wp-content/uploads/2025/02/liverpool_f.c.-logo_brandlogos.net_vr9dx-300x548.png" 
+        logo2="https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/1200px-Arsenal_FC.svg.png" 
+        odds={[1.5, 2.0, 3.0]} 
+      />
+      
   </div>
   );
 }

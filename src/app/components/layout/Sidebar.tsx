@@ -31,7 +31,7 @@ export default function Sidebar() {
   }, [pathname]);
 
   return (
-    <aside className="sidebar w-15 h-screen p-4 fixed flex flex-col items-center space-y-6">
+    <aside className="sidebar w-15 h-screen p-4 fixed flex flex-col items-center space-y-6 border-r border-[rgba(255,255,255,0.1)]">
       <div className="mb-6">
         <h1 className="text-lg font-bold">Bet Genie</h1>
       </div>
