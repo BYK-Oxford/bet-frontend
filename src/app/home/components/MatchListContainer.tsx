@@ -19,15 +19,16 @@ const MatchListContainer: React.FC<MatchProps> = ({ date, time, team1, team2, lo
         {/* Teams Row - Centered Layout */}
         <div className="flex items-center justify-center flex-1 gap-3">
           {/* Team 1 */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-28 justify-end"> {/* Fixed width */}
             <span className="text-xs truncate">{team1}</span>
             <img src={logo1} alt={team1} className="w-10 h-10 object-contain p-1" />
           </div>
 
-          <span className="text-xs font-semibold">VS</span>
+          {/* VS */}
+          <span className="text-xs font-semibold w-8 text-center">VS</span>
 
           {/* Team 2 */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-28 justify-start"> {/* Fixed width */}
             <img src={logo2} alt={team2} className="w-10 h-10 object-contain p-1" />
             <span className="text-xs truncate">{team2}</span>
           </div>
@@ -45,6 +46,7 @@ const MatchListContainer: React.FC<MatchProps> = ({ date, time, team1, team2, lo
         </div>
       </div>
     );
-  };
+};
+
   
 export default MatchListContainer;

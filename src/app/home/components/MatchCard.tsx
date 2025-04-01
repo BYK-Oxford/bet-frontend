@@ -14,7 +14,7 @@ const MatchCard: React.FC<MatchProps> = ({ date, time, team1, team2, logo1, logo
     return (
       <div className="bg-[#2E2E30] text-white p-4 rounded-xl shadow-md flex flex-col items-center w-52 h-40">
         {/* Date and Time */}
-        <div className="text-sm text-gray-400">{date}, {time}</div>
+        <div className="text-xs text-gray-400">{date}, {time}</div>
   
         {/* Teams Row */}
         <div className="flex items-center justify-center gap-4 my-2">

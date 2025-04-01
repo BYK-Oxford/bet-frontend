@@ -40,13 +40,19 @@ const matches: {
 ];
 
 const MatchNewData: React.FC = () => {
-  return (
-    <div className="space-y-1 flex flex-col">
-      {matches.map((match, index) => (
-        <MatchListContainer key={index} {...match} />
-      ))}
-    </div>
-  );
-};
+    return (
+      <div className="space-y-1 flex flex-col">
+        {matches.map((match, index) => (
+          <div 
+            key={index} 
+            className={`pb-2 ${index < matches.length - 1 ? 'border-b border-[rgba(255,255,255,0.1)]' : ''}`}
+          >
+            <MatchListContainer {...match} />
+          </div>
+        ))}
+      </div>
+    );
+  };
+  
 
 export default MatchNewData;
