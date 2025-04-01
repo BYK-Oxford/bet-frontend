@@ -16,6 +16,17 @@ export default function HomeCenter() {
       onSeeAll={() => console.log("See All")}/>
       <MatchList/>
 
+      
+      <MatchHeader
+      leagueName="English Premier League"
+      leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg"
+      onPrev={() => console.log("Previous")}
+      onNext={() => console.log("Next")}
+      onSeeAll={() => console.log("See All")}/>
+      <MatchList/>
+
+      
+
   </div>
   );
 }

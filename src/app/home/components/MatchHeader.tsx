@@ -18,7 +18,7 @@ export default function MatchHeader({
   onSeeAll,
 }: MatchHeaderProps) {
   return (
-    <div className="flex items-center justify-between bg-gray-900 p-4 rounded-lg">
+    <div className="flex items-center justify-between p-4 rounded-lg">
       {/* Left Section - League Logo & Name */}
       <div className="flex items-center gap-3">
         <Image

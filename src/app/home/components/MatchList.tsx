@@ -33,8 +33,8 @@ const matches: {
     time: "20:30",
     team1: "Chelsea",
     team2: "Tottenham",
-    logo1: "/path-to-chelsea-logo.png",
-    logo2: "/path-to-tottenham-logo.png",
+    logo1: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/1200px-Chelsea_FC.svg.png",
+    logo2: "https://brandlogos.net/wp-content/uploads/2020/11/tottenham-hotspur-logo.png",
     odds: [5.89, 2.15, 1.24], // Exactly three elements
   },
 ];

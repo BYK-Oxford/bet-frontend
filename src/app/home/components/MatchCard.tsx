@@ -27,7 +27,7 @@ const MatchCard: React.FC<MatchProps> = ({ date, time, team1, team2, logo1, logo
                 className="w-10 h-10 object-contain aspect-square"
               />
             </div>
-            <span className="text-sm w-full text-center truncate">{team1}</span>
+            <span className="text-xs w-full text-center truncate">{team1}</span>
           </div>
           <span className="text-sm">VS</span>
           <div className="flex flex-col items-center w-20">
@@ -39,7 +39,7 @@ const MatchCard: React.FC<MatchProps> = ({ date, time, team1, team2, logo1, logo
                 className="w-10 h-10 object-contain aspect-square"
               />
             </div>
-            <span className="text-sm w-full text-center truncate">{team2}</span>
+            <span className="text-xs w-full text-center truncate">{team2}</span>
           </div>
         </div>
   
