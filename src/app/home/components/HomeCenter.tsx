@@ -5,6 +5,7 @@ import MatchHeader from "./MatchHeader";
 import MatchList from "./MatchList";
 import MatchListHeader from "./MatchListHeader";
 import MatchNewData from "./MatchNewData";
+import MatchTabs from "@/app/match_detail/components/MatchTabs";
 
 
 export default function HomeCenter() {
@@ -47,6 +48,8 @@ export default function HomeCenter() {
         odds={[1.5, 2.0, 3.0]} 
         onBack={() => console.log("Go Back")}
       />
+
+      <MatchTabs/>
       
   </div>
   );
