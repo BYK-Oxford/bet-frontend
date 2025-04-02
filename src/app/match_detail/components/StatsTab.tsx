@@ -13,6 +13,8 @@ const StatsTab: React.FC = () => {
     <div className="flex flex-col gap-2">
       {statsData.map((stat, index) => {
         const max = Math.max(stat.team1, stat.team2);
+        const isTeam1Higher = stat.team1 > stat.team2;
+        
         const team1Width = (stat.team1 / max) * 100;
         const team2Width = (stat.team2 / max) * 100;
 
@@ -24,8 +26,14 @@ const StatsTab: React.FC = () => {
               <span>{stat.team2}</span>
             </div>
             <div className="flex h-2 mt-1 bg-gray-600 rounded-full overflow-hidden">
-              <div className="bg-gray-400 h-full" style={{ width: `${team1Width}%` }} />
-              <div className="bg-cyan-400 h-full" style={{ width: `${team2Width}%` }} />
+              <div
+                className={`${isTeam1Higher ? "bg-cyan-400" : "bg-gray-400"} h-full`}
+                style={{ width: `${team1Width}%` }}
+              />
+              <div
+                className={`${!isTeam1Higher ? "bg-cyan-400" : "bg-gray-400"} h-full`}
+                style={{ width: `${team2Width}%` }}
+              />
             </div>
           </div>
         );
