@@ -46,6 +46,31 @@ const HomeCenter: React.FC = () => {
     fetchMatches();
   }, []); // Only run once on mount
 
+  // Helper function to format the date
+  const formatDate = (timestamp: string) => {
+    const date = new Date(timestamp);
+    const options: Intl.DateTimeFormatOptions = { 
+      month: 'short',  // Abbreviated month name (e.g., "Apr")
+      day: 'numeric'   // Day of the month as a number (e.g., "7")
+    };
+    return date.toLocaleDateString(undefined, options); // Formats as "Apr 7"
+  };
+
+  const formatTime = (timestamp: string) => {
+    const date = new Date(timestamp);
+  
+    // Format the time (Hour and Minute)
+    const timeOptions: Intl.DateTimeFormatOptions = {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false, // Use 24-hour format
+    };
+    const formattedTime = date.toLocaleTimeString(undefined, timeOptions);
+  
+    return formattedTime;
+  };
+
+    
   // Group matches by league
   const groupedMatches = matches.reduce((acc: Record<string, MatchOdds[]>, match: MatchOdds) => {
     if (!acc[match.home_team_league]) {
@@ -74,8 +99,8 @@ const HomeCenter: React.FC = () => {
               <MatchCard
                 matchId={match.odds_calculation_id}
                 key={index}
-                date={match.date}
-                time={match.time}
+                date={formatDate(match.date)} 
+                time={match.time.slice(0, 5)}
                 team1={match.home_team_name}
                 team2={match.away_team_name}
                 logo1="https://brandlogos.net/wp-content/uploads/2025/02/liverpool_f.c.-logo_brandlogos.net_vr9dx-300x548.png"
