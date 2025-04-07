@@ -1,6 +1,7 @@
 import React from "react";
 
 interface MatchProps {
+  matchId: string;
   date: string;
   time: string;
   team1: string;
@@ -10,7 +11,7 @@ interface MatchProps {
   odds: [number, number, number];
 }
 
-const MatchCard: React.FC<MatchProps> = ({ date, time, team1, team2, logo1, logo2, odds }) => {
+const MatchCard: React.FC<MatchProps> = ({ matchId, date, time, team1, team2, logo1, logo2, odds }) => {
     return (
       <div className="bg-[#2E2E30] text-white p-4 rounded-xl flex flex-col items-center w-52 h-40">
         {/* Date and Time */}

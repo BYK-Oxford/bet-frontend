@@ -1,56 +1,93 @@
 "use client";
+import React, { useEffect, useState } from "react";
 import HomeBanner from "./HomeBanner";
-import MatchDetailHeader from "../../match_detail/components/MatchDetailHeader";
 import MatchHeader from "./MatchHeader";
-import MatchList from "./MatchList";
-import MatchListHeader from "./MatchListHeader";
-import MatchNewData from "./MatchNewData";
-import MatchTabs from "@/app/match_detail/components/MatchTabs";
+import MatchCard from "./MatchCard";
 
+// Type definition for match odds
+interface MatchOdds {
+  odds_calculation_id: string;
+  date: string;
+  time: string;
+  home_team_logo: string;
+  away_team_logo: string;
+  home_team_id: string;
+  home_team_name: string;
+  home_team_league: string;
+  away_team_id: string;
+  away_team_name: string;
+  away_team_league: string;
+  calculated_home_chance: number;
+  calculated_draw_chance: number;
+  calculated_away_chance: number;
+  home_odds: number;
+  draw_odds: number;
+  away_odds: number;
+}
 
-export default function HomeCenter() {
+const HomeCenter: React.FC = () => {
+  const [matches, setMatches] = useState<MatchOdds[]>([]); // State for storing match data
+
+  useEffect(() => {
+    const fetchMatches = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/odds-calculation/calculated-odds");
+        if (response.ok) {
+          const data = await response.json();
+          setMatches(data.calculated_odds);
+        } else {
+          console.error("Failed to fetch match data");
+        }
+      } catch (error) {
+        console.error("Error fetching match data:", error);
+      }
+    };
+
+    fetchMatches();
+  }, []); // Only run once on mount
+
+  // Group matches by league
+  const groupedMatches = matches.reduce((acc: Record<string, MatchOdds[]>, match: MatchOdds) => {
+    if (!acc[match.home_team_league]) {
+      acc[match.home_team_league] = [];
+    }
+    acc[match.home_team_league].push(match);
+    return acc;
+  }, {});
+
   return (
     <div className="space-y-4">
-      <HomeBanner/>
-      <div className="space-y-1">
-        <MatchHeader
-        leagueName="English Premier League"
-        leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg"
-        onPrev={() => console.log("Previous")}
-        onNext={() => console.log("Next")}
-        onSeeAll={() => console.log("See All")}/>
-        <MatchList/>
-      </div>
+      <HomeBanner />
 
-      
-      <div className="space-y-1">
-        <MatchListHeader
-        leagueName="English Premier League"
-        leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg"/>
-        <div className="bg-[#2E2E30] text-white p-4 rounded-xl w-full min-w-[400px] max-w-[800px] min-h-[200px] h-auto overflow-hidden">
-          <div className="flex justify-between text-xs text-white font-semibold border-b border-[rgba(255,255,255,0.1)] pb-2 px-4">
-            <span className="w-20">Date</span>
-            <span className="flex-1 text-center">Match</span>
-            <span className="w-20 text-right">Odds</span>
+      {/* Render headers and match cards for each league */}
+      {Object.keys(groupedMatches).map((league) => (
+        <div key={league}>
+          <MatchHeader
+            leagueName={league}
+            leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg" // Modify this for actual league logos
+            onPrev={() => console.log("Previous")}
+            onNext={() => console.log("Next")}
+            onSeeAll={() => console.log("See All")}
+          />
+          <div className="space-y-4 flex gap-2">
+            {groupedMatches[league].map((match, index) => (
+              <MatchCard
+                matchId={match.odds_calculation_id}
+                key={index}
+                date={match.date}
+                time={match.time}
+                team1={match.home_team_name}
+                team2={match.away_team_name}
+                logo1="https://brandlogos.net/wp-content/uploads/2025/02/liverpool_f.c.-logo_brandlogos.net_vr9dx-300x548.png"
+                logo2="https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/1200px-Arsenal_FC.svg.png" 
+                odds={[match.home_odds, match.draw_odds, match.away_odds]}
+              />
+            ))}
           </div>
-          <MatchNewData/>
         </div>
-      </div>
-
-      <MatchDetailHeader
-        league="English Premier League"
-        date="March 31"
-        time="18:00"
-        team1="Liverpool"
-        team2="Arsenal"
-        logo1="https://brandlogos.net/wp-content/uploads/2025/02/liverpool_f.c.-logo_brandlogos.net_vr9dx-300x548.png" 
-        logo2="https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/1200px-Arsenal_FC.svg.png" 
-        odds={[1.5, 2.0, 3.0]} 
-        onBack={() => console.log("Go Back")}
-      />
-
-      <MatchTabs/>
-      
-  </div>
+      ))}
+    </div>
   );
-}
+};
+
+export default HomeCenter;
