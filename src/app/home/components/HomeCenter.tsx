@@ -125,7 +125,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({ selectedCountry, selectedLeague
           />
           <div className="bg-[#2E2E30] text-white p-2 rounded-xl w-full min-w-[400px] max-w-[800px] min-h-[200px] h-auto overflow-hidden">
             <div className="space-y-2">
-              {filteredByLeague.map((match) => (
+              {filteredByLeague.map((match, index) => (
                 <MatchListContainer
                   key={match.odds_calculation_id}
                   date={formatDate(match.date)}
@@ -135,7 +135,8 @@ const HomeCenter: React.FC<HomeCenterProps> = ({ selectedCountry, selectedLeague
                   logo1={match.home_team_logo}
                   logo2={match.away_team_logo}
                   odds={[match.home_odds, match.draw_odds, match.away_odds]}
-                />
+                  isLast={index === filteredByLeague.length - 1}
+              />
               ))}
             </div>
           </div>
