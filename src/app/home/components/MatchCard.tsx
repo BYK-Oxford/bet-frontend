@@ -39,9 +39,10 @@ const MatchCard: React.FC<MatchProps> = ({
               className="w-10 h-10 object-contain aspect-square"
             />
           </div>
-          <span className="text-[10px] text-center break-words leading-tight">
+          <span className="text-[10px] text-center break-words leading-tight h-[36px] flex items-center justify-center text-ellipsis overflow-hidden">
             {team1}
           </span>
+
         </div>
 
         {/* VS */}
@@ -58,9 +59,10 @@ const MatchCard: React.FC<MatchProps> = ({
               className="w-10 h-10 object-contain aspect-square"
             />
           </div>
-          <span className="text-[10px] text-center break-words leading-tight">
+          <span className="text-[10px] text-center break-words leading-tight h-[36px] flex items-center justify-center text-ellipsis overflow-hidden">
             {team2}
           </span>
+
         </div>
       </div>
 

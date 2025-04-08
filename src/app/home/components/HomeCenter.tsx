@@ -14,9 +14,11 @@ interface MatchOdds {
   home_team_id: string;
   home_team_name: string;
   home_team_league: string;
+  home_team_country: string;
   away_team_id: string;
   away_team_name: string;
   away_team_league: string;
+  away_team_country: string;
   calculated_home_chance: number;
   calculated_draw_chance: number;
   calculated_away_chance: number;
@@ -27,7 +29,11 @@ interface MatchOdds {
 
 const MATCHES_PER_PAGE = 3;
 
-const HomeCenter: React.FC = () => {
+interface HomeCenterProps {
+  selectedCountry: string | null;
+}
+
+const HomeCenter: React.FC<HomeCenterProps> = ({ selectedCountry }) => {
   const [matches, setMatches] = useState<MatchOdds[]>([]);
   const [visibleIndexes, setVisibleIndexes] = useState<Record<string, number>>({});
 
@@ -66,23 +72,24 @@ const HomeCenter: React.FC = () => {
     return date.toLocaleDateString(undefined, options);
   };
 
-  const formatTime = (timestamp: string) => {
-    const date = new Date(timestamp);
-    const timeOptions: Intl.DateTimeFormatOptions = {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    };
-    return date.toLocaleTimeString(undefined, timeOptions);
-  };
+  // Filter the matches based on the selected country
+  const filteredMatches = selectedCountry
+    ? matches.filter(
+        (match) =>
+          match.home_team_country === selectedCountry || match.away_team_country === selectedCountry
+      )
+    : matches; // If no country selected, show all matches
 
-  const groupedMatches = matches.reduce((acc: Record<string, MatchOdds[]>, match: MatchOdds) => {
-    if (!acc[match.home_team_league]) {
-      acc[match.home_team_league] = [];
-    }
-    acc[match.home_team_league].push(match);
-    return acc;
-  }, {});
+  const groupedMatches = filteredMatches.reduce(
+    (acc: Record<string, MatchOdds[]>, match: MatchOdds) => {
+      if (!acc[match.home_team_league]) {
+        acc[match.home_team_league] = [];
+      }
+      acc[match.home_team_league].push(match);
+      return acc;
+    },
+    {}
+  );
 
   const handlePrev = (league: string) => {
     setVisibleIndexes((prev) => ({
