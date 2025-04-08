@@ -11,48 +11,64 @@ interface MatchProps {
   odds: [number, number, number];
 }
 
-const MatchCard: React.FC<MatchProps> = ({ matchId, date, time, team1, team2, logo1, logo2, odds }) => {
+const MatchCard: React.FC<MatchProps> = ({
+  matchId,
+  date,
+  time,
+  team1,
+  team2,
+  logo1,
+  logo2,
+  odds,
+}) => {
   return (
-    <div className="bg-[#2E2E30] text-white p-4 rounded-xl flex flex-col items-center w-52 min-h-[160px]">
+    <div className="space-y-2 bg-[#2E2E30] text-white p-4 rounded-xl flex flex-col items-center w-52 min-h-[160px]">
       {/* Date and Time */}
-      <div className="text-xs text-gray-400">{date}, {time}</div>
+      <div className="text-xs text-gray-400">
+        {date}, {time}
+      </div>
 
-      {/* Teams Row */}
-      <div className="flex items-center justify-center gap-4 my-2 flex-grow">
+      {/* Teams and VS */}
+      <div className="flex items-start justify-center gap-4 mt-3">
         {/* Team 1 */}
         <div className="flex flex-col items-center w-20">
-          {/* Logo Container */}
-          <div className="w-12 h-12 bg-[#2A2A2C] rounded-full flex items-center justify-center my-1">
-            <img 
-              src={logo1} 
-              alt={team1} 
+          <div className="w-12 h-12 bg-[#2A2A2C] rounded-full flex items-center justify-center mb-1">
+            <img
+              src={logo1}
+              alt={team1}
               className="w-10 h-10 object-contain aspect-square"
             />
           </div>
-          <span className="px-1 text-[10px] w-full text-center break-words h-full ">{team1}</span>
+          <span className="text-[10px] text-center break-words leading-tight">
+            {team1}
+          </span>
         </div>
-        
-        <span className="text-sm">VS</span>
+
+        {/* VS */}
+        <div className="flex items-center justify-center h-full">
+          <span className="text-sm">VS</span>
+        </div>
 
         {/* Team 2 */}
         <div className="flex flex-col items-center w-20">
-          {/* Logo Container */}
-          <div className="w-12 h-12 bg-[#2A2A2C] rounded-full flex items-center justify-center my-1">
-            <img 
-              src={logo2} 
-              alt={team2} 
+          <div className="w-12 h-12 bg-[#2A2A2C] rounded-full flex items-center justify-center mb-1">
+            <img
+              src={logo2}
+              alt={team2}
               className="w-10 h-10 object-contain aspect-square"
             />
           </div>
-          <span className="px-1 text-[10px] w-full text-center break-words h-full">{team2}</span>
+          <span className="text-[10px] text-center break-words leading-tight">
+            {team2}
+          </span>
         </div>
       </div>
 
       {/* Odds Row */}
       <div className="flex justify-center gap-4 mt-auto">
         {odds.map((odd, index) => (
-          <span 
-            key={index} 
+          <span
+            key={index}
             className="bg-[#2A2A2C] px-3 py-1 rounded-lg text-xs border border-[#464649]"
           >
             {odd}
