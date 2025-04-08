@@ -1,13 +1,20 @@
+import { useState } from "react";
 import InfoBox from "./InfoBox";
 
 type HomeSidebarProps = {
-  onSelectCountry: (country: string) => void; // Pass a function to handle country selection
+  onSelectCountry: (country: string) => void;
 };
 
 export default function HomeSidebar({ onSelectCountry }: HomeSidebarProps) {
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+
+  const handleCountryClick = (country: string) => {
+    setSelectedCountry(country);
+    onSelectCountry(country);
+  };
+
   return (
     <div className="space-y-4">
-      {/* Top Leagues Box */}
       <InfoBox
         title="Top Leagues"
         items={[
@@ -18,14 +25,14 @@ export default function HomeSidebar({ onSelectCountry }: HomeSidebarProps) {
         ]}
       />
 
-      {/* Country Box */}
       <InfoBox
         title="Country"
         items={[
           { name: "England", imageUrl: "https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Flag_of_England.svg/2560px-Flag_of_England.svg.png" },
           { name: "Scotland", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWBX3UFI58I0oVV9ufOCtY6qwXf7CkEzdtEA&s" },
         ]}
-        onItemClick={onSelectCountry} // Add the click handler
+        onItemClick={handleCountryClick}
+        selectedItem={selectedCountry} // Pass selected country for highlighting
       />
     </div>
   );
