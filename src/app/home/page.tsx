@@ -6,21 +6,29 @@ import ValueForMoney from "./components/ValueForMoney";
 
 export default function HomePage() {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+  const [selectedLeague, setSelectedLeague] = useState<string | null>(null);
 
-  const handleSelectCountry = (country: string) => {
+  const handleSelectCountry = (country: string | null) => {
     setSelectedCountry(country);
+  };
+
+  const handleSelectLeague = (league: string | null) => {
+    setSelectedLeague(league);
   };
 
   return (
     <div className="flex gap-4 p-4">
       {/* Sidebar (Left Side) */}
       <div className="w-50">
-        <HomeSidebar onSelectCountry={handleSelectCountry} />
+        <HomeSidebar 
+          onSelectCountry={handleSelectCountry} 
+          onSelectLeague={handleSelectLeague} 
+        />
       </div>
 
       {/* Main Content (Right Side) */}
       <div className="flex-1">
-        <HomeCenter selectedCountry={selectedCountry} />
+        <HomeCenter selectedCountry={selectedCountry} selectedLeague={selectedLeague} />
       </div>
 
       <div className="w-60">
