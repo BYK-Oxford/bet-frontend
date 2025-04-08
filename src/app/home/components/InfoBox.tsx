@@ -2,13 +2,30 @@ interface InfoBoxProps {
   title: string;
   items: { name: string; imageUrl: string }[];
   onItemClick?: (country: string) => void;
-  selectedItem?: string | null; 
+  selectedItem?: string | null;
+  onClear?: () => void;
 }
 
-export default function InfoBox({ title, items, onItemClick, selectedItem }: InfoBoxProps) {
+export default function InfoBox({
+  title,
+  items,
+  onItemClick,
+  selectedItem,
+  onClear,
+}: InfoBoxProps) {
   return (
     <div className="bg-[#2E2E30] p-3 rounded-lg max-w-xs w-full">
-      <h2 className="text-white text-sm font-bold mb-2 border-b border-[rgba(255,255,255,0.1)] pb-2">{title}</h2>
+      <div className="flex items-center justify-between mb-2 border-b border-[rgba(255,255,255,0.1)] pb-2">
+        <h2 className="text-white text-sm font-bold">{title}</h2>
+        {onClear && (
+          <button
+            onClick={onClear}
+            className="text-xs text-gray-400 hover:text-white transition"
+          >
+            Clear
+          </button>
+        )}
+      </div>
       <ul className="space-y-2">
         {items.slice(0, 4).map((item, index) => {
           const isSelected = selectedItem === item.name;
@@ -16,9 +33,9 @@ export default function InfoBox({ title, items, onItemClick, selectedItem }: Inf
             <li
               key={index}
               className={`
-                flex items-center text-xs cursor-pointer 
-                ${isSelected ? "text-white bg-[#03BEC2] rounded-md px-2 py-2" : "text-gray-300 hover:text-white"}
-                ${index < items.length - 1 ? 'border-b border-[rgba(255,255,255,0.1)] pb-2' : ''}
+                flex items-center text-xs cursor-pointer transition-colors py-1
+                ${isSelected ? "text-white bg-[#03BEC2] px-2 py-2 rounded-md" : "text-gray-300 hover:text-white"}
+                ${index < items.length - 1 ? "border-b border-[rgba(255,255,255,0.1)]" : ""}
               `}
               onClick={() => onItemClick?.(item.name)}
             >
