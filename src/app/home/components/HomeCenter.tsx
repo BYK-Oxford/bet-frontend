@@ -25,8 +25,11 @@ interface MatchOdds {
   away_odds: number;
 }
 
+const MATCHES_PER_PAGE = 3;
+
 const HomeCenter: React.FC = () => {
-  const [matches, setMatches] = useState<MatchOdds[]>([]); // State for storing match data
+  const [matches, setMatches] = useState<MatchOdds[]>([]);
+  const [visibleIndexes, setVisibleIndexes] = useState<Record<string, number>>({});
 
   useEffect(() => {
     const fetchMatches = async () => {
@@ -35,6 +38,14 @@ const HomeCenter: React.FC = () => {
         if (response.ok) {
           const data = await response.json();
           setMatches(data.calculated_odds);
+
+          const initialIndexes: Record<string, number> = {};
+          data.calculated_odds.forEach((match: MatchOdds) => {
+            if (!(match.home_team_league in initialIndexes)) {
+              initialIndexes[match.home_team_league] = 0;
+            }
+          });
+          setVisibleIndexes(initialIndexes);
         } else {
           console.error("Failed to fetch match data");
         }
@@ -44,34 +55,27 @@ const HomeCenter: React.FC = () => {
     };
 
     fetchMatches();
-  }, []); // Only run once on mount
+  }, []);
 
-  // Helper function to format the date
   const formatDate = (timestamp: string) => {
     const date = new Date(timestamp);
-    const options: Intl.DateTimeFormatOptions = { 
-      month: 'short',  // Abbreviated month name (e.g., "Apr")
-      day: 'numeric'   // Day of the month as a number (e.g., "7")
+    const options: Intl.DateTimeFormatOptions = {
+      month: "short",
+      day: "numeric",
     };
-    return date.toLocaleDateString(undefined, options); // Formats as "Apr 7"
+    return date.toLocaleDateString(undefined, options);
   };
 
   const formatTime = (timestamp: string) => {
     const date = new Date(timestamp);
-  
-    // Format the time (Hour and Minute)
     const timeOptions: Intl.DateTimeFormatOptions = {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false, // Use 24-hour format
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
     };
-    const formattedTime = date.toLocaleTimeString(undefined, timeOptions);
-  
-    return formattedTime;
+    return date.toLocaleTimeString(undefined, timeOptions);
   };
 
-    
-  // Group matches by league
   const groupedMatches = matches.reduce((acc: Record<string, MatchOdds[]>, match: MatchOdds) => {
     if (!acc[match.home_team_league]) {
       acc[match.home_team_league] = [];
@@ -80,37 +84,62 @@ const HomeCenter: React.FC = () => {
     return acc;
   }, {});
 
+  const handlePrev = (league: string) => {
+    setVisibleIndexes((prev) => ({
+      ...prev,
+      [league]: Math.max(prev[league] - MATCHES_PER_PAGE, 0),
+    }));
+  };
+
+  const handleNext = (league: string, totalMatches: number) => {
+    setVisibleIndexes((prev) => ({
+      ...prev,
+      [league]: Math.min(prev[league] + MATCHES_PER_PAGE, totalMatches - MATCHES_PER_PAGE),
+    }));
+  };
+
   return (
     <div className="space-y-4">
       <HomeBanner />
 
-      {/* Render headers and match cards for each league */}
-      {Object.keys(groupedMatches).map((league) => (
-        <div key={league}>
-          <MatchHeader
-            leagueName={league}
-            leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg" // Modify this for actual league logos
-            onPrev={() => console.log("Previous")}
-            onNext={() => console.log("Next")}
-            onSeeAll={() => console.log("See All")}
-          />
-          <div className="space-y-4 flex gap-2">
-            {groupedMatches[league].map((match, index) => (
-              <MatchCard
-                matchId={match.odds_calculation_id}
-                key={index}
-                date={formatDate(match.date)} 
-                time={match.time.slice(0, 5)}
-                team1={match.home_team_name}
-                team2={match.away_team_name}
-                logo1="https://brandlogos.net/wp-content/uploads/2025/02/liverpool_f.c.-logo_brandlogos.net_vr9dx-300x548.png"
-                logo2="https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/1200px-Arsenal_FC.svg.png" 
-                odds={[match.home_odds, match.draw_odds, match.away_odds]}
-              />
-            ))}
+      {Object.keys(groupedMatches).map((league) => {
+        const matchList = groupedMatches[league];
+        const index = visibleIndexes[league] || 0;
+        const paginatedMatches = matchList.slice(index, index + MATCHES_PER_PAGE);
+        const totalPages = Math.ceil(matchList.length / MATCHES_PER_PAGE);
+        const isFirstPage = index === 0;
+        const isLastPage = index + MATCHES_PER_PAGE >= matchList.length;
+
+        return (
+          <div key={league}>
+            <MatchHeader
+              leagueName={league}
+              leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg"
+              onPrev={() => handlePrev(league)}
+              onNext={() => handleNext(league, matchList.length)}
+              onSeeAll={() => console.log("See All")}
+              canPrev={!isFirstPage}
+              canNext={!isLastPage}
+            />
+
+            <div className="flex gap-2 overflow-x-auto">
+              {paginatedMatches.map((match) => (
+                <MatchCard
+                  matchId={match.odds_calculation_id}
+                  key={match.odds_calculation_id}
+                  date={formatDate(match.date)}
+                  time={match.time.slice(0, 5)}
+                  team1={match.home_team_name}
+                  team2={match.away_team_name}
+                  logo1="https://brandlogos.net/wp-content/uploads/2025/02/liverpool_f.c.-logo_brandlogos.net_vr9dx-300x548.png"
+                  logo2="https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/1200px-Arsenal_FC.svg.png"
+                  odds={[match.home_odds, match.draw_odds, match.away_odds]}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

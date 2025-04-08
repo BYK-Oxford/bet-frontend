@@ -8,6 +8,8 @@ type MatchHeaderProps = {
   onPrev: () => void;
   onNext: () => void;
   onSeeAll: () => void;
+  canPrev: boolean;
+  canNext: boolean;
 };
 
 export default function MatchHeader({
@@ -16,10 +18,11 @@ export default function MatchHeader({
   onPrev,
   onNext,
   onSeeAll,
+  canPrev,
+  canNext,
 }: MatchHeaderProps) {
   return (
     <div className="flex items-center justify-between p-4 rounded-lg">
-      {/* Left Section - League Logo & Name */}
       <div className="flex items-center gap-3">
         <Image
           src={leagueLogo}
@@ -33,30 +36,28 @@ export default function MatchHeader({
 
       <div className="flex items-center gap-5">
         <div className="flex items-center gap-2">
-            <button
+          <button
             onClick={onPrev}
-            className="p-1 rounded-md border border-[2px] border-[#2E2E30] hover:bg-gray-700"
+            disabled={!canPrev}
+            className={`p-1 rounded-md border border-[2px] border-[#2E2E30] hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed`}
             style={{ backgroundColor: "transparent" }}
-            >
+          >
             <CaretLeft size={15} weight="bold" />
-            </button>
-            <button
+          </button>
+          <button
             onClick={onNext}
-            className="p-1 rounded-md border border-[2px] border-[#2E2E30] hover:bg-gray-700"
+            disabled={!canNext}
+            className={`p-1 rounded-md border border-[2px] border-[#2E2E30] hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed`}
             style={{ backgroundColor: "transparent" }}
-            >
+          >
             <CaretRight size={15} weight="bold" />
-            </button>
+          </button>
         </div>
 
-        <button
-            onClick={onSeeAll} className="btn btn-primary"
-        >
-            See All
+        <button onClick={onSeeAll} className="btn btn-primary">
+          See All
         </button>
-        
       </div>
-     
     </div>
   );
 }
