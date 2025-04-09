@@ -15,7 +15,6 @@ export default function HomeSidebar({
   selectedLeague,
 }: HomeSidebarProps) {
 
-  // Remove local state
 
   // Handle country selection
   const handleCountryClick = (country: string) => {
