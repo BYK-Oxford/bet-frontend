@@ -33,9 +33,10 @@ const MATCHES_PER_PAGE = 3;
 interface HomeCenterProps {
   selectedCountry: string | null;
   selectedLeague: string | null; // Add league selection prop
+  setSelectedLeague: (league: string | null) => void;
 }
 
-const HomeCenter: React.FC<HomeCenterProps> = ({ selectedCountry, selectedLeague }) => {
+const HomeCenter: React.FC<HomeCenterProps> = ({ selectedCountry, selectedLeague, setSelectedLeague }) => {
   const [matches, setMatches] = useState<MatchOdds[]>([]);
   const [visibleIndexes, setVisibleIndexes] = useState<Record<string, number>>({});
 
@@ -162,7 +163,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({ selectedCountry, selectedLeague
                   leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg" // Use dynamic logo
                   onPrev={() => handlePrev(league)}
                   onNext={() => handleNext(league, matchList.length)}
-                  onSeeAll={() => console.log("See All")}
+                  onSeeAll={() => setSelectedLeague(league)} 
                   canPrev={!isFirstPage}
                   canNext={!isLastPage}
                 />

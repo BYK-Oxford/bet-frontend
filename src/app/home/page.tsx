@@ -22,13 +22,18 @@ export default function HomePage() {
       <div className="w-50">
         <HomeSidebar 
           onSelectCountry={handleSelectCountry} 
-          onSelectLeague={handleSelectLeague} 
+          onSelectLeague={handleSelectLeague}
+          selectedCountry={selectedCountry}
+          selectedLeague={selectedLeague}
         />
+        
       </div>
 
       {/* Main Content (Right Side) */}
       <div className="flex-1">
-        <HomeCenter selectedCountry={selectedCountry} selectedLeague={selectedLeague} />
+        <HomeCenter selectedCountry={selectedCountry} 
+        selectedLeague={selectedLeague} 
+        setSelectedLeague={setSelectedLeague} />
       </div>
 
       <div className="w-60">

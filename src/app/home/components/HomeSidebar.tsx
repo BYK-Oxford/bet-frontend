@@ -4,41 +4,33 @@ import InfoBox from "./InfoBox";
 type HomeSidebarProps = {
   onSelectCountry: (country: string | null) => void;
   onSelectLeague: (league: string | null) => void;
+  selectedCountry: string | null;
+  selectedLeague: string | null;
 };
 
-export default function HomeSidebar({ onSelectCountry, onSelectLeague }: HomeSidebarProps) {
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
-  const [selectedLeague, setSelectedLeague] = useState<string | null>(null);
+export default function HomeSidebar({
+  onSelectCountry,
+  onSelectLeague,
+  selectedCountry,
+  selectedLeague,
+}: HomeSidebarProps) {
+
+  // Remove local state
 
   // Handle country selection
   const handleCountryClick = (country: string) => {
-    setSelectedCountry(country);
     onSelectCountry(country);
-
-    // Clear league selection when country is selected
-    setSelectedLeague(null);
-    onSelectLeague(null);
+    onSelectLeague(null); // Clear league
   };
 
   // Handle league selection
   const handleLeagueClick = (league: string) => {
-    setSelectedLeague(league);
     onSelectLeague(league);
-
-    // Clear country selection when league is selected
-    setSelectedCountry(null);
-    onSelectCountry(null);
+    onSelectCountry(null); // Clear country
   };
 
-  const clearCountry = () => {
-    setSelectedCountry(null);
-    onSelectCountry(null);
-  };
-
-  const clearLeague = () => {
-    setSelectedLeague(null);
-    onSelectLeague(null);
-  };
+  const clearCountry = () => onSelectCountry(null);
+  const clearLeague = () => onSelectLeague(null);
 
   return (
     <div className="space-y-4">
