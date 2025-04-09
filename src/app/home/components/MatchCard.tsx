@@ -1,4 +1,8 @@
-import React from "react";
+"use client"; // Add this to ensure the component is client-side
+
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // Using next/navigation for client-side navigation
+import { stringify } from 'querystring'; // For encoding the object into query parameters
 
 interface MatchProps {
   matchId: string;
@@ -21,8 +25,43 @@ const MatchCard: React.FC<MatchProps> = ({
   logo2,
   odds,
 }) => {
+  const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // This will be triggered only on the client side
+  }, []);
+
+  const handleCardClick = () => {
+    if (!isClient) return; // Ensure client-side check
+
+    // Create the match data object
+    const matchData = {
+      matchId,
+      date,
+      time,
+      team1,
+      team2,
+      logo1,
+      logo2,
+      odds,
+    };
+
+    // Convert the match data object into a query string
+    const queryString = stringify(matchData);
+
+    // Navigate to the new page and pass match data as query parameters
+    router.push(`/match_detail/${matchId}?${queryString}`);
+
+  };
+
+  if (!isClient) return null; // Ensure nothing is rendered on SSR
+
   return (
-    <div className="space-y-2 bg-[#2E2E30] text-white p-4 rounded-xl flex flex-col items-center w-52 min-h-[160px]">
+    <div
+      onClick={handleCardClick}
+      className="space-y-2 bg-[#2E2E30] text-white p-4 rounded-xl flex flex-col items-center w-52 min-h-[160px] cursor-pointer"
+    >
       {/* Date and Time */}
       <div className="text-xs text-gray-400">
         {date}, {time}
@@ -42,7 +81,6 @@ const MatchCard: React.FC<MatchProps> = ({
           <span className="text-[10px] text-center break-words leading-tight h-[36px] flex items-center justify-center text-ellipsis overflow-hidden">
             {team1}
           </span>
-
         </div>
 
         {/* VS */}
@@ -62,7 +100,6 @@ const MatchCard: React.FC<MatchProps> = ({
           <span className="text-[10px] text-center break-words leading-tight h-[36px] flex items-center justify-center text-ellipsis overflow-hidden">
             {team2}
           </span>
-
         </div>
       </div>
 
