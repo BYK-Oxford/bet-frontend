@@ -1,6 +1,10 @@
+"use client";
+
 import React from "react";
+import { useRouter } from "next/navigation";
 
 interface MatchProps {
+  matchId: string;
   date: string;
   time: string;
   team1: string;
@@ -12,6 +16,7 @@ interface MatchProps {
 }
 
 const MatchListContainer: React.FC<MatchProps> = ({
+  matchId,
   date,
   time,
   team1,
@@ -21,9 +26,29 @@ const MatchListContainer: React.FC<MatchProps> = ({
   odds,
   isLast = false,
 }) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    const queryParams = new URLSearchParams({
+      matchId,
+      date,
+      time,
+      team1,
+      team2,
+      logo1,
+      logo2,
+    });
+
+    // Append each odd separately so we get odds=1.5&odds=3.2&odds=2.1
+    odds.forEach((odd) => queryParams.append("odds", odd.toString()));
+
+    router.push(`/match_detail/${matchId}?${queryParams.toString()}`);
+  };
+
   return (
     <div
-      className={`text-white p-2 flex items-center w-full min-w-[400px] max-w-[700px] justify-between gap-4 ${
+      onClick={handleClick}
+      className={`cursor-pointer hover:bg-[#1a1a1a] transition-all text-white p-2 flex items-center w-full min-w-[400px] max-w-[700px] justify-between gap-4 ${
         isLast ? "" : "border-b border-[#3a3a3a] pb-4 mb-2"
       }`}
     >
@@ -46,7 +71,6 @@ const MatchListContainer: React.FC<MatchProps> = ({
           <span className="text-xs break-words leading-tight max-w-[80px] text-left">
             {team2}
           </span>
-
         </div>
       </div>
 
@@ -65,6 +89,4 @@ const MatchListContainer: React.FC<MatchProps> = ({
   );
 };
 
-
-  
 export default MatchListContainer;

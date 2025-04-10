@@ -3,6 +3,7 @@
 import React from "react";
 import { useRouter, useSearchParams, useParams } from "next/navigation";
 import MatchDetailHeader from "./components/MatchDetailHeader";
+import MatchTabs from "./components/MatchTabs";
 
 const MatchDetailPage = () => {
   const router = useRouter();
@@ -41,10 +42,15 @@ const MatchDetailPage = () => {
             odds={odds}
             onBack={() => router.back()}
           />
+
+          <div className="mt-6">
+              <MatchTabs matchId={matchId} />
+            </div>
+
         </div>
 
         {/* Sidebar */}
-        <div className="w-60 h-60 bg-white rounded-xl p-4 shadow text-gray-700">
+        <div className="w-60 h-100 bg-white rounded-xl p-4 shadow text-gray-700">
           <p className="text-sm text-gray-500">Sidebar content</p>
         </div>
       </div>
