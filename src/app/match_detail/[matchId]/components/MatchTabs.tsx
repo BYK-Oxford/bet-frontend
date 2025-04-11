@@ -19,6 +19,13 @@ interface Stats {
   team2: number;
 }
 
+interface RawMatch {
+  date: string;
+  home_team_name: string;
+  away_team_name: string;
+  statistics: Record<string, number | string>;
+}
+
 const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
   const [activeTab, setActiveTab] = useState<"stats" | "headToHead">("stats");
 
@@ -29,15 +36,56 @@ const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // 🔁 Replace with your actual backend endpoints
-        const statsRes = await fetch(`/api/matches/${matchId}/stats`);
-        const headToHeadRes = await fetch(`/api/matches/${matchId}/head-to-head`);
+        const res = await fetch(`http://127.0.0.1:8000/match-statistics/matches/historic/${matchId}`);
+        const rawData: RawMatch[] = await res.json();
 
-        const stats = await statsRes.json();
-        const headToHead = await headToHeadRes.json();
+        if (rawData.length === 0) {
+          setStatsData([]);
+          setHeadToHeadData([]);
+          return;
+        }
+
+        // ⚙️ Define stat keys and labels
+        const statLabels = [
+          { key: "shots", label: "Average Shots" },
+          { key: "shots_on_target", label: "Average Shots on Target" },
+          { key: "fouls", label: "Average Fouls" },
+          { key: "corners", label: "Average Corners" },
+          { key: "yellow_cards", label: "Average Yellow Cards" },
+          { key: "red_cards", label: "Average Red Cards" },
+        ];
+
+        // 📊 Average calculation
+        const stats = statLabels.map(({ key, label }) => {
+          let totalHome = 0;
+          let totalAway = 0;
+
+          rawData.forEach((match) => {
+            totalHome += match.statistics[`${key}_home`] as number;
+            totalAway += match.statistics[`${key}_away`] as number;
+          });
+
+          const count = rawData.length;
+
+          return {
+            label,
+            team1: Math.round(totalHome / count),
+            team2: Math.round(totalAway / count),
+          };
+        });
+
+        // 🤝 Create head-to-head match data
+        const matches: Match[] = rawData.map((match) => ({
+          date: match.date,
+          team1: match.home_team_name,
+          team2: match.away_team_name,
+          logo1: "", // Add team logo URLs if available
+          logo2: "",
+          score: `${match.statistics.full_time_home_goals}-${match.statistics.full_time_away_goals}`,
+        }));
 
         setStatsData(stats);
-        setHeadToHeadData(headToHead);
+        setHeadToHeadData(matches);
       } catch (error) {
         console.error("Failed to fetch match data", error);
       } finally {
@@ -72,7 +120,7 @@ const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
         </button>
       </div>
 
-      {/* Content */}
+      {/* Tab Content */}
       <div className="mt-4">
         {activeTab === "stats" ? (
           <StatsTab statsData={statsData} />
