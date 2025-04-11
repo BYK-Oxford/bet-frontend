@@ -29,7 +29,8 @@ const MatchListContainer: React.FC<MatchProps> = ({
   const router = useRouter();
 
   const handleClick = () => {
-    const queryParams = new URLSearchParams({
+    // Save match data in sessionStorage
+    const matchData = {
       matchId,
       date,
       time,
@@ -37,12 +38,13 @@ const MatchListContainer: React.FC<MatchProps> = ({
       team2,
       logo1,
       logo2,
-    });
+      odds,
+    };
 
-    // Append each odd separately so we get odds=1.5&odds=3.2&odds=2.1
-    odds.forEach((odd) => queryParams.append("odds", odd.toString()));
+    sessionStorage.setItem("matchData", JSON.stringify(matchData));
 
-    router.push(`/match_detail/${matchId}?${queryParams.toString()}`);
+    // Navigate using clean URL
+    router.push(`/match_detail/${matchId}`);
   };
 
   return (

@@ -1,30 +1,38 @@
-"use client";
+"use client"; // Ensures this component is client-side
 
-import React from "react";
-import { useRouter, useSearchParams, useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation"; // Using next/navigation for client-side navigation
 import MatchDetailHeader from "./components/MatchDetailHeader";
 import MatchTabs from "./components/MatchTabs";
 
 const MatchDetailPage = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const params = useParams();
 
-  const matchId = params?.matchId as string;
+  // State to hold match data from sessionStorage, including matchId
+  const [matchData, setMatchData] = useState<null | {
+    matchId: string; // Add matchId to the type
+    date: string;
+    time: string;
+    team1: string;
+    team2: string;
+    logo1: string;
+    logo2: string;
+    odds: [number, number, number];
+  }>(null);
 
-  // Extract and parse odds safely
-  const oddsArray = searchParams.getAll("odds").map(Number);
-  let odds: [number, number, number] = [0, 0, 0];
+  // Read the match data from sessionStorage on component mount
+  useEffect(() => {
+    const data = sessionStorage.getItem("matchData");
+    if (data) {
+      const parsed = JSON.parse(data);
+      setMatchData(parsed);
+    }
+  }, []);
 
-  // Ensure the odds are valid
-  if (
-    oddsArray.length === 3 &&
-    oddsArray.every((n) => typeof n === "number" && !isNaN(n))
-  ) {
-    odds = oddsArray as [number, number, number];
-  }
+  // If matchData is not loaded yet, show a loading state
+  if (!matchData) return <div>Loading match details...</div>;
 
-  if (!matchId) return <div>Loading...</div>;
+  const { matchId, date, time, team1, team2, logo1, logo2, odds } = matchData;
 
   return (
     <div className="flex justify-center p-4">
@@ -33,20 +41,20 @@ const MatchDetailPage = () => {
         <div className="flex-grow">
           <MatchDetailHeader
             league="Premier League"
-            date={searchParams.get("date") ?? ""}
-            time={searchParams.get("time") ?? ""}
-            team1={searchParams.get("team1") ?? ""}
-            team2={searchParams.get("team2") ?? ""}
-            logo1={searchParams.get("logo1") ?? ""}
-            logo2={searchParams.get("logo2") ?? ""}
+            date={date}
+            time={time}
+            team1={team1}
+            team2={team2}
+            logo1={logo1}
+            logo2={logo2}
             odds={odds}
             onBack={() => router.back()}
           />
 
           <div className="mt-6">
-              <MatchTabs matchId={matchId} />
-            </div>
-
+            {/* Pass the matchId to MatchTabs */}
+            <MatchTabs matchId={matchId} />
+          </div>
         </div>
 
         {/* Sidebar */}
@@ -55,9 +63,7 @@ const MatchDetailPage = () => {
         </div>
       </div>
     </div>
-
   );
-  
 };
 
 export default MatchDetailPage;

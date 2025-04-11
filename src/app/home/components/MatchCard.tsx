@@ -33,9 +33,8 @@ const MatchCard: React.FC<MatchProps> = ({
   }, []);
 
   const handleCardClick = () => {
-    if (!isClient) return; // Ensure client-side check
-
-    // Create the match data object
+    if (!isClient) return;
+  
     const matchData = {
       matchId,
       date,
@@ -46,13 +45,12 @@ const MatchCard: React.FC<MatchProps> = ({
       logo2,
       odds,
     };
-
-    // Convert the match data object into a query string
-    const queryString = stringify(matchData);
-
-    // Navigate to the new page and pass match data as query parameters
-    router.push(`/match_detail/${matchId}?${queryString}`);
-
+  
+    // Store the data in sessionStorage
+    sessionStorage.setItem("matchData", JSON.stringify(matchData));
+  
+    // Navigate with only matchId in the URL
+    router.push(`/match_detail/${matchId}`);
   };
 
   if (!isClient) return null; // Ensure nothing is rendered on SSR
