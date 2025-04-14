@@ -88,7 +88,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
   const filteredByLeague = selectedLeague
     ? filteredMatches.filter(
         (match) =>
-          match.home_team_league === selectedLeague || match.away_team_league === selectedLeague
+          match.home_team_league === selectedLeague 
       )
     : filteredMatches;
 
@@ -113,7 +113,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
   const handleNext = (league: string, totalMatches: number) => {
     setVisibleIndexes((prev) => ({
       ...prev,
-      [league]: Math.min(prev[league] + MATCHES_PER_PAGE, totalMatches - MATCHES_PER_PAGE),
+      [league]: Math.min(prev[league] + MATCHES_PER_PAGE, totalMatches - 1),
     }));
   };
 
@@ -151,20 +151,20 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
             const matchList = groupedMatches[league];
             const index = visibleIndexes[league] || 0;
             const paginatedMatches = matchList.slice(index, index + MATCHES_PER_PAGE);
-            const isFirstPage = index === 0;
-            const isLastPage = index + MATCHES_PER_PAGE >= matchList.length;
+            const canPrev = index > 0;
+            const canNext = index + MATCHES_PER_PAGE < matchList.length-1;
 
             return (
               <div key={league}>
                 <MatchHeader
-                  leagueName={league}
-                  leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg"
-                  onPrev={() => handlePrev(league)}
-                  onNext={() => handleNext(league, matchList.length)}
-                  onSeeAll={() => setSelectedLeague(league)}
-                  canPrev={!isFirstPage}
-                  canNext={!isLastPage}
-                />
+                    leagueName={league}
+                    leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg"
+                    onPrev={() => handlePrev(league)}
+                    onNext={() => handleNext(league, matchList.length)}
+                    onSeeAll={() => setSelectedLeague(league)}
+                    canPrev={matchList.length > MATCHES_PER_PAGE && canPrev}
+                    canNext={matchList.length > MATCHES_PER_PAGE && canNext}
+                  />
                 <div className="flex gap-2 overflow-x-auto">
                   {paginatedMatches.map((match) => (
                     <MatchCard

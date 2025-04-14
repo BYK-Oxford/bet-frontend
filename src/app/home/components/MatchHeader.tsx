@@ -35,24 +35,26 @@ export default function MatchHeader({
       </div>
 
       <div className="flex items-center gap-5">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={onPrev}
-            disabled={!canPrev}
-            className={`p-1 rounded-md border border-[2px] border-[#2E2E30] hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed`}
-            style={{ backgroundColor: "transparent" }}
-          >
-            <CaretLeft size={15} weight="bold" />
-          </button>
-          <button
-            onClick={onNext}
-            disabled={!canNext}
-            className={`p-1 rounded-md border border-[2px] border-[#2E2E30] hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed`}
-            style={{ backgroundColor: "transparent" }}
-          >
-            <CaretRight size={15} weight="bold" />
-          </button>
-        </div>
+          {(canPrev || canNext) && (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={onPrev}
+                disabled={!canPrev}
+                className={`p-1 rounded-md border border-[2px] border-[#2E2E30] hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed`}
+                style={{ backgroundColor: "transparent" }}
+              >
+                <CaretLeft size={15} weight="bold" />
+              </button>
+              <button
+                onClick={onNext}
+                disabled={!canNext}
+                className={`p-1 rounded-md border border-[2px] border-[#2E2E30] hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed`}
+                style={{ backgroundColor: "transparent" }}
+              >
+                <CaretRight size={15} weight="bold" />
+              </button>
+            </div>
+          )}
 
         <button onClick={onSeeAll} className="btn btn-primary">
           See All
