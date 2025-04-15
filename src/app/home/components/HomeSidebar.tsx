@@ -36,10 +36,10 @@ export default function HomeSidebar({
       <InfoBox
         title="Top Leagues"
         items={[
-          { name: "English Premier League", imageUrl: "https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg" },
-          { name: "Scottish Premier League", imageUrl: "https://www.sportmonks.com/wp-content/uploads/2022/11/Premiershi.png" },
-          { name: "English Championship", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-jsCrL9uViiHZoazGjJYXfdsQQP7xu8smYw&s" },
-          { name: "Scottish Championship", imageUrl: "https://www.sportmonks.com/wp-content/uploads/2022/11/Premiershi.png" }
+          { name: "English Premier League", src: "/teamlogo/English Premier League.png" },
+          { name: "Scottish Premier League", src: "/teamlogo/Scottish.png" },
+          { name: "English Championship", src: "/teamlogo/English Championship.png" },
+          { name: "Scottish Championship", src: "/teamlogo/Scottish.png" }
         ]}
         onItemClick={handleLeagueClick}
         selectedItem={selectedLeague}
@@ -49,8 +49,8 @@ export default function HomeSidebar({
       <InfoBox
         title="Country"
         items={[
-          { name: "England", imageUrl: "https://upload.wikimedia.org/wikipedia/en/thumb/b/be/Flag_of_England.svg/2560px-Flag_of_England.svg.png" },
-          { name: "Scotland", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWBX3UFI58I0oVV9ufOCtY6qwXf7CkEzdtEA&s" },
+          { name: "England", src: "/teamlogo/England.png" },
+          { name: "Scotland", src: "/teamlogo/Scotland.png" },
         ]}
         onItemClick={handleCountryClick}
         selectedItem={selectedCountry}

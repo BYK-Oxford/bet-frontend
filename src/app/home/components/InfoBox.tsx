@@ -1,6 +1,6 @@
 interface InfoBoxProps {
   title: string;
-  items: { name: string; imageUrl: string }[];
+  items: { name: string; src: string }[];
   onItemClick?: (value: string) => void;
   selectedItem?: string | null;
   onClear?: () => void;
@@ -32,7 +32,7 @@ export default function InfoBox({ title, items, onItemClick, selectedItem, onCle
               onClick={() => onItemClick?.(item.name)}
             >
               <img
-                src={item.imageUrl}
+                src={item.src}
                 alt="icon"
                 className="w-[24px] h-[24px] rounded-full mr-3 bg-white object-cover"
               />
