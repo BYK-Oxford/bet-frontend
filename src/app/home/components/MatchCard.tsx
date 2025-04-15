@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Using next/navigation for client-side navigation
-import { stringify } from 'querystring'; // For encoding the object into query parameters
 
 interface MatchProps {
   matchId: string;
