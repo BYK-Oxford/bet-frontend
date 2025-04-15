@@ -16,6 +16,8 @@ interface MatchOdds {
   home_team_name: string;
   home_team_league: string;
   home_team_country: string;
+  match_league:string;
+  match_country:string;
   away_team_id: string;
   away_team_name: string;
   away_team_league: string;
@@ -54,8 +56,8 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
 
           const initialIndexes: Record<string, number> = {};
           data.calculated_odds.forEach((match: MatchOdds) => {
-            if (!(match.home_team_league in initialIndexes)) {
-              initialIndexes[match.home_team_league] = 0;
+            if (!(match.match_league in initialIndexes)) {
+              initialIndexes[match.match_league] = 0;
             }
           });
           setVisibleIndexes(initialIndexes);
@@ -89,16 +91,16 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
   const filteredByLeague = selectedLeague
     ? filteredMatches.filter(
         (match) =>
-          match.home_team_league === selectedLeague 
+          match.match_league === selectedLeague 
       )
     : filteredMatches;
 
   const groupedMatches = filteredByLeague.reduce(
     (acc: Record<string, MatchOdds[]>, match: MatchOdds) => {
-      if (!acc[match.home_team_league]) {
-        acc[match.home_team_league] = [];
+      if (!acc[match.match_league]) {
+        acc[match.match_league] = [];
       }
-      acc[match.home_team_league].push(match);
+      acc[match.match_league].push(match);
       return acc;
     },
     {}
