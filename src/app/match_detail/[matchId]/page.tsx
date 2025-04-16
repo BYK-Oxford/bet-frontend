@@ -11,6 +11,7 @@ const MatchDetailPage = () => {
   // State to hold match data from sessionStorage, including matchId
   const [matchData, setMatchData] = useState<null | {
     matchId: string; // Add matchId to the type
+    league: string,
     date: string;
     time: string;
     team1: string;
@@ -32,7 +33,7 @@ const MatchDetailPage = () => {
   // If matchData is not loaded yet, show a loading state
   if (!matchData) return <div>Loading match details...</div>;
 
-  const { matchId, date, time, team1, team2, logo1, logo2, odds } = matchData;
+  const { league, matchId, date, time, team1, team2, logo1, logo2, odds } = matchData;
 
   return (
     <div className="flex justify-center p-4">
@@ -40,7 +41,7 @@ const MatchDetailPage = () => {
         {/* Main Section */}
         <div className="flex-grow">
           <MatchDetailHeader
-            league="Premier League"
+            league={league}
             date={date}
             time={time}
             team1={team1}

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"; // Using next/navigation for client
 interface MatchProps {
   matchId: string;
   date: string;
+  league:string;
   time: string;
   team1: string;
   team2: string;
@@ -16,6 +17,7 @@ interface MatchProps {
 
 const MatchCard: React.FC<MatchProps> = ({
   matchId,
+  league,
   date,
   time,
   team1,
@@ -36,6 +38,7 @@ const MatchCard: React.FC<MatchProps> = ({
   
     const matchData = {
       matchId,
+      league,
       date,
       time,
       team1,

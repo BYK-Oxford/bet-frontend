@@ -34,32 +34,16 @@ interface HomeCenterProps {
   selectedCountry: string | null;
   selectedLeague: string | null;
   setSelectedLeague: (league: string | null) => void;
+  matches: MatchOdds[];
 }
 
 const HomeCenter: React.FC<HomeCenterProps> = ({
   selectedCountry,
   selectedLeague,
   setSelectedLeague,
+  matches
 }) => {
-  const [matches, setMatches] = useState<MatchOdds[]>([]);
-
-  useEffect(() => {
-    const fetchMatches = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:8000/odds-calculation/calculated-odds");
-        if (response.ok) {
-          const data = await response.json();
-          setMatches(data.calculated_odds);
-        } else {
-          console.error("Failed to fetch match data");
-        }
-      } catch (error) {
-        console.error("Error fetching match data:", error);
-      }
-    };
-
-    fetchMatches();
-  }, []);
+  
 
   // Create an array of refs for scroll containers
   const scrollContainerRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -125,6 +109,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
               {filteredByLeague.map((match, index) => (
                 <MatchListContainer
                   key={match.odds_calculation_id}
+                  league={match.match_league}
                   matchId={match.odds_calculation_id}
                   date={formatDate(match.date)}
                   time={match.time.slice(0, 5)}
@@ -160,6 +145,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                     <MatchCard
                       key={match.odds_calculation_id}
                       matchId={match.odds_calculation_id}
+                      league={match.match_league}
                       date={formatDate(match.date)}
                       time={match.time.slice(0, 5)}
                       team1={match.home_team_name}

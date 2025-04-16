@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 interface MatchProps {
   matchId: string;
+  league:string;
   date: string;
   time: string;
   team1: string;
@@ -17,6 +18,7 @@ interface MatchProps {
 
 const MatchListContainer: React.FC<MatchProps> = ({
   matchId,
+  league,
   date,
   time,
   team1,
@@ -32,6 +34,7 @@ const MatchListContainer: React.FC<MatchProps> = ({
     // Save match data in sessionStorage
     const matchData = {
       matchId,
+      league,
       date,
       time,
       team1,
