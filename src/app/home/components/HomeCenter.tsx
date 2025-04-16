@@ -154,7 +154,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                 />
                 <div
                   ref={(el) => { scrollContainerRefs.current[index] = el; }}
-                  className="flex gap-2 pb-2 overflow-x-auto"
+                  className="flex gap-2 pb-2 overflow-x-auto scrollbar-hide"
                 >
                   {matchList.map((match) => (
                     <MatchCard

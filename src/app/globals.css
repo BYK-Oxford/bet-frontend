@@ -133,3 +133,13 @@ a:hover {
   scrollbar-color: #aaa var(--dark-bg); /* Subtle thumb and track color */
   scrollbar-width: thin; /* Thin scrollbar */
 }
+
+/* Hide scrollbar for all browsers */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
