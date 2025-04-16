@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import HomeBanner from "./HomeBanner";
 import MatchHeader from "./MatchHeader";
 import MatchCard from "./MatchCard";
@@ -36,8 +36,6 @@ interface HomeCenterProps {
   setSelectedLeague: (league: string | null) => void;
 }
 
-const MATCHES_PER_VIEW = 3;
-
 const HomeCenter: React.FC<HomeCenterProps> = ({
   selectedCountry,
   selectedLeague,
@@ -63,6 +61,23 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
     fetchMatches();
   }, []);
 
+  // Create an array of refs for scroll containers
+  const scrollContainerRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Scroll left
+  const scrollLeft = (index: number) => {
+    if (scrollContainerRefs.current[index]) {
+      scrollContainerRefs.current[index]?.scrollBy({ left: -400, behavior: 'smooth' });
+    }
+  };
+
+  // Scroll right
+  const scrollRight = (index: number) => {
+    if (scrollContainerRefs.current[index]) {
+      scrollContainerRefs.current[index]?.scrollBy({ left: 400, behavior: 'smooth' });
+    }
+  };
+
   const formatDate = (timestamp: string) => {
     const date = new Date(timestamp);
     const options: Intl.DateTimeFormatOptions = {
@@ -77,13 +92,13 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
       ? matches.filter((match) => match.match_country === selectedCountry)
       : matches;
   }, [matches, selectedCountry]);
-  
+
   const filteredByLeague = useMemo(() => {
     return selectedLeague
       ? filteredMatches.filter((match) => match.match_league === selectedLeague)
       : filteredMatches;
   }, [filteredMatches, selectedLeague]);
-  
+
   const groupedMatches = useMemo(() => {
     return filteredByLeague.reduce(
       (acc: Record<string, MatchOdds[]>, match: MatchOdds) => {
@@ -96,7 +111,6 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
       {}
     );
   }, [filteredByLeague]);
-
 
   return (
     <>
@@ -128,18 +142,20 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
       ) : (
         <>
           <HomeBanner />
-          {Object.entries(groupedMatches).map(([league, matchList]) => {
+          {Object.entries(groupedMatches).map(([league, matchList], index) => {
             return (
               <div key={league}>
                 <MatchHeader
                   leagueName={league}
                   leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg"
-                
-                
                   onSeeAll={() => setSelectedLeague(league)}
+                  scrollLeft={() => scrollLeft(index)} // Pass the index
+                  scrollRight={() => scrollRight(index)} // Pass the index
                 />
-                <div className="flex gap-2 pb-2 overflow-x-auto">
-
+                <div
+                  ref={(el) => { scrollContainerRefs.current[index] = el; }}
+                  className="flex gap-2 pb-2 overflow-x-auto"
+                >
                   {matchList.map((match) => (
                     <MatchCard
                       key={match.odds_calculation_id}

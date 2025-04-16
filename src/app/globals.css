@@ -115,7 +115,7 @@ a:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1E1E20; /* Light grey track color */
+  background: var(--dark-bg); /* Light grey track color */
 }
 
 ::-webkit-scrollbar-thumb {
@@ -130,6 +130,6 @@ a:hover {
 
 /* Global Scrollbar Styles for Firefox */
 * {
-  scrollbar-color: #aaa #1E1E20; /* Subtle thumb and track color */
+  scrollbar-color: #aaa var(--dark-bg); /* Subtle thumb and track color */
   scrollbar-width: thin; /* Thin scrollbar */
 }
