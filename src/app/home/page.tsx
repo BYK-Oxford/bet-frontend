@@ -35,7 +35,7 @@ export default function HomePage() {
   const [matches, setMatches] = useState<MatchOdds[]>([]);
 
   let leftContainer = 200;
-  let rightContainer = 260;
+  let rightContainer = 240;
   let centerContainer = width - (leftContainer + rightContainer + 200);
 
   useLayoutEffect(() => {

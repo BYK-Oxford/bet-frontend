@@ -98,7 +98,7 @@ export default function ValueForMoney({ matches }: Props) {
   return (
     <>
       <h1 className="text-xl font-bold mb-4">Value For Money</h1>
-      <div className="w-full px-2 bg-[#2E2E30] text-white rounded-lg">
+      <div className="w-full py-2 px-2 bg-[#2E2E30] text-white rounded-lg">
         <div>
           {sortedMatches.slice(0, 13).map((match, index) => {
             const bookmakerProb =
@@ -121,7 +121,7 @@ export default function ValueForMoney({ matches }: Props) {
               <div
                 key={match.odds_calculation_id}
                 onClick={() => handleClick(match)}
-                className={`cursor-pointer flex items-center justify-between p-4 hover:bg-[#1a1a1a] transition-all ${
+                className={`cursor-pointer flex items-center justify-between p-4 hover:bg-[#1a1a1a] transition-all hover:rounded-lg ${
                   index !== 12 ? "border-b border-[#3a3a3a] pb-4 mb-2" : ""
                 }`}
               >
