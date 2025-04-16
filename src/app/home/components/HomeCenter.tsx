@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import HomeBanner from "./HomeBanner";
 import MatchHeader from "./MatchHeader";
 import MatchCard from "./MatchCard";
@@ -16,8 +16,8 @@ interface MatchOdds {
   home_team_name: string;
   home_team_league: string;
   home_team_country: string;
-  match_league:string;
-  match_country:string;
+  match_league: string;
+  match_country: string;
   away_team_id: string;
   away_team_name: string;
   away_team_league: string;
@@ -30,13 +30,13 @@ interface MatchOdds {
   away_odds: number;
 }
 
-const MATCHES_PER_PAGE = 3;
-
 interface HomeCenterProps {
   selectedCountry: string | null;
   selectedLeague: string | null;
   setSelectedLeague: (league: string | null) => void;
 }
+
+const MATCHES_PER_VIEW = 3;
 
 const HomeCenter: React.FC<HomeCenterProps> = ({
   selectedCountry,
@@ -44,7 +44,6 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
   setSelectedLeague,
 }) => {
   const [matches, setMatches] = useState<MatchOdds[]>([]);
-  const [visibleIndexes, setVisibleIndexes] = useState<Record<string, number>>({});
 
   useEffect(() => {
     const fetchMatches = async () => {
@@ -53,14 +52,6 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
         if (response.ok) {
           const data = await response.json();
           setMatches(data.calculated_odds);
-
-          const initialIndexes: Record<string, number> = {};
-          data.calculated_odds.forEach((match: MatchOdds) => {
-            if (!(match.match_league in initialIndexes)) {
-              initialIndexes[match.match_league] = 0;
-            }
-          });
-          setVisibleIndexes(initialIndexes);
         } else {
           console.error("Failed to fetch match data");
         }
@@ -81,47 +72,34 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
     return date.toLocaleDateString(undefined, options);
   };
 
-  const filteredMatches = selectedCountry
-    ? matches.filter(
-        (match) =>
-          match.home_team_country === selectedCountry || match.away_team_country === selectedCountry
-      )
-    : matches;
+  const filteredMatches = useMemo(() => {
+    return selectedCountry
+      ? matches.filter((match) => match.match_country === selectedCountry)
+      : matches;
+  }, [matches, selectedCountry]);
+  
+  const filteredByLeague = useMemo(() => {
+    return selectedLeague
+      ? filteredMatches.filter((match) => match.match_league === selectedLeague)
+      : filteredMatches;
+  }, [filteredMatches, selectedLeague]);
+  
+  const groupedMatches = useMemo(() => {
+    return filteredByLeague.reduce(
+      (acc: Record<string, MatchOdds[]>, match: MatchOdds) => {
+        if (!acc[match.match_league]) {
+          acc[match.match_league] = [];
+        }
+        acc[match.match_league].push(match);
+        return acc;
+      },
+      {}
+    );
+  }, [filteredByLeague]);
 
-  const filteredByLeague = selectedLeague
-    ? filteredMatches.filter(
-        (match) =>
-          match.match_league === selectedLeague 
-      )
-    : filteredMatches;
-
-  const groupedMatches = filteredByLeague.reduce(
-    (acc: Record<string, MatchOdds[]>, match: MatchOdds) => {
-      if (!acc[match.match_league]) {
-        acc[match.match_league] = [];
-      }
-      acc[match.match_league].push(match);
-      return acc;
-    },
-    {}
-  );
-
-  const handlePrev = (league: string) => {
-    setVisibleIndexes((prev) => ({
-      ...prev,
-      [league]: Math.max(prev[league] - MATCHES_PER_PAGE, 0),
-    }));
-  };
-
-  const handleNext = (league: string, totalMatches: number) => {
-    setVisibleIndexes((prev) => ({
-      ...prev,
-      [league]: Math.min(prev[league] + MATCHES_PER_PAGE, totalMatches - 1),
-    }));
-  };
 
   return (
-    <div className="space-y-4">
+    <>
       {selectedLeague ? (
         <div className="bg-[#1E1E20] p-4 rounded-lg space-y-4">
           <MatchListHeader
@@ -150,26 +128,19 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
       ) : (
         <>
           <HomeBanner />
-          {Object.keys(groupedMatches).map((league) => {
-            const matchList = groupedMatches[league];
-            const index = visibleIndexes[league] || 0;
-            const paginatedMatches = matchList.slice(index, index + MATCHES_PER_PAGE);
-            const canPrev = index > 0;
-            const canNext = index + MATCHES_PER_PAGE < matchList.length-1;
-
+          {Object.entries(groupedMatches).map(([league, matchList]) => {
             return (
               <div key={league}>
                 <MatchHeader
-                    leagueName={league}
-                    leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg"
-                    onPrev={() => handlePrev(league)}
-                    onNext={() => handleNext(league, matchList.length)}
-                    onSeeAll={() => setSelectedLeague(league)}
-                    canPrev={matchList.length > MATCHES_PER_PAGE && canPrev}
-                    canNext={matchList.length > MATCHES_PER_PAGE && canNext}
-                  />
-                <div className="flex gap-2 overflow-x-auto">
-                  {paginatedMatches.map((match) => (
+                  leagueName={league}
+                  leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg"
+                
+                
+                  onSeeAll={() => setSelectedLeague(league)}
+                />
+                <div className="flex gap-2 pb-2 overflow-x-auto">
+
+                  {matchList.map((match) => (
                     <MatchCard
                       key={match.odds_calculation_id}
                       matchId={match.odds_calculation_id}
@@ -188,7 +159,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
           })}
         </>
       )}
-    </div>
+    </>
   );
 };
 

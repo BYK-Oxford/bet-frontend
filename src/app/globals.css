@@ -106,3 +106,30 @@ a:hover {
   border-color: var(--selection-color);
   color: var(--text-color);
 }
+
+
+/* Global Scrollbar Styles for WebKit-based browsers */
+::-webkit-scrollbar {
+  width: 8px; /* Thin scrollbar */
+  height: 8px; /* Thin horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #1E1E20; /* Light grey track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #aaa; /* Subtle thumb color */
+  border-radius: 10px; /* Rounded corners */
+  transition: background 0.3s ease; /* Smooth transition on hover */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666; /* Slightly darker on hover */
+}
+
+/* Global Scrollbar Styles for Firefox */
+* {
+  scrollbar-color: #aaa #1E1E20; /* Subtle thumb and track color */
+  scrollbar-width: thin; /* Thin scrollbar */
+}
