@@ -23,13 +23,16 @@ const HeadToHeadTab: React.FC<{ matches: MatchProps[] }> = ({ matches }) => {
   return (
     <div className="flex flex-col space-y-3">
       {matches.length === 0 ? (
-        <div className="text-gray-400 text-sm text-center p-4 flex flex-col items-center">
-          <p>No past Head 2 Head matches available.</p>
-          <img
-            src="/football-img.png"
-            alt=""
-            className="w-8 h-8 object-contain p-1 mt-1 grayscale opacity-50"
-          />
+        <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px]">
+        {/* Background watermark image */}
+        <img
+          src="/football-img.png"
+          alt=""
+          className="absolute inset-0 w-32 h-32 mx-auto my-auto object-contain opacity-10 grayscale"
+        />
+        
+        {/* Text on top */}
+        <p className="relative z-10">No past Head 2 Head matches available.</p>
       </div>
       ) : (
         matches.map((match, index) => (

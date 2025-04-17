@@ -9,9 +9,17 @@ const StatsTab: React.FC<{ statsData: Stat[] }> = ({ statsData }) => {
   return (
     <div className="flex flex-col space-y-5">
       {statsData.length === 0 ? (
-        <div className="text-gray-400 text-sm text-center p-4">
-          No past Head 2 Head statistics available.
-        </div>
+         <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px]">
+         {/* Background watermark image */}
+         <img
+           src="/football-img.png"
+           alt=""
+           className="absolute inset-0 w-32 h-32 mx-auto my-auto object-contain opacity-10 grayscale"
+         />
+         
+         {/* Text on top */}
+         <p className="relative z-10">No past Head 2 Head stats available.</p>
+       </div>
       ) : (
         statsData.map((stat, index) => {
           const max = Math.max(stat.team1, stat.team2);
