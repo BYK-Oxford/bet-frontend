@@ -108,7 +108,7 @@ const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
           }`}
           onClick={() => setActiveTab("stats")}
         >
-          Stats
+          H2H Stats
         </button>
         <button
           className={`px-4 py-2 text-xs ${
@@ -116,7 +116,7 @@ const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
           }`}
           onClick={() => setActiveTab("headToHead")}
         >
-          Head to Head
+          H2H Results
         </button>
       </div>
 

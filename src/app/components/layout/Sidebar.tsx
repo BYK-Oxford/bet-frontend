@@ -13,8 +13,6 @@ type MenuItem = {
 // Sidebar menu items
 const menuItems: MenuItem[] = [
   { name: "Football", href: "/home", icon: <SoccerBall size={24} weight="fill" /> },
-  { name: "Competitions", href: "/competitions", icon: <Trophy size={24} weight="fill" /> },
-  { name: "Matches", href: "/matches", icon: <Calendar size={24} weight="fill" /> },
 ];
 
 export default function Sidebar() {

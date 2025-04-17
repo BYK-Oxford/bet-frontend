@@ -97,7 +97,20 @@ export default function ValueForMoney({ matches }: Props) {
 
   return (
     <>
-      <h1 className="text-xl font-bold mb-4">Value For Money</h1>
+     <div className="flex flex-row items-start relative group">
+      <h1 className="text-xl flex-1 font-bold mb-4">Value For Money</h1>
+
+      <div className="w-8 h-8 text-[10px] text-[#03BEC2] font-bold border border-[#03BEC2] rounded-full flex items-center justify-center relative hover:z-10">
+        V4M
+        {/* Tooltip */}
+        <div className="absolute top-full mt-2 left-1/2 -translate-x-[95%] bg-[#161616] text-white text-xs px-4 py-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 shadow-lg w-48 text-center">
+          Looking for smart bets? Our V4M score compares the odds with our win predictions to spotlight where you're getting the best value.
+        </div>
+      </div>
+    </div>
+
+
+
       <div className="w-full py-2 px-2 bg-[#2E2E30] text-white rounded-lg">
         <div>
           {sortedMatches.slice(0, 13).map((match, index) => {
@@ -147,33 +160,70 @@ export default function ValueForMoney({ matches }: Props) {
                 {/* Differences */}
                 <div className="flex flex-col text-[8px] font-mono items-end">
                   <span
-                    className={`${
-                      diffHome === maxDiff
-                        ? "text-green-300 text-[10px] font-bold"
-                        : "text-gray-400"
+                    className={`flex items-center gap-1 ${
+                      diffHome === maxDiff ? "text-[#03BEC2] text-[12px] font-bold" : "text-gray-400"
                     }`}
                   >
-                    H: {diffHome.toFixed(2)}%
+                    {diffHome === maxDiff && (
+                      <>
+                        <span className="w-6 h-6 flex items-center justify-center text-[8px] border border-[#03BEC2] rounded-full">V4M</span>
+                        <span className="text-[#03BEC2]">-</span>
+                      </>
+                    )}
+                    Home
                   </span>
+
                   <span
-                    className={`${
-                      diffDraw === maxDiff
-                        ? "text-green-300 text-[10px] font-bold"
-                        : "text-gray-400"
+                    className={`flex items-center gap-1 ${
+                      diffDraw === maxDiff ? "text-[#03BEC2] text-[12px] font-bold" : "text-gray-400"
                     }`}
                   >
-                    D: {diffDraw.toFixed(2)}%
+                    {diffDraw === maxDiff && (
+                      <>
+                        <span className="w-6 h-6 flex items-center justify-center text-[8px] border border-[#03BEC2] rounded-full">V4M</span>
+                        <span className="text-[#03BEC2]">-</span>
+                      </>
+                    )}
+                    Draw
                   </span>
+
                   <span
-                    className={`${
-                      diffAway === maxDiff
-                        ? "text-green-300 text-[10px] font-bold"
-                        : "text-gray-400"
+                    className={`flex items-center gap-1 ${
+                      diffAway === maxDiff ? "text-[#03BEC2] text-[12px] font-bold" : "text-gray-400"
                     }`}
                   >
-                    A: {diffAway.toFixed(2)}%
+                    {diffAway === maxDiff && (
+                      <>
+                        <span className="w-6 h-6 flex items-center justify-center text-[8px] border border-[#03BEC2] rounded-full">V4M</span>
+                        <span className="text-[#03BEC2]">-</span>
+                      </>
+                    )}
+                    Away
                   </span>
                 </div>
+
+
+
+
+
+                {/* Biggest Difference Only */}
+                {/* <div className="flex flex-col text-[8px] font-mono items-end">
+                  {diffHome === maxDiff && (
+                    <span className="text-[#03BEC2] text-[12px] font-bold">
+                      Home
+                    </span>
+                  )}
+                  {diffDraw === maxDiff && (
+                    <span className="text-[#03BEC2] text-[12px] font-bold">
+                      Draw
+                    </span>
+                  )}
+                  {diffAway === maxDiff && (
+                    <span className="text-[#03BEC2] text-[12px] font-bold">
+                      Away
+                    </span>
+                  )}
+                </div> */}
               </div>
             );
           })}
