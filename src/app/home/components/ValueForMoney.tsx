@@ -103,9 +103,10 @@ export default function ValueForMoney({ matches }: Props) {
       <div className="w-8 h-8 text-[10px] text-[#03BEC2] font-bold border border-[#03BEC2] rounded-full flex items-center justify-center relative hover:z-10">
         V4M
         {/* Tooltip */}
-        <div className="absolute top-full mt-2 left-1/2 -translate-x-[95%] bg-[#161616] text-white text-xs px-4 py-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 shadow-lg w-48 text-center">
-          Looking for smart bets? Our V4M score compares the odds with our win predictions to spotlight where you're getting the best value.
-        </div>
+        <div className="absolute text-[10px] top-full mt-2 left-1/2 -translate-x-[95%] bg-[#161616] text-white text-xs px-4 py-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 shadow-lg w-48 text-left">
+        V4M known as Value for Money is where the calculated chance of winning is greater than the return (what bookmakers value the chance of winning of that option)
+
+        <br/><br/>In basic terms it is not a guaranteed win but it is where you get the maximum return with the risk calculated - where the arbitrage is in favour at the peak point.</div>
       </div>
     </div>
 
