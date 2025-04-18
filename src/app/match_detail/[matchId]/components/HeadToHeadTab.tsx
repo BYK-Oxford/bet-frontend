@@ -15,6 +15,7 @@ const formatDate = (timestamp: string) => {
   const options: Intl.DateTimeFormatOptions = {
     month: "short",
     day: "numeric",
+    year:"numeric"
   };
   return date.toLocaleDateString(undefined, options);
 };
