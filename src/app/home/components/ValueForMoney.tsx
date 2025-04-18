@@ -89,6 +89,9 @@ export default function ValueForMoney({ matches }: Props) {
       logo1: teamLogos[match.home_team_name],
       logo2: teamLogos[match.away_team_name],
       odds: [match.home_odds, match.draw_odds, match.away_odds],
+      calculated_home_chance: match.calculated_home_chance,
+      calculated_draw_chance: match.calculated_draw_chance,
+      calculated_away_chance: match.calculated_away_chance,
     };
   
     sessionStorage.setItem("matchData", JSON.stringify(matchData));

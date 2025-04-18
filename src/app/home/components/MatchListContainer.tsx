@@ -14,6 +14,9 @@ interface MatchProps {
   logo2: string;
   odds: [number, number, number];
   isLast?: boolean;
+  calculated_home_chance: number;
+  calculated_draw_chance: number;
+  calculated_away_chance: number;
 }
 
 const MatchListContainer: React.FC<MatchProps> = ({
@@ -26,6 +29,9 @@ const MatchListContainer: React.FC<MatchProps> = ({
   logo1,
   logo2,
   odds,
+  calculated_home_chance,
+  calculated_draw_chance,
+  calculated_away_chance,
   isLast = false,
 }) => {
   const router = useRouter();
@@ -42,6 +48,9 @@ const MatchListContainer: React.FC<MatchProps> = ({
       logo1,
       logo2,
       odds,
+      calculated_home_chance,
+      calculated_draw_chance,
+      calculated_away_chance,
     };
 
     sessionStorage.setItem("matchData", JSON.stringify(matchData));

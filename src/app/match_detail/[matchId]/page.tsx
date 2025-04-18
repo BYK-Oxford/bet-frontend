@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation"; // Using next/navigation for client-side navigation
 import MatchDetailHeader from "./components/MatchDetailHeader";
 import MatchTabs from "./components/MatchTabs";
+import MatchSidebar from "./components/MatchSidebar"; 
 
 const MatchDetailPage = () => {
   const router = useRouter();
@@ -19,6 +20,9 @@ const MatchDetailPage = () => {
     logo1: string;
     logo2: string;
     odds: [number, number, number];
+    calculated_home_chance: number;
+    calculated_draw_chance: number;
+    calculated_away_chance: number;
   }>(null);
 
   // Read the match data from sessionStorage on component mount
@@ -33,7 +37,7 @@ const MatchDetailPage = () => {
   // If matchData is not loaded yet, show a loading state
   if (!matchData) return <div>Loading match details...</div>;
 
-  const { league, matchId, date, time, team1, team2, logo1, logo2, odds } = matchData;
+  const { league, matchId, date, time, team1, team2, logo1, logo2, odds, calculated_home_chance, calculated_away_chance, calculated_draw_chance } = matchData;
 
   return (
     <div className="flex justify-center p-4">
@@ -59,9 +63,8 @@ const MatchDetailPage = () => {
         </div>
 
         {/* Sidebar */}
-        <div className="w-60 h-100 bg-white rounded-xl p-4 shadow text-gray-700">
-          <p className="text-sm text-gray-500">Sidebar content</p>
-        </div>
+        <MatchSidebar matchData={matchData} />
+        
       </div>
     </div>
   );

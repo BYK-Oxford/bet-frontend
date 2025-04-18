@@ -119,6 +119,10 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                   logo2={teamLogos[match.away_team_name]}
                   odds={[match.home_odds, match.draw_odds, match.away_odds]}
                   isLast={index === filteredByLeague.length - 1}
+                  calculated_home_chance= {match.calculated_home_chance}
+                  calculated_draw_chance= {match.calculated_draw_chance}
+                  calculated_away_chance= {match.calculated_away_chance}
+                  
                 />
               ))}
             </div>
@@ -153,6 +157,9 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                       logo1={teamLogos[match.home_team_name] || match.home_team_logo}
                       logo2={teamLogos[match.away_team_name] || match.away_team_logo}
                       odds={[match.home_odds, match.draw_odds, match.away_odds]}
+                      calculated_home_chance= {match.calculated_home_chance}
+                      calculated_draw_chance= {match.calculated_draw_chance}
+                      calculated_away_chance= {match.calculated_away_chance}
                     />
                   ))}
                 </div>

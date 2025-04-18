@@ -13,6 +13,9 @@ interface MatchProps {
   logo1: string;
   logo2: string;
   odds: [number, number, number];
+  calculated_home_chance: number;
+  calculated_draw_chance: number;
+  calculated_away_chance: number;
 }
 
 const MatchCard: React.FC<MatchProps> = ({
@@ -25,6 +28,9 @@ const MatchCard: React.FC<MatchProps> = ({
   logo1,
   logo2,
   odds,
+  calculated_home_chance,
+  calculated_draw_chance,
+  calculated_away_chance,
 }) => {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
@@ -46,6 +52,9 @@ const MatchCard: React.FC<MatchProps> = ({
       logo1,
       logo2,
       odds,
+      calculated_home_chance,
+      calculated_draw_chance,
+      calculated_away_chance,
     };
   
     // Store the data in sessionStorage
