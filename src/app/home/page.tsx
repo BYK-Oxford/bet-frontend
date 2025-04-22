@@ -1,16 +1,19 @@
 "use client";
-import React, { useState, useLayoutEffect } from "react";
+
+import React, { useState, useLayoutEffect, useEffect } from "react";
 import HomeCenter from "./components/HomeCenter";
 import HomeSidebar from "./components/HomeSidebar";
 import ValueForMoney from "./components/ValueForMoney";
 import { useMatchContext } from "../../context/MatchContext";
+import TermsModal from "./../components/ui/TermsModal";
 
 export default function HomePage() {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [selectedLeague, setSelectedLeague] = useState<string | null>(null);
   const [width, setWidth] = useState(0);
+  const [showTerms, setShowTerms] = useState(false);
 
-  const { matches, loading } = useMatchContext();
+  const { matches } = useMatchContext();
 
   let leftContainer = 200;
   let rightContainer = 240;
@@ -27,28 +30,43 @@ export default function HomePage() {
     };
   }, []);
 
+  useEffect(() => {
+    const accepted = localStorage.getItem("termsAccepted");
+    if (!accepted) {
+      setShowTerms(true);
+    }
+  }, []);
+
+  const handleAccept = () => {
+    setShowTerms(false);
+  };
+
   return (
-    <div className="flex flex-row justify-between w-full gap-4 p-4 overflow-hidden">
-      <div style={{ width: leftContainer }}>
-        <HomeSidebar
-          onSelectCountry={setSelectedCountry}
-          onSelectLeague={setSelectedLeague}
-          selectedCountry={selectedCountry}
-          selectedLeague={selectedLeague}
-        />
-      </div>
+    <div className="relative w-full h-screen overflow-hidden">
+      {showTerms && <TermsModal onAccept={handleAccept} />}
 
-      <div style={{ width: centerContainer }}>
-        <HomeCenter
-          selectedCountry={selectedCountry}
-          selectedLeague={selectedLeague}
-          setSelectedLeague={setSelectedLeague}
-          matches={matches}
-        />
-      </div>
+      <div className="flex flex-row justify-between w-full gap-4 p-4">
+        <div style={{ width: leftContainer }}>
+          <HomeSidebar
+            onSelectCountry={setSelectedCountry}
+            onSelectLeague={setSelectedLeague}
+            selectedCountry={selectedCountry}
+            selectedLeague={selectedLeague}
+          />
+        </div>
 
-      <div style={{ width: rightContainer }}>
-        <ValueForMoney matches={matches} />
+        <div style={{ width: centerContainer }}>
+          <HomeCenter
+            selectedCountry={selectedCountry}
+            selectedLeague={selectedLeague}
+            setSelectedLeague={setSelectedLeague}
+            matches={matches}
+          />
+        </div>
+
+        <div style={{ width: rightContainer }}>
+          <ValueForMoney matches={matches} />
+        </div>
       </div>
     </div>
   );
