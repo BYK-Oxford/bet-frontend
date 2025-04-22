@@ -9,7 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-  LabelList,
+  LabelList,LabelProps 
 } from "recharts";
 
 type MatchData = {
@@ -116,23 +116,34 @@ const MatchSidebar = ({ matchData }: { matchData: MatchData }) => {
           </Bar>
           {/* BetGenie Bar */}
           <Bar dataKey="BetGenie" fill="#03BEC2" barSize={10} radius={[4, 4, 0, 0]}>
-            <LabelList
+              <LabelList
               dataKey="BetGenie"
-              content={({ x, y, index }) =>
-                index === maxDiffIndex ? (
+              content={({ x, y, index }: LabelProps) => {
+                if (typeof index !== "number") return null;
+
+                const betGenieVal = data[index].BetGenie;
+                const bookmakerVal = data[index].Bookmaker;
+                const diff = betGenieVal - bookmakerVal;
+
+                const isMaxDiff = index === maxDiffIndex;
+                const isPositiveGain = diff > 0;
+
+                return isMaxDiff && isPositiveGain ? (
                   <text
-                    x={Number(x!) + 5}
-                    y={Number(y!) - 8}
+                    x={Number(x) + 5}
+                    y={Number(y) - 8}
                     fill="#03BEC2"
                     fontSize={14}
                     textAnchor="middle"
                   >
                     ★
                   </text>
-                ) : null
-              }
+                ) : null;
+              }}
             />
+
           </Bar>
+
         </BarChart>
       </ResponsiveContainer>
     </div>

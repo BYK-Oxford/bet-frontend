@@ -78,11 +78,11 @@ const MatchListContainer: React.FC<MatchProps> = ({
           <span className="text-xs break-words leading-tight max-w-[80px] text-right">
             {team1}
           </span>
-          <img src={teamLogos[team1]} alt={team1} className="w-10 h-10 object-contain p-1" />
+          <img src={logo1} alt={team1} className="w-10 h-10 object-contain p-1" />
         </div>
         <span className="text-xs font-semibold w-8 text-center">VS</span>
         <div className="flex items-center gap-2 w-28 justify-start">
-          <img src={teamLogos[team2]} alt={team2} className="w-10 h-10 object-contain p-1" />
+          <img src={logo2} alt={team2} className="w-10 h-10 object-contain p-1" />
           <span className="text-xs break-words leading-tight max-w-[80px] text-left">
             {team2}
           </span>

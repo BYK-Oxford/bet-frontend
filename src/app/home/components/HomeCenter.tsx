@@ -106,27 +106,40 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
           />
           <div className="bg-[#2E2E30] text-white p-2 rounded-xl w-full min-w-[400px] max-w-[800px] min-h-[200px] h-auto overflow-hidden">
             <div className="space-y-2">
-              {filteredByLeague.map((match, index) => (
-                <MatchListContainer
-                  key={match.odds_calculation_id}
-                  league={match.match_league}
-                  matchId={match.odds_calculation_id}
-                  date={formatDate(match.date)}
-                  time={match.time.slice(0, 5)}
-                  team1={match.home_team_name}
-                  team2={match.away_team_name}
-                  logo1={match.home_team_name}
-                  logo2={match.away_team_name}
-                  odds={[match.home_odds, match.draw_odds, match.away_odds]}
-                  isLast={index === filteredByLeague.length - 1}
-                  calculated_home_chance= {match.calculated_home_chance}
-                  calculated_draw_chance= {match.calculated_draw_chance}
-                  calculated_away_chance= {match.calculated_away_chance}
-                  
-                />
-              ))}
+              {filteredByLeague.length > 0 ? (
+                filteredByLeague.map((match, index) => (
+                  <MatchListContainer
+                    key={match.odds_calculation_id}
+                    league={match.match_league}
+                    matchId={match.odds_calculation_id}
+                    date={formatDate(match.date)}
+                    time={match.time.slice(0, 5)}
+                    team1={match.home_team_name}
+                    team2={match.away_team_name}
+                    logo1={teamLogos[match.home_team_name] || match.home_team_logo}
+                    logo2={teamLogos[match.away_team_name] || match.away_team_logo}
+                    odds={[match.home_odds, match.draw_odds, match.away_odds]}
+                    isLast={index === filteredByLeague.length - 1}
+                    calculated_home_chance={match.calculated_home_chance}
+                    calculated_draw_chance={match.calculated_draw_chance}
+                      calculated_away_chance={match.calculated_away_chance}
+                    />
+                  ))
+                ) : (
+                  <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px]">
+                    {/* Background watermark image */}
+                    <img
+                      src="/football-img.png"
+                      alt=""
+                      className="absolute inset-0 w-32 h-32 mx-auto my-auto object-contain opacity-10 grayscale"
+                    />
+                    
+                    {/* Text on top */}
+                    <p className="relative z-10">No future matches currently</p>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
         </div>
       ) : (
         <>
