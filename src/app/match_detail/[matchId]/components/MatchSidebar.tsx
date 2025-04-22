@@ -9,7 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-  LabelList,LabelProps 
+  LabelList, LabelProps
 } from "recharts";
 
 type MatchData = {
@@ -62,7 +62,7 @@ const MatchSidebar = ({ matchData }: { matchData: MatchData }) => {
   );
 
   return (
-    <div className="w-60 h-auto bg-[#2E2E30] rounded-xl p-4 shadow text-white">
+    <div className="w-full sm:w-60 h-auto bg-[#2E2E30] rounded-xl p-4 shadow text-white">
       <h2 className="text-md font-semibold mb-2">Our Value Prediction</h2>
       <ResponsiveContainer width="100%" height={200}>
         <BarChart
@@ -83,7 +83,7 @@ const MatchSidebar = ({ matchData }: { matchData: MatchData }) => {
             contentStyle={{
               backgroundColor: "#333",
               border: "none",
-              borderRadius: "6px",fontSize: "10px",
+              borderRadius: "6px", fontSize: "10px",
             }}
             labelStyle={{ color: "#fff", fontSize: "10px" }}
             formatter={(value: number, name: string) => [`${value.toFixed(1)}%`, name]}
@@ -116,7 +116,7 @@ const MatchSidebar = ({ matchData }: { matchData: MatchData }) => {
           </Bar>
           {/* BetGenie Bar */}
           <Bar dataKey="BetGenie" fill="#03BEC2" barSize={10} radius={[4, 4, 0, 0]}>
-              <LabelList
+            <LabelList
               dataKey="BetGenie"
               content={({ x, y, index }: LabelProps) => {
                 if (typeof index !== "number") return null;
@@ -141,9 +141,7 @@ const MatchSidebar = ({ matchData }: { matchData: MatchData }) => {
                 ) : null;
               }}
             />
-
           </Bar>
-
         </BarChart>
       </ResponsiveContainer>
     </div>

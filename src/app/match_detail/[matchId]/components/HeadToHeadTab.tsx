@@ -37,10 +37,8 @@ const HeadToHeadTab: React.FC<{ matches: MatchProps[] }> = ({ matches }) => {
       </div>
       ) : (
         matches.map((match, index) => (
-          <div
-            key={index}
-            className="text-white p-2 flex items-center w-full min-w-[400px] max-w-[700px] justify-between gap-4 border-b border-[rgba(255,255,255,0.1)]"
-          >
+          <div key={index} className="text-white p-2 flex items-center w-full justify-between gap-4 border-b border-[rgba(255,255,255,0.1)]">
+
             {/* Date */}
             <div className="text-[10px] text-gray-400">
               {formatDate(match.date)}

@@ -96,7 +96,7 @@ export default function Header() {
             </li>
           </ul>
         </nav>
-        <div className="w-10 h-10 bg-gray-600 rounded-full"></div>
+        {/* <div className="w-10 h-10 bg-gray-600 rounded-full"></div> */}
       </div>
     </header>
   );

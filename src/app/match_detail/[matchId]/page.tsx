@@ -46,7 +46,8 @@ const MatchDetailPage = () => {
 
   return (
     <div className="flex justify-center p-4">
-      <div className="flex gap-6 items-start w-full max-w-4xl">
+      <div className="flex flex-col md:flex-row gap-6 items-start w-full max-w-full md:max-w-4xl">
+        {/* Main Content */}
         <div className="flex-grow">
           <MatchDetailHeader
             league={league}
@@ -65,7 +66,10 @@ const MatchDetailPage = () => {
           </div>
         </div>
 
-        <MatchSidebar matchData={matchData} />
+        {/* Sidebar */}
+        <div className="w-full md:w-60 mt-6 md:mt-0">
+          <MatchSidebar matchData={matchData} />
+        </div>
       </div>
     </div>
   );
