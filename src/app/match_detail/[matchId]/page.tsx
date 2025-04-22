@@ -1,18 +1,20 @@
-"use client"; // Ensures this component is client-side
+"use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"; // Using next/navigation for client-side navigation
+import { useRouter, useParams } from "next/navigation";
 import MatchDetailHeader from "./components/MatchDetailHeader";
 import MatchTabs from "./components/MatchTabs";
-import MatchSidebar from "./components/MatchSidebar"; 
+import MatchSidebar from "./components/MatchSidebar";
+import teamLogos from "./../../home/components/teamLogos";
 
 const MatchDetailPage = () => {
   const router = useRouter();
+  const params = useParams();
+  const currentId = params?.matchId; // Get current route param
 
-  // State to hold match data from sessionStorage, including matchId
   const [matchData, setMatchData] = useState<null | {
-    matchId: string; // Add matchId to the type
-    league: string,
+    matchId: string;
+    league: string;
     date: string;
     time: string;
     team1: string;
@@ -25,16 +27,19 @@ const MatchDetailPage = () => {
     calculated_away_chance: number;
   }>(null);
 
-  // Read the match data from sessionStorage on component mount
+  // Update matchData whenever the route param `id` changes
   useEffect(() => {
     const data = sessionStorage.getItem("matchData");
     if (data) {
       const parsed = JSON.parse(data);
-      setMatchData(parsed);
+      if (parsed.matchId === currentId) {
+        setMatchData(parsed);
+      } else {
+        setMatchData(null); // Reset if mismatched (optional safety)
+      }
     }
-  }, []);
+  }, [currentId]);
 
-  // If matchData is not loaded yet, show a loading state
   if (!matchData) return <div>Loading match details...</div>;
 
   const { league, matchId, date, time, team1, team2, logo1, logo2, odds, calculated_home_chance, calculated_away_chance, calculated_draw_chance } = matchData;
@@ -42,7 +47,6 @@ const MatchDetailPage = () => {
   return (
     <div className="flex justify-center p-4">
       <div className="flex gap-6 items-start w-full max-w-4xl">
-        {/* Main Section */}
         <div className="flex-grow">
           <MatchDetailHeader
             league={league}
@@ -50,21 +54,18 @@ const MatchDetailPage = () => {
             time={time}
             team1={team1}
             team2={team2}
-            logo1={logo1}
-            logo2={logo2}
+            logo1={teamLogos[team1]}
+            logo2={teamLogos[team2]}
             odds={odds}
             onBack={() => router.back()}
           />
 
           <div className="mt-6">
-            {/* Pass the matchId to MatchTabs */}
             <MatchTabs matchId={matchId} />
           </div>
         </div>
 
-        {/* Sidebar */}
         <MatchSidebar matchData={matchData} />
-        
       </div>
     </div>
   );

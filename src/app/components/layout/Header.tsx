@@ -11,6 +11,16 @@ export default function Header() {
   const [query, setQuery] = useState("");
   const router = useRouter();
 
+  const formatDate = (timestamp: string) => {
+    const date = new Date(timestamp);
+    const options: Intl.DateTimeFormatOptions = {
+      month: "short",
+      day: "numeric",
+    };
+    return date.toLocaleDateString(undefined, options);
+  };
+
+
   const filtered =
     query.trim() === ""
       ? []
@@ -38,13 +48,28 @@ export default function Header() {
         {/* Dropdown Results */}
         {filtered.length > 0 && (
           <div className="absolute top-full left-0 right-0 bg-[#2E2E30] rounded shadow-lg mt-1 z-10 max-h-60 overflow-y-auto">
-            
             {filtered.map((match) => (
               <div
                 key={match.odds_calculation_id}
                 className="px-3 py-2 hover:bg-[#333] cursor-pointer text-sm"
                 onClick={() => {
                   setQuery("");
+                  const matchData = {
+                    matchId: match.odds_calculation_id,
+                    league: match.match_league || "Unknown League", 
+                    date: formatDate(match.date),
+                    time: match.time.slice(0,5),
+                    team1: match.home_team_name,
+                    team2: match.away_team_name,
+                    logo1: match.home_team_logo,
+                    logo2: match.away_team_logo,
+                    odds: [match.home_odds,match.draw_odds,match.away_odds], // ensure it's an array
+                    calculated_home_chance: match.calculated_home_chance,
+                    calculated_draw_chance: match.calculated_draw_chance,
+                    calculated_away_chance: match.calculated_away_chance,
+                  };
+                
+                  sessionStorage.setItem("matchData", JSON.stringify(matchData));
                   router.push(`/match_detail/${match.odds_calculation_id}`);
                 }}
               >
@@ -71,7 +96,7 @@ export default function Header() {
             </li>
           </ul>
         </nav>
-        <div className="w-10 h-10 bg-gray-600 rounded-full"></div> {/* Profile placeholder */}
+        <div className="w-10 h-10 bg-gray-600 rounded-full"></div>
       </div>
     </header>
   );

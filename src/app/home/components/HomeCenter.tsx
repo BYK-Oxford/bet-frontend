@@ -115,8 +115,8 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                   time={match.time.slice(0, 5)}
                   team1={match.home_team_name}
                   team2={match.away_team_name}
-                  logo1={teamLogos[match.home_team_name]}
-                  logo2={teamLogos[match.away_team_name]}
+                  logo1={match.home_team_name}
+                  logo2={match.away_team_name}
                   odds={[match.home_odds, match.draw_odds, match.away_odds]}
                   isLast={index === filteredByLeague.length - 1}
                   calculated_home_chance= {match.calculated_home_chance}
