@@ -15,21 +15,21 @@ interface MatchProps {
 
 const MatchDetailHeader: React.FC<MatchProps> = ({ league, date, time, team1, team2, logo1, logo2, odds, onBack }) => {
   return (
-    <div className="relative bg-[#2E2E30] text-white p-4 flex flex-col rounded-xl items-center w-full min-w-[400px] max-w-[700px] justify-between gap-4 overflow-hidden">
+    <div className="relative bg-[#2E2E30] text-white p-4 flex flex-col rounded-xl items-center w-full sm:max-w-[600px] justify-between gap-4 overflow-hidden">
       
       {/* Background Logos */}
       {logo1 && (
         <img 
           src={logo1} 
           alt={team1} 
-          className="absolute left-15 top-1/2 transform -translate-y-1/2 opacity-20 w-40 h-40 object-contain filter brightness-25 invert-[15%]"
+          className="absolute left-1/8 top-1/2 transform -translate-y-1/2 opacity-20 w-24 h-24 sm:w-32 sm:h-32 object-contain filter brightness-25 invert-[15%]"
         />
       )}
       {logo2 && (
         <img 
           src={logo2} 
           alt={team2} 
-          className="absolute right-15 top-1/2 transform -translate-y-1/2 opacity-20 w-40 h-40 object-contain filter brightness-25 invert-[15%]"
+          className="absolute right-1/8 top-1/2 transform -translate-y-1/2 opacity-20 w-24 h-24 sm:w-32 sm:h-32 object-contain filter brightness-25 invert-[15%]"
         />
       )}
 
@@ -61,9 +61,8 @@ const MatchDetailHeader: React.FC<MatchProps> = ({ league, date, time, team1, te
         {/* Team 1 */}
         <div className="flex items-center gap-2 w-28 justify-end">
           <span className="text-sm font-bold text-center break-words whitespace-normal leading-tight">{team1}</span>
-
         </div>
-        <div className="w-18 h-18 bg-[#2A2A2C] rounded-full flex items-center justify-center my-1">
+        <div className="w-16 h-16 bg-[#2A2A2C] rounded-full flex items-center justify-center my-1">
           {logo1 && (
             <img 
               src={logo1} 
@@ -77,7 +76,7 @@ const MatchDetailHeader: React.FC<MatchProps> = ({ league, date, time, team1, te
         <span className="text-xs font-semibold w-8 text-center">VS</span>
 
         {/* Team 2 */}
-        <div className="w-18 h-18 bg-[#2A2A2C] rounded-full flex items-center justify-center my-1">
+        <div className="w-16 h-16 bg-[#2A2A2C] rounded-full flex items-center justify-center my-1">
           {logo2 && (
             <img 
               src={logo2} 
@@ -96,7 +95,8 @@ const MatchDetailHeader: React.FC<MatchProps> = ({ league, date, time, team1, te
         {odds.map((odd, index) => (
           <span 
             key={index} 
-            className="bg-[#2A2A2C] px-4 py-1 rounded-lg text-xs border border-[#464649]">
+            className="bg-[#2A2A2C] px-4 py-1 rounded-lg text-xs border border-[#464649]"
+          >
             {odd}
           </span>
         ))}
@@ -104,6 +104,5 @@ const MatchDetailHeader: React.FC<MatchProps> = ({ league, date, time, team1, te
     </div>
   );
 };
-
 
 export default MatchDetailHeader;

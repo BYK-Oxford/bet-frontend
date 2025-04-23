@@ -99,7 +99,7 @@ const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
   if (loading) return <div className="text-white p-4">Loading stats...</div>;
 
   return (
-    <div className="bg-[#2E2E30] text-white p-4 rounded-xl w-full max-w-full lg:max-w-[700px] mx-auto">
+    <div className="bg-[#2E2E30] text-white p-4 rounded-xl w-full sm:max-w-[600px]">
   
       {/* Tabs */}
       <div className="flex justify-start border-b border-[rgba(255,255,255,0.1)]">

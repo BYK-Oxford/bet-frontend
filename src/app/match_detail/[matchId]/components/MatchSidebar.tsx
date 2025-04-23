@@ -62,7 +62,7 @@ const MatchSidebar = ({ matchData }: { matchData: MatchData }) => {
   );
 
   return (
-    <div className="w-full sm:w-60 h-auto bg-[#2E2E30] rounded-xl p-4 shadow text-white">
+    <div className="w-full sm:w-auto h-auto bg-[#2E2E30] rounded-xl p-4 shadow text-white">
       <h2 className="text-md font-semibold mb-2">Our Value Prediction</h2>
       <ResponsiveContainer width="100%" height={200}>
         <BarChart
