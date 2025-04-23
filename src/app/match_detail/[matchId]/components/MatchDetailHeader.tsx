@@ -57,12 +57,12 @@ const MatchDetailHeader: React.FC<MatchProps> = ({ league, date, time, team1, te
       </div>
 
       {/* Teams Row - Centered Layout */}
-      <div className="flex items-center justify-center flex-1 gap-3 relative z-10">
+      <div className="flex items-center justify-center flex-1 gap-3 relative z-10 px-1">
         {/* Team 1 */}
         <div className="flex items-center gap-2 w-28 justify-end">
-          <span className="text-xs sm:text-sm md:text-base break-words leading-tight max-w-[80px] text-right font-bold text-center whitespace-normal">
+          <span className="text-xs sm:text-sm md:text-base break-words leading-tight max-w-[80px] sm:max-w-[100px] md:max-w-none text-right font-bold text-center whitespace-normal">
             {team1}
-          </span> 
+          </span>
         </div>
         <div className="w-16 h-16 bg-[#2A2A2C] rounded-full flex items-center justify-center my-1">
           {logo1 && (
@@ -88,7 +88,7 @@ const MatchDetailHeader: React.FC<MatchProps> = ({ league, date, time, team1, te
           )}
         </div>
         <div className="flex items-center gap-2 w-28 justify-start">
-        <span className="text-xs sm:text-sm md:text-base break-words leading-tight max-w-[80px] text-left font-bold text-center whitespace-normal">
+        <span className="text-xs sm:text-sm md:text-base break-words leading-tight max-w-[80px] sm:max-w-[100px] md:max-w-none text-left font-bold text-center whitespace-normal">
           {team2}
         </span> 
         </div>

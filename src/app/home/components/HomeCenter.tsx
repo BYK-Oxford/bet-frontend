@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useMemo, useRef } from "react";
+'use client'
+import React, {useMemo, useRef } from "react";
 import HomeBanner from "./HomeBanner";
 import MatchHeader from "./MatchHeader";
 import MatchCard from "./MatchCard";

@@ -8,7 +8,7 @@ interface InfoBoxProps {
 
 export default function InfoBox({ title, items, onItemClick, selectedItem, onClear }: InfoBoxProps) {
   return (
-    <div className="bg-[#2E2E30] p-3 rounded-lg max-w-xs w-full">
+    <div className="bg-[#2E2E30] p-3 rounded-lg w-full md:max-w-sm lg:max-w-xs">
       <div className="flex items-center justify-between mb-2 border-b border-[rgba(255,255,255,0.1)] pb-2">
         <h2 className="text-white text-sm font-bold">{title}</h2>
         {onClear && (

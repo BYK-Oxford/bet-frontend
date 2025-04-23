@@ -122,7 +122,7 @@ export default function TermsModal({ onAccept }: { onAccept: () => void }) {
             onClick={handleSubmit}
             disabled={!accepted}
             className={`w-full py-2 rounded bg-[#03BEC2] text-white transition ${
-                !accepted ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+                !accepted ? "opacity-50 cursor-not-allowed" : "hover:bg-[#03BEC2]-700"
             }`}
             >
             Continue

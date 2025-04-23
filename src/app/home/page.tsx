@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import HomeCenter from "./components/HomeCenter";
 import HomeSidebar from "./components/HomeSidebar";
 import ValueForMoney from "./components/ValueForMoney";
@@ -9,7 +9,8 @@ import TermsModal from "./../components/ui/TermsModal";
 export default function HomePage() {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [selectedLeague, setSelectedLeague] = useState<string | null>(null);
-  const [width, setWidth] = useState(0);  const [showTerms, setShowTerms] = useState(false);
+  const [width, setWidth] = useState(0);
+  const [showTerms, setShowTerms] = useState(false);
   const { matches, loading } = useMatchContext();
 
   let leftContainer = 200;
@@ -17,14 +18,10 @@ export default function HomePage() {
   let centerContainer = width - (leftContainer + rightContainer + 200);
 
   useLayoutEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-    };
+    const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     handleResize();
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -34,16 +31,20 @@ export default function HomePage() {
     }
   }, []);
 
-  const handleAccept = () => {
-    setShowTerms(false);
-  };
-
-
+  const handleAccept = () => setShowTerms(false);
 
   return (
-    <div className="flex flex-row justify-between w-full gap-4 p-4 overflow-hidden">
-         {showTerms && <TermsModal onAccept={handleAccept} />}
-      <div style={{ width: leftContainer }}>
+    <div className="flex flex-col md:flex-col lg:flex-row justify-between w-full gap-4 overflow-hidden">
+      {showTerms && <TermsModal onAccept={handleAccept} />}
+
+      {/* Sidebar comes first on small screens */}
+      <div
+  className={`order-1 md:order-none`}
+  style={{
+    width: width >= 1024 ? `${leftContainer}px` : "100%",
+    flexShrink: 0
+  }}
+>
         <HomeSidebar
           onSelectCountry={setSelectedCountry}
           onSelectLeague={setSelectedLeague}
@@ -52,7 +53,11 @@ export default function HomePage() {
         />
       </div>
 
-      <div style={{ width: centerContainer }}>
+      {/* Center content appears second on small screens */}
+      <div
+        className="w-full lg:w-auto order-2 md:order-none"
+        style={{ width: width >= 1024 ? centerContainer : "100%" }}
+      >
         <HomeCenter
           selectedCountry={selectedCountry}
           selectedLeague={selectedLeague}
@@ -61,7 +66,11 @@ export default function HomePage() {
         />
       </div>
 
-      <div style={{ width: rightContainer }}>
+      {/* ValueForMoney comes last on all screens */}
+      <div
+        className="w-full md:w-1/4 lg:w-1/5 order-3 md:order-none"
+        style={{ width: width >= 1024 ? rightContainer : "100%" }}
+      >
         <ValueForMoney matches={matches} />
       </div>
     </div>

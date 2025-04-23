@@ -32,30 +32,35 @@ export default function HomeSidebar({
   const clearLeague = () => onSelectLeague(null);
 
   return (
-    <div className="space-y-4">
-      <InfoBox
-        title="Top Leagues"
-        items={[
-          { name: "English Premier League", src: "/teamlogo/English Premier League.png" },
-          { name: "Scottish Premier League", src: "/teamlogo/Scottish.png" },
-          { name: "English Championship", src: "/teamlogo/English Championship.png" },
-          { name: "Scottish Championship", src: "/teamlogo/Scottish.png" }
-        ]}
-        onItemClick={handleLeagueClick}
-        selectedItem={selectedLeague}
-        onClear={clearLeague}
-      />
+    <div className="flex flex-col md:flex-row lg:flex-col gap-4 w-full h-full">
+      <div className="w-full lg:w-full md:w-1/2">
+        <InfoBox
+          title="Top Leagues"
+          items={[
+            { name: "English Premier League", src: "/teamlogo/English Premier League.png" },
+            { name: "Scottish Premier League", src: "/teamlogo/Scottish.png" },
+            { name: "English Championship", src: "/teamlogo/English Championship.png" },
+            { name: "Scottish Championship", src: "/teamlogo/Scottish.png" }
+          ]}
+          onItemClick={handleLeagueClick}
+          selectedItem={selectedLeague}
+          onClear={clearLeague}
+        />
+      </div>
 
-      <InfoBox
-        title="Country"
-        items={[
-          { name: "England", src: "/teamlogo/England.png" },
-          { name: "Scotland", src: "/teamlogo/Scotland.png" },
-        ]}
-        onItemClick={handleCountryClick}
-        selectedItem={selectedCountry}
-        onClear={clearCountry}
-      />
-    </div>
+      <div className="w-full lg:w-full md:w-1/2">
+        <InfoBox
+          title="Country"
+          items={[
+            { name: "England", src: "/teamlogo/England.png" },
+            { name: "Scotland", src: "/teamlogo/Scotland.png" },
+          ]}
+          onItemClick={handleCountryClick}
+          selectedItem={selectedCountry}
+          onClear={clearCountry}
+        />
+      </div>
+  </div>
+
   );
 }
