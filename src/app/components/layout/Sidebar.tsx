@@ -23,7 +23,7 @@ export default function Sidebar() {
   }, [pathname]);
 
   return (
-    <aside className="sidebar w-full lg:w-15 h-16 lg:h-screen p-2 lg:p-2 lg:fixed relative lg:top-0 lg:left-0 flex flex-row lg:flex-col items-center lg:items-start justify-center lg:justify-start border-b lg:border-r border-[rgba(255,255,255,0.1)] z-50 bg-gray-800 text-white">
+    <aside className="sidebar w-full lg:w-15 h-16 lg:h-screen p-2 lg:p-2 lg:fixed relative lg:top-0 lg:left-0 flex flex-row lg:flex-col items-center lg:items-start justify-center lg:justify-start border-b lg:border-r border-[rgba(255,255,255,0.1)] bg-gray-800 text-white">
      {/* Logo - only on large screens */}
       <div className="hidden lg:block mb-6">
         <h1 className="text-lg font-bold">Bet Genie</h1>
