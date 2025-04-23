@@ -46,6 +46,7 @@ a:hover {
 }
 
 .sidebar-btn {
+  position: relative; /* Ensure this is present */
   color: var(--secondary-text);
   transition: all 0.3s ease-in-out;
 }
@@ -58,16 +59,32 @@ a:hover {
   color: var(--text-color); 
 }
 
-.sidebar-btn.active::before {
+/* Default: bottom indicator for mobile (small screens) */
+.sidebar-btn.active::after {
   content: "";
   position: absolute;
-  left: 0;
-  height: 30px;
-  width: 4px;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 3px;
+  width: 20px;
   background: var(--selection-color);
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
+  border-radius: 2px;
 }
+
+/* Large screens: left indicator instead */
+@media (min-width: 1024px) {
+  .sidebar-btn.active::after {
+    top: 50%;
+    left: -6px;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 30px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
+}
+
 /* Button Base Styles */
 .btn {
   display: inline-flex;

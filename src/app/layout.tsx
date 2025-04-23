@@ -27,30 +27,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
- 
-
   return (
     <html lang="en">
       <body>
-          <MatchProvider>
-
-            <div className="flex min-h-screen">
-              {/* Sidebar */}
-              <div className="w-15 bg-gray-800 text-white">
-                <Sidebar />
-              </div>
-
-              {/* Main content area */}
-              <div className="flex-1 flex flex-col">
-                <Header />
-                <main className="flex-1 p-6">{children}</main>
-              </div>
+        <MatchProvider>
+          {/* Flex container with responsive layout */}
+          <div className="flex min-h-screen flex-col lg:flex-row">
+            {/* Right section: Header + Main stacked vertically */}
+            <div className="flex-1 flex flex-col lg:ml-[60px]"> {/* Push right on large screens */}
+              <Header />
+              <Sidebar />
+              <main className="flex-1 p-6">{children}</main>
             </div>
-            
-            <Footer />
-
-            
-          </MatchProvider>
+          </div>
+          {/* Footer stays at the bottom for all screens */}
+          <Footer />
+        </MatchProvider>
       </body>
     </html>
   );
