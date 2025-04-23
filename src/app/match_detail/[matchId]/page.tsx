@@ -45,7 +45,7 @@ const MatchDetailPage = () => {
   const { league, matchId, date, time, team1, team2, logo1, logo2, odds, calculated_home_chance, calculated_away_chance, calculated_draw_chance } = matchData;
 
   return (
-    <div className="flex justify-center px-4 md:px-2">
+    <div className="flex justify-center md:px-2">
       <div className="flex flex-col md:flex-row gap-6 items-start w-full max-w-screen-sm md:max-w-4xl">
         {/* Main Content */}
         <div className="w-full">
