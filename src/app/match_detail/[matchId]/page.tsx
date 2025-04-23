@@ -67,7 +67,7 @@ const MatchDetailPage = () => {
         </div>
 
         {/* Sidebar */}
-        <div className="w-full md:w-60 mt-6 md:mt-0">
+        <div className="w-full md:w-100 mt-2 md:mt-0">
           <MatchSidebar matchData={matchData} />
         </div>
       </div>
