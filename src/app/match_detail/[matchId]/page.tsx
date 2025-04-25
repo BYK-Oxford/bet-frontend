@@ -58,7 +58,7 @@ const MatchDetailPage = () => {
             logo1={teamLogos[team1]}
             logo2={teamLogos[team2]}
             odds={odds}
-            onBack={() => router.back()}
+            onBack={() => router.push("/home")}
           />
 
           <div className="mt-6">

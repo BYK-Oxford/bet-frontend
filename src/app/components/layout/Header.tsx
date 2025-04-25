@@ -3,15 +3,21 @@
 import Link from 'next/link';
 import { MagnifyingGlass } from "@phosphor-icons/react";
 import { useMatchContext } from "../../../context/MatchContext";
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 
 export default function Header() {
+  const pathname = usePathname();
   const { matches } = useMatchContext();
   const [query, setQuery] = useState("");
   const router = useRouter();
   const [isNavOpen, setIsNavOpen] = useState(false); // To toggle nav on small screens
 
+  useEffect(() => {
+    // Reset search bar when the path changes
+    setQuery("");
+  }, [pathname]);
+  
   const formatDate = (timestamp: string) => {
     const date = new Date(timestamp);
     const options: Intl.DateTimeFormatOptions = {
