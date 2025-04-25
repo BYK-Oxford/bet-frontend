@@ -120,7 +120,7 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link href="/about" className="block hover:text-gray-400" onClick={() => setIsNavOpen(false)}>
+              <Link href="/home" className="block hover:text-gray-400" onClick={() => setIsNavOpen(false)}>
                 About
               </Link>
             </li>
