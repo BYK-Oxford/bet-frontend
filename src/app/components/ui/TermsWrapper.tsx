@@ -7,15 +7,18 @@ export default function TermsWrapper({ children }: { children: React.ReactNode }
   const [showTerms, setShowTerms] = useState(false);
 
   useEffect(() => {
-    const accepted = localStorage.getItem('termsAccepted');
-    if (!accepted) {
+    const termsAcceptedInSession = sessionStorage.getItem("termsAccepted");
+    const dontAskAgainSelected = localStorage.getItem("dontAskAgain");
+
+    // Show the modal only if the terms were not accepted this session and 'dontAskAgain' isn't set
+    if (!termsAcceptedInSession && dontAskAgainSelected !== "true") {
       setShowTerms(true);
     }
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem('termsAccepted', 'true');
-    setShowTerms(false);
+    sessionStorage.setItem("termsAccepted", "true"); // Mark as accepted for this session
+    setShowTerms(false); // Hide the modal
   };
 
   return (

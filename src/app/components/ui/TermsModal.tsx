@@ -3,54 +3,100 @@ import { marked } from "marked";
 import { useEffect, useState } from "react";
 
 const markdown = `
-Welcome to our app. Please read carefully.
+**Welcome to BetGenieUK**
 
-### 1. Usage Restrictions
-You agree not to misuse the service or help anyone else do so.
 
-### 2. Intellectual Property
-All content, trademarks, and data on this app are protected.
+<br />
 
-### 3. Privacy Policy
-We collect and use personal data as described in our policy.
 
-...you get the idea.
-Welcome to our app. Please read carefully.
+### 1. Age Restriction
 
-### 1. Usage Restrictions
-You agree not to misuse the service or help anyone else do so.
+<br/>
 
-### 2. Intellectual Property
-All content, trademarks, and data on this app are protected.
 
-### 3. Privacy Policy
-We collect and use personal data as described in our policy.
+By using this service, you confirm that you are 18 years of age or older. 
+BetGenieUK does not permit users under the age of 18 to use its services in any capacity.
 
-...you get the idea.
-Welcome to our app. Please read carefully.
 
-### 1. Usage Restrictions
-You agree not to misuse the service or help anyone else do so.
+<br/>
 
-### 2. Intellectual Property
-All content, trademarks, and data on this app are protected.
 
-### 3. Privacy Policy
-We collect and use personal data as described in our policy.
+### 2. Consent & Personal Responsibility
 
-...you get the idea.
-Welcome to our app. Please read carefully.
+<br/>
 
-### 1. Usage Restrictions
-You agree not to misuse the service or help anyone else do so.
+BetGenieUK provides betting odds comparisons and predictions based on statistical value calculations.
+All predictions and suggestions are made using our own data models and algorithms.
 
-### 2. Intellectual Property
-All content, trademarks, and data on this app are protected.
+<br/>
 
-### 3. Privacy Policy
-We collect and use personal data as described in our policy.
+By using our service, you acknowledge and accept that betting involves risk and that you are responsible 
+for any losses incurred. BetGenieUK is not liable for any financial loss or betting outcomes.
 
-...you get the idea.
+<br/>
+
+### 3. How BetGenie Works
+
+<br/>
+
+We analyze past games and compare odds across bookmakers to help find value bets—those 
+with a better return relative to the actual chance of success.
+
+<br/>
+
+We do not offer bets ourselves; we only provide data, odds, and 
+insights collected from publicly available sources.
+
+<br/>
+
+Our goal is to increase your edge, not promise guaranteed wins.
+
+<br/>
+
+### 4. Data & Intellectual Property
+<br/>
+
+All data, content, branding, and tools provided by BetGenieUK are the intellectual 
+property of the platform and are protected by law. Any redistribution, duplication, 
+or resale is strictly prohibited.
+
+<br/>
+
+
+### 5. No Data Collection
+
+<br/>
+
+We respect your privacy.
+
+<br/>
+
+BetGenieUK does not collect, store, or share any personal data from users.
+
+<br/>
+
+You do not need to create an account or provide any information to use our service. 
+Everything we show is based on publicly available odds and our internal calculations.
+
+<br/>
+
+
+### 6. Final Note
+
+<br/>
+
+By continuing to use BetGenieUK, you agree to our Terms and acknowledge:
+
+<br/>
+
+<li>You are 18+ of age</li>
+
+<li>You accept full responsibility for any use of betting information</li>
+
+<li>You understand that odds and outcomes are not guaranteed</li>
+
+<li>You bet at your own risk</li>
+
 `;
 
 export default function TermsModal({ onAccept }: { onAccept: () => void }) {
@@ -59,11 +105,25 @@ export default function TermsModal({ onAccept }: { onAccept: () => void }) {
   const [is18Plus, setIs18Plus] = useState(false); // New state for 18+ checkbox
   const html = marked(markdown);
 
+  useEffect(() => {
+    // Check if the terms have already been accepted in the session or if "Don't Ask Again" is selected
+    const termsAcceptedInSession = sessionStorage.getItem("termsAccepted");
+    const dontAskAgainSelected = localStorage.getItem("dontAskAgain");
+
+    if (termsAcceptedInSession === "true" || dontAskAgainSelected === "true") {
+      // If the terms have been accepted in this session or the user selected "Don't Ask Again", close the modal
+      onAccept();
+    }
+  }, []);
+
   const handleSubmit = () => {
-    if (accepted && is18Plus) { // Check if both boxes are checked
+    if (accepted && is18Plus) {
       if (dontAskAgain) {
-        localStorage.setItem("termsAccepted", "true");
+        // Store in localStorage to remember the choice across sessions
+        localStorage.setItem("dontAskAgain", "true");
       }
+      // Store in sessionStorage to remember it for the current session
+      sessionStorage.setItem("termsAccepted", "true");
       onAccept();
     }
   };
@@ -74,7 +134,7 @@ export default function TermsModal({ onAccept }: { onAccept: () => void }) {
         <h2 className="text-xl font-bold mb-4">Terms & Conditions</h2>
 
         <div
-          className="text-sm prose prose-invert h-64 overflow-y-auto mb-4 pr-2"
+          className="text-xs prose prose-invert h-64 overflow-y-auto mb-4 pr-2"
           dangerouslySetInnerHTML={{ __html: html }}
         />
 
