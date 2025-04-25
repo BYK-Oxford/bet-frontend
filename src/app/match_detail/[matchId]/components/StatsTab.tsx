@@ -12,9 +12,10 @@ const StatsTab: React.FC<{ statsData: Stat[] }> = ({ statsData }) => {
          <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px]">
          {/* Background watermark image */}
          <img
-           src="/football-img.png"
-           alt=""
-           className="absolute inset-0 w-32 h-32 mx-auto my-auto object-contain opacity-10 grayscale"
+          // src="/BetGenieLogo.png"
+          src="/logo2.png"
+          alt="Bet Genie Logo"
+          className="absolute inset-0 w-80 mx-auto my-auto object-contain opacity-20"
          />
          
          {/* Text on top */}

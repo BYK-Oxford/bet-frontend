@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { SoccerBall } from "@phosphor-icons/react";
@@ -23,14 +24,23 @@ export default function Sidebar() {
   }, [pathname]);
 
   return (
-    <aside className="sidebar w-full lg:w-15 h-16 lg:h-screen p-2 lg:p-2 lg:fixed relative lg:top-0 lg:left-0 flex flex-row lg:flex-col items-center lg:items-start justify-center lg:justify-start border-b lg:border-r border-[rgba(255,255,255,0.1)] bg-gray-800 text-white">
+    <aside className="sidebar w-full lg:w-18 h-16 lg:h-screen  lg:fixed relative lg:top-0 lg:left-0 flex flex-row lg:flex-col items-center lg:items-start justify-center lg:justify-start border-b lg:border-r border-[rgba(255,255,255,0.1)] bg-gray-800 text-white">
      {/* Logo - only on large screens */}
-      <div className="hidden lg:block mb-6">
-        <h1 className="text-lg font-bold">Bet Genie</h1>
-      </div>
+     <Link href="/home">
+      <div className="hidden lg:block pt-4 mb-6">
+          <Image
+            // src="/BetGenieLogo.png"
+            src="/logo2.png"
+            alt="Bet Genie Logo"
+            width={200} // you can go higher like 400 if you want
+            height={0}  // height becomes auto with style
+            style={{ width: '200px', height: 'auto' }}
+          />
+        </div>
+      </Link>
 
       {/* Buttons layout adapts to screen size */}
-      <div className="flex flex-row lg:flex-col gap-x-4 lg:gap-x-0 lg:space-y-6 w-full justify-center">
+      <div className="flex flex-row lg:flex-col gap-x-4 p-2 lg:p-2 lg:gap-x-0 lg:space-y-6 w-full justify-center">
         {menuItems.map((item, index) => {
           const isActive = selected === item.href;
           return (

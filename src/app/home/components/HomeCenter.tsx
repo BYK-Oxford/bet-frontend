@@ -130,8 +130,9 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                   <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px]">
                     {/* Background watermark image */}
                     <img
-                      src="/football-img.png"
-                      alt=""
+                      // src="/BetGenieLogo.png"
+                      src="/logo2.png"
+                      alt="Bet Genie Logo"
                       className="absolute inset-0 w-32 h-32 mx-auto my-auto object-contain opacity-10 grayscale"
                     />
                     

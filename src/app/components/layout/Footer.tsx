@@ -13,10 +13,11 @@ const Footer = () => {
       {/* Centered Logo */}
       <div className="flex justify-center mb-6">
         <Image
-          src="/teamlogo/England.png"
+          // src="/BetGenieLogo.png"
+          src="/logo2.png"
           alt="Bet Genie Logo"
-          width={40}
-          height={40}
+          width={80}
+          height={80}
           className="opacity-70 hover:opacity-100 transition"
         />
       </div>
