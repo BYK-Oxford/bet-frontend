@@ -31,7 +31,7 @@ export default function MatchHeader({
             height={20}
             className="rounded-full"
           />
-          <h2 className="text-[10px] md:text-xs lg:text-md font-semibold text-white">{leagueName}</h2>
+          <h2 className="text-md font-semibold text-white">{leagueName}</h2>
         </div>
 
         <div className="flex items-center gap-3 md:gap-5">

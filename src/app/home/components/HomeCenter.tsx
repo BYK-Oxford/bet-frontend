@@ -100,7 +100,9 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
   return (
     <>
       {selectedLeague ? (
-        <div className="bg-[#1E1E20] p-4 rounded-lg space-y-4">
+        <div className="bg-[#1E1E20] rounded-lg space-y-4">
+          <HomeBanner />
+
           <MatchListHeader
             leagueName={selectedLeague}
             leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg"

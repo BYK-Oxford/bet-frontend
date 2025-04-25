@@ -41,12 +41,12 @@ export default function HomeContent() {
 
       {/* Sidebar comes first on small screens */}
       <div
-  className={`order-1 md:order-none`}
-  style={{
-    width: width >= 1024 ? `${leftContainer}px` : "100%",
-    flexShrink: 0
-  }}
->
+          className={`order-1 md:order-none`}
+          style={{
+            width: width >= 1024 ? `${leftContainer}px` : "100%",
+            flexShrink: 0
+          }}
+        >
         <HomeSidebar
           onSelectCountry={setSelectedCountry}
           onSelectLeague={setSelectedLeague}

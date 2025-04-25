@@ -30,7 +30,7 @@ export default function Sidebar() {
       <div className="hidden lg:block pt-4 mb-6">
           <Image
             // src="/BetGenieLogo.png"
-            src="/logo2.png"
+            src="/mainLogo.png"
             alt="Bet Genie Logo"
             width={200} // you can go higher like 400 if you want
             height={0}  // height becomes auto with style
