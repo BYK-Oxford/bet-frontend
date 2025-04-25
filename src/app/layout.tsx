@@ -19,6 +19,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Bet Genie",
   description: "Find the best chances to win!",
+  icons: {
+    icon: '/smallLogo.png', 
+  },
 };
 
 export default function RootLayout({

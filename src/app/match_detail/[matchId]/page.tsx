@@ -1,78 +1,38 @@
-"use client";
+import { Metadata } from "next";
+import MatchDetailContent from "./components/MatchDetailContent";
 
-import React, { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
-import MatchDetailHeader from "./components/MatchDetailHeader";
-import MatchTabs from "./components/MatchTabs";
-import MatchSidebar from "./components/MatchSidebar";
-import teamLogos from "./../../home/components/teamLogos";
+// Dynamic metadata for each match
+export const generateMetadata = async ({ params }: { params: { matchId: string } }): Promise<Metadata> => {
+  const { matchId } = params;
 
-const MatchDetailPage = () => {
-  const router = useRouter();
-  const params = useParams();
-  const currentId = params?.matchId; // Get current route param
+  // Fetch match data to get team names
+  const response = await fetch(`http://127.0.0.1:8000/match-statistics/matches/historic/${matchId}`);
+  const matchData = await response.json();
 
-  const [matchData, setMatchData] = useState<null | {
-    matchId: string;
-    league: string;
-    date: string;
-    time: string;
-    team1: string;
-    team2: string;
-    logo1: string;
-    logo2: string;
-    odds: [number, number, number];
-    calculated_home_chance: number;
-    calculated_draw_chance: number;
-    calculated_away_chance: number;
-  }>(null);
+  if (!matchData || matchData.length === 0) {
+    return {
+      title: `${matchId} | Bet Genie UK`,
+      description: `Explore the latest match predictions for ${matchId} on Bet Genie UK.`,
+    };
+  }
 
-  // Update matchData whenever the route param `id` changes
-  useEffect(() => {
-    const data = sessionStorage.getItem("matchData");
-    if (data) {
-      const parsed = JSON.parse(data);
-      if (parsed.matchId === currentId) {
-        setMatchData(parsed);
-      } else {
-        setMatchData(null); // Reset if mismatched (optional safety)
-      }
-    }
-  }, [currentId]);
+  // Extract team names from the first match data (assuming the structure remains consistent)
+  const homeTeam = matchData[0].home_team_name;
+  const awayTeam = matchData[0].away_team_name;
 
-  if (!matchData) return <div>Loading match details...</div>;
 
-  const { league, matchId, date, time, team1, team2, logo1, logo2, odds, calculated_home_chance, calculated_away_chance, calculated_draw_chance } = matchData;
+  return {
+    title: `${homeTeam} vs ${awayTeam} | Bet Genie UK`, // Dynamically update the title
+    description: `Explore the latest match predictions for ${homeTeam} vs ${awayTeam} on Bet Genie UK.`, // Dynamically update the description
+  };
+};
 
+const MatchDetailPage = ({ params }: { params: { matchId: string } }) => {
   return (
-    <div className="flex justify-center md:px-2">
-      <div className="flex flex-col md:flex-row gap-6 items-start w-full max-w-screen-sm md:max-w-4xl">
-        {/* Main Content */}
-        <div className="w-full">
-          <MatchDetailHeader
-            league={league}
-            date={date}
-            time={time}
-            team1={team1}
-            team2={team2}
-            logo1={teamLogos[team1]}
-            logo2={teamLogos[team2]}
-            odds={odds}
-            onBack={() => router.back()}
-          />
-
-          <div className="mt-6">
-            <MatchTabs matchId={matchId} />
-          </div>
-        </div>
-
-        {/* Sidebar */}
-        <div className="w-full md:w-100 mt-2 md:mt-0">
-          <MatchSidebar matchData={matchData} />
-        </div>
-      </div>
-    </div>
+    
+      <MatchDetailContent/>
   );
 };
 
+// Correctly export the page component as default
 export default MatchDetailPage;
