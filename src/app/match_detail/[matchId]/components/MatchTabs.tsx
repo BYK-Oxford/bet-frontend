@@ -36,7 +36,7 @@ const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://bet-backend-ebv2.onrender.com/match-statistics/matches/historic/${matchId}`);
+        const res = await fetch(`https://bet-backend-1.onrender.com/match-statistics/matches/historic/${matchId}`);
         const rawData: RawMatch[] = await res.json();
 
         if (rawData.length === 0) {

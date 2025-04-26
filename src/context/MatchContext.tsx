@@ -45,7 +45,7 @@ export function MatchProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchMatches = async () => {
       try {
-        const res = await fetch("https://bet-backend-ebv2.onrender.com/odds-calculation/calculated-odds");
+        const res = await fetch("hhttps://bet-backend-1.onrender.com/odds-calculation/calculated-odds");
         const data = await res.json();
         setMatches(data.calculated_odds);
       } catch (error) {
