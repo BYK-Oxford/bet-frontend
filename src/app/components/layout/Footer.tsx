@@ -14,7 +14,7 @@ const Footer = () => {
         <div className="flex justify-center mb-6">
           <Image
             // src="/BetGenieLogo.png"
-            src="/logo2.png"
+            src="/mainLogo.png"
             alt="Bet Genie Logo"
             width={80}
             height={80}

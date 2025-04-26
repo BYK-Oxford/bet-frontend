@@ -9,93 +9,57 @@ const markdown = `
 <br />
 
 
-### 1. Age Restriction
+### 1. Your Consent and Liability:
 
 <br/>
 
 
-By using this service, you confirm that you are 18 years of age or older. 
-BetGenieUK does not permit users under the age of 18 to use its services in any capacity.
+BetGenie is not gambling website nor are we a bookmaker. You can not place any bets on our website.  
+BetGenie is a Software as a Service (SaaS) provider for Sports games, Risk and Data Management in one 
+platform. We do not accept any liability for any losses or damages due to any outcome of our calculations 
+or our data we store.
+
+<br/>
+
+By using this website you accept that betting involves risk, moreover you acknowledge that even 10% of chance 
+of losing is a possible outcome that may happen. 
+
+<br/>
+
+We are an independent company and all predictions (calculations) are based on using our own data model and algorithms. 
 
 
 <br/>
 
 
-### 2. Consent & Personal Responsibility
+### 2. Age Restriction: 
 
 <br/>
 
-BetGenieUK provides betting odds comparisons and predictions based on statistical value calculations.
-All predictions and suggestions are made using our own data models and algorithms.
-
-<br/>
-
-By using our service, you acknowledge and accept that betting involves risk and that you are responsible 
-for any losses incurred. BetGenieUK is not liable for any financial loss or betting outcomes.
-
-<br/>
-
-### 3. How BetGenie Works
-
-<br/>
-
-We analyze past games and compare odds across bookmakers to help find value bets—those 
-with a better return relative to the actual chance of success.
-
-<br/>
-
-We do not offer bets ourselves; we only provide data, odds, and 
-insights collected from publicly available sources.
-
-<br/>
-
-Our goal is to increase your edge, not promise guaranteed wins.
-
-<br/>
-
-### 4. Data & Intellectual Property
-<br/>
-
-All data, content, branding, and tools provided by BetGenieUK are the intellectual 
-property of the platform and are protected by law. Any redistribution, duplication, 
-or resale is strictly prohibited.
+You must be 18 years of age or older to use our website. By ticking the box below, you confirm that you are 18 or over.
 
 <br/>
 
 
-### 5. No Data Collection
+### 3. Data and Intellectual Property
 
 <br/>
 
-We respect your privacy.
+All data, content, branding and tools provided by BetGenie UK are the intellectual property of the platform 
+and are protected by UK and International Laws. Any distribution, duplication or resale of this is strictly prohibited.
 
 <br/>
 
-BetGenieUK does not collect, store, or share any personal data from users.
+We respect your privacy  and we do not collect, store or share any personal data. To use our platform, 
+you are not required to create an account
 
 <br/>
 
-You do not need to create an account or provide any information to use our service. 
-Everything we show is based on publicly available odds and our internal calculations.
+By entering the website you agree to our T&Cs and you understand that odds/chances or predictions of any outcome are not guaranteed, 
 
 <br/>
 
 
-### 6. Final Note
-
-<br/>
-
-By continuing to use BetGenieUK, you agree to our Terms and acknowledge:
-
-<br/>
-
-<li>You are 18+ of age</li>
-
-<li>You accept full responsibility for any use of betting information</li>
-
-<li>You understand that odds and outcomes are not guaranteed</li>
-
-<li>You bet at your own risk</li>
 
 `;
 
