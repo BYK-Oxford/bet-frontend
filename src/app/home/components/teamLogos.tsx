@@ -62,7 +62,7 @@ const teamLogos: Record<string, string> = {
   "Dundee United": "/teamlogo/Dundee United.png",
   "Inverness C": "/teamlogo/Inverness C.png",
   "Celtic": "/teamlogo/Celtic.png",
-  "St Johnstone": "/teamlogo/St. Johnstone.png",
+  "St. Johnstone": "/teamlogo/St. Johnstone.png",
   "Hibernian": "/teamlogo/Hibernian.png",
   "St Mirren": "/teamlogo/St. Mirren.png",
   "Livingston": "/teamlogo/Livingston.png",

@@ -47,7 +47,17 @@ export function MatchProvider({ children }: { children: React.ReactNode }) {
       try {
         const res = await fetch("https://bet-backend-1.onrender.com/odds-calculation/calculated-odds");
         const data = await res.json();
-        setMatches(data.calculated_odds);
+        const uniqueMatchesMap = new Map<string, MatchOdds>();
+
+        data.calculated_odds.forEach((match: MatchOdds) => {
+          const key = `${match.home_team_id}-${match.away_team_id}-${match.date}`;
+          if (!uniqueMatchesMap.has(key)) {
+            uniqueMatchesMap.set(key, match);
+          }
+        });
+
+        const uniqueMatches = Array.from(uniqueMatchesMap.values());
+        setMatches(uniqueMatches);
       } catch (error) {
         console.error("Fetch error:", error);
       } finally {
