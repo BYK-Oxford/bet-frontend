@@ -19,7 +19,7 @@ export default function InfoBox({ title, items, onItemClick, selectedItem, onCle
       </div>
 
       <ul className="space-y-2">
-        {items.slice(0, 4).map((item, index) => {
+        {items.slice(0, items.length).map((item, index) => {
           const isSelected = selectedItem === item.name;
           return (
             <li

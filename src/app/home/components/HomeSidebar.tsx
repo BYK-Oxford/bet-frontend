@@ -40,7 +40,14 @@ export default function HomeSidebar({
             { name: "English Premier League", src: "/teamlogo/English Premier League.png" },
             { name: "Scottish Premier League", src: "/teamlogo/Scottish.png" },
             { name: "English Championship", src: "/teamlogo/English Championship.png" },
-            { name: "Scottish Championship", src: "/teamlogo/Scottish.png" }
+            { name: "Scottish Championship", src: "/teamlogo/Scottish.png" },
+            { name: "Süper Lig", src: "/teamlogo/Super Lig.png" },
+            { name: "Serie A", src: "/teamlogo/Serie A.png" },
+            { name: "Serie B", src: "/teamlogo/Serie B.png" },
+            { name: "La Liga", src: "/teamlogo/La Liga.png" },
+            { name: "La Liga 2", src: "/teamlogo/La Liga2.png" },
+            { name: "Bundesliga", src: "/teamlogo/Bundesliga.png" },
+            { name: "Bundesliga 2", src: "/teamlogo/Bundesliga 2.png" }
           ]}
           onItemClick={handleLeagueClick}
           selectedItem={selectedLeague}
@@ -54,6 +61,10 @@ export default function HomeSidebar({
           items={[
             { name: "England", src: "/teamlogo/England.png" },
             { name: "Scotland", src: "/teamlogo/Scotland.png" },
+            { name: "Turkey", src: "/teamlogo/Turkey.png" },
+            { name: "Italy", src: "/teamlogo/Italy.png" },
+            { name: "Spain", src: "/teamlogo/Spain.png" },
+            { name: "German", src: "/teamlogo/German.png" },
           ]}
           onItemClick={handleCountryClick}
           selectedItem={selectedCountry}
