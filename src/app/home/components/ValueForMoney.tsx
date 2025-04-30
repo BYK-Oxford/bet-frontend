@@ -30,6 +30,8 @@ interface MatchOdds {
 
 interface Props {
   matches: MatchOdds[] | undefined; // Ensure that matches can be undefined or empty initially
+  selectedCountry: string | null;
+  selectedLeague: string | null;
 }
 
 const formatDate = (timestamp: string) => {
@@ -41,14 +43,21 @@ const formatDate = (timestamp: string) => {
   return date.toLocaleDateString(undefined, options);
 };
 
-export default function ValueForMoney({ matches }: Props) {
+export default function ValueForMoney({ matches,selectedCountry,selectedLeague, }: Props) {
   const router = useRouter();
 
   if (!matches) {
     return <div className="text-white p-4">Loading matches...</div>; // Show a loading state if matches is undefined
   }
+  const filteredMatches = matches.filter((match) => {
+    const countryMatch =
+      !selectedCountry || match.match_country === selectedCountry;
+    const leagueMatch =
+      !selectedLeague || match.match_league === selectedLeague;
+    return countryMatch && leagueMatch;
+  });
 
-  const sortedMatches = [...matches].sort((a, b) => {
+  const sortedMatches = [...filteredMatches].sort((a, b) => {
     const probA = 1 / a.home_odds + 1 / a.draw_odds + 1 / a.away_odds;
     const probB = 1 / b.home_odds + 1 / b.draw_odds + 1 / b.away_odds;
 

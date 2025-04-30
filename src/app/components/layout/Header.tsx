@@ -38,7 +38,7 @@ export default function Header() {
         );
 
   return (
-    <header className="relative text-white px-6 py-2 flex justify-between items-center border-b border-[rgba(255,255,255,0.1)]">
+    <header className="relative text-white px-2 py-2 flex justify-between items-center border-b border-[rgba(255,255,255,0.1)]">
       {/* Left side: Logo + Search bar in a row */}
       <div className="flex items-center flex-grow space-x-4">
         {/* Logo */}

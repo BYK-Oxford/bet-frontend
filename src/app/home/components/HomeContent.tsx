@@ -73,7 +73,10 @@ export default function HomeContent() {
         className="w-full md:w-1/4 lg:w-1/5 order-3 md:order-none"
         style={{ width: width >= 1024 ? rightContainer : "100%" }}
       >
-        <ValueForMoney matches={matches} />
+        <ValueForMoney 
+          matches={matches}
+          selectedCountry={selectedCountry}
+          selectedLeague={selectedLeague} />
       </div>
     </div>
   );

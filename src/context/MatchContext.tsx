@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 interface MatchOdds {
-    odds_calculation_id: string;
+  odds_calculation_id: string;
   date: string;
   time: string;
   home_team_logo: string;
