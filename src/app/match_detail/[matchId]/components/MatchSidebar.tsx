@@ -106,7 +106,7 @@ const MatchSidebar = ({ matchData }: { matchData: MatchData }) => {
             }}
           />
           {/* Bookmaker Bar */}
-          <Bar dataKey="Bookmaker" fill="#555" barSize={10} radius={[4, 4, 0, 0]}>
+          <Bar dataKey="Bookmaker" fill="#777777" barSize={10} radius={[4, 4, 0, 0]}>
             <LabelList
               dataKey="Bookmaker"
               content={({ x, y, index }) =>
