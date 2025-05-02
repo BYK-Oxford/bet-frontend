@@ -9,7 +9,7 @@ const markdown = `
 ## <u>So, what’s the BetGenie Concept?</u>
 <br />
 
-In it’s simplest terms, BetGenie looks to find bets for the games at similar chances with higher returns, to increase the probability, in your favour.
+In it’s simplest terms, BetGenie looks to find bets for the games at similar chances with higher odds, to maximise the return in your favour.
 
 
 <br />
