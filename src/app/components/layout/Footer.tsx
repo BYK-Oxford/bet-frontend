@@ -6,7 +6,7 @@ const Footer = () => {
       <footer className=" text-gray-400 text-sm text-center py-5 border-t border-[rgba(255,255,255,0.1)]">
         <nav className="flex justify-center flex-wrap gap-6 mb-6 text-[12px] font-medium">
           <Link href="/home">Home</Link>
-          <Link href="/about">About</Link>
+          <Link href="/about">About Us</Link>
         </nav>
 
 

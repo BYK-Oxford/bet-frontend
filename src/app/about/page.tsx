@@ -9,8 +9,7 @@ const markdown = `
 ## <u>So, what’s the BetGenie Concept?</u>
 <br />
 
-In it’s simplest terms, BetGenie looks to find bets for the games at similar chances with higher returns, to increase the probability, in your favour.  So how does that work?
-Imagine if someone flips a coin and prior to this you are given an option to bet on 
+In it’s simplest terms, BetGenie looks to find bets for the games at similar chances with higher returns, to increase the probability, in your favour.
 
 
 <br />
@@ -37,7 +36,7 @@ Now imagine the odds are slightly changed to
 
 Has the probability changed? The answer is No, so why the odds have changed? They’ve changed because the bookmaker has received a higher demand for Heads.  Because of this; they  have reacted by offering increased odds on tails, to make the offer more attractive to you, enabling them  to “hedge their risk”
 This is where the BetGenie comes to equation. We find the best value for money bets and compare the real chance vs market return with sophisticated calculations and risk management models, helping to give you more bang for your money.
-The automated high-tech system can compare over 200 teams, within 10 leagues simultaneously.  Additionally, our user-friendly risk management platform, allows you to track previous games and stats for those teams. 
+The automated high-tech system can compare over 200 teams, over 10 leagues simultaneously.  Additionally, our user-friendly risk management platform, allows you to track previous games and stats for those teams. 
 `;
 
 const AboutUs = () => {
