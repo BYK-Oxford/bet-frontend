@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { MatchProvider } from "../context/MatchContext";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Sidebar from "./components/layout/Sidebar";
 import Header from "./components/layout/Header";
@@ -31,6 +32,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* ✅ Google Analytics script */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-9VK2YN00N6"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-9VK2YN00N6');
+          `}
+        </Script>
+      </head>
       <body>
         <MatchProvider>
           {/* Flex container with responsive layout */}
