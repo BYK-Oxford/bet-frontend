@@ -39,7 +39,7 @@ export default function HomeContent() {
     <div className="flex flex-col md:flex-col lg:flex-row justify-between w-full gap-4 overflow-hidden">
       {showTerms && <TermsModal onAccept={handleAccept} />}
 
-      {/* Sidebar comes first on small screens */}
+      {/* Sidebar comes first on small screen */}
       <div
           className={`order-1 md:order-none`}
           style={{
