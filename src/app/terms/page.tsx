@@ -6,11 +6,16 @@ const markdown = `
 
 <br />
 
-## <u>So, what’s the BetGenie Concept?</u>
+## <u>Introduction</u>
 <br />
 
-In it’s simplest terms, BetGenie looks to find bets for the games at similar chances with higher odds, to maximise the return in your favour.
+www.betgenieuk.com(the "Website") is operated and managed by BYK Oxford Ltd, a company incorporated and registered under the laws of England and Wales, with Company Registration No 16031597 , and having its registered office and business address at 128 City Road, London, United Kingdom, EC1V 2NX.
 
+<br />
+
+<br />
+
+References in these Terms to "BetGenie", "we", "us" and "our" are references to BYK Oxford Limited.
 
 <br />
 
