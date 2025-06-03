@@ -6,18 +6,16 @@ const markdown = `
 
 <br />
 
-## <u>Introduction</u>
+### 1. <u>Introduction</u>
 <br />
 
 www.betgenieuk.com(the "Website") is operated and managed by BYK Oxford Ltd, a company incorporated and registered under the laws of England and Wales, with Company Registration No 16031597 , and having its registered office and business address at 128 City Road, London, United Kingdom, EC1V 2NX.
 
-<br />
 
 <br />
 
 References in these Terms to "BetGenie", "we", "us" and "our" are references to BYK Oxford Limited.
 
-<br />
 
 <br />
 
@@ -25,7 +23,7 @@ Bet Genie is a Software as a Service (SAAS) provider in Data Management for Spor
 
 <br />
 
-### <u>These Terms and Conditions</u>
+### 2. <u>These Terms and Conditions</u>
 <br />
 These General Terms and Conditions together with the documents referred to in them (the "Terms") apply to you – and are binding on you – when you access and/or use the Website, open and use a BetGenie Account, and/or use any of the products and Services we offer.
 
@@ -38,7 +36,7 @@ Please read these Terms carefully. We aim to make these Terms as clear and fair 
 
 <br />
 
-### <u>Changes to these Terms</u>
+### 3. <u>Changes to these Terms</u>
 <br />
 
 BetGenie may update, amend, edit and supplement these Terms at any time but any material amendment to these Terms will be updated on our website, by means of a pop-up notification on your next visit to the website and you will be asked to actively confirm your acceptance of the amended Terms before continuing to use the Website, or any of the products or Services we offer.
@@ -46,9 +44,8 @@ BetGenie may update, amend, edit and supplement these Terms at any time but any 
 <br />
 
 
-<br />
 
-### <u>Other Important Terms</u>
+### 4. <u>Other Important Terms</u>
 <br />
 
 These Terms include and incorporate various other terms, as follows:
@@ -62,11 +59,11 @@ These Terms include and incorporate various other terms, as follows:
 
 ### b.  Our Pricing Policy; using BetGenie and our service is currently free of charge. BetGenie reserves its right to amend or change this in the future.
 
-<br />
+
 
 <br />
 
-### <u>Changes to the Website/Service</u>
+### 5. <u>Changes to the Website/Service</u>
 <br />
 
 We may at any time modify or remove or add content to the Website (other than these Terms) and/or any of our Services.
@@ -74,7 +71,7 @@ We may at any time modify or remove or add content to the Website (other than th
 <br />
 
 
-### <u>Limitation of Liability</u>
+### 6. <u>Limitation of Liability</u>
 <br />
 
 BetGenie cannot guarantee the correctness of information contained within, or of information obtained from third parties linked to our website. Any information appearing on the BetGenie website is not meant in any way to be a source of professional advice or recommendation to in any way bet or gamble.
@@ -112,7 +109,7 @@ The Services and the Website are provided on an “as is” basis and to the ful
 <br />
 
 
-### <u>Errors and Interruptions in Play</u>
+### 7. <u>Errors and Interruptions in Play</u>
 <br />
 
 If your participation in the Services is interrupted by an internet or system malfunction and that interruption prevents you from continuing to use the Services, your service will continue once you manage to connect to the internet again.
@@ -123,9 +120,91 @@ Although we will take all reasonable measures to ensure that the Website and Ser
 
 <br />
 
+We may temporarily suspend the whole or any part of the Website and/or the Services for any reason at our sole discretion. We may, but will not be obliged to, give you as much notice as is reasonably possible of such suspension. We will restore the Website and the Services as soon as is reasonably possible after any temporary suspension.
+
+<br />
+
+If you notice an error or incompleteness on the Website and/or in any of the Services please let us know about it straight away using the contact details provided in Section 9 below. You may not knowingly take advantage of the error or incompleteness and you agree to keep the error or incompleteness confidential.
+
+<br />
 
 
-### 3.  Heads: 9/10 and Tails: 11/10
+BetGenie is not a Financial Institution and / or not an online Gambling Website/Casino or a bookmaker.
+
+<br />
+
+BetGenie does not provide advice regarding tax and/or legal matters. Users who wish to obtain advice regarding tax and legal matters are advised to contact appropriate advisors.
+
+<br />
+
+
+You are solely responsible for any bets that you might have performed outside of our website.
+
+<br />
+
+
+### 9. <u>Contacting Us</u>
+<br />
+
+You can contact us in any of the following ways:
+
+<br />
+
+### -  By email: xxxxxx##
+
+<br />
+
+### -  By our Website "Contact Us" page here
+
+<br />
+
+### 10. <u>Complaints</u>
+
+<br />
+
+BetGenie is committed to providing a high quality, accessible and responsive service to its users. However, if you are dissatisfied with any aspect of our Services, please inform us by communicating your complaint to us either verbally or in writing. Our contact details are set out in Section 9 above.
+
+<br />
+
+
+All complaints are taken seriously, investigated thoroughly and handled in a confidential manner.
+
+<br />
+
+
+### 11. <u>Intellectual Property</u>
+
+<br />
+
+All trademarks, service marks and trade names as well as images, materials, graphics, text, concepts and methodologies (the “BetGenie Assets”) found on or via the Website are the exclusive property of BetGenie and/or Betgenie’s suppliers and partners. You are not entitled to exploit or otherwise use any of the BetGenie Assets for any purpose other than the proper use of the Website and Services, and except for what is allowed by law.
+
+<br />
+
+### 12. <u>Privacy/Personal Data</u>
+<br />
+
+We are committed to protecting and respecting your privacy and we comply with all applicable data protection and privacy laws. Please remember we do not collect any personal information from you.
+
+<br />
+
+### 13. <u>Other Important Terms</u>
+<br />
+
+Governing Law: These Terms and the relationship between you and BetGenie will be governed by, and interpreted in accordance with, the laws of England and Wales.
+
+<br />
+
+Language Translations: These Terms may be published in a number of languages for information purposes and for ease of your access. All versions are intended to convey the same principles in different languages. However, should there be any discrepancy between the terms in the English language version and the version in any other language, the English version will prevail.
+
+<br />
+
+Removal of Unenforceable Terms: If any provision of these Terms is held to be illegal or unenforceable, that provision will be severed (i.e. removed) from these Terms and all other provisions will remain in force unaffected by such removal.
+
+<br />
+
+Force Majeure: BetGenie will not be liable or responsible for any failure to perform, or delay in performance of, any of its obligations under these Terms to the extent that failure or delay is caused by events outside of our reasonable control.
+
+<br />
 
 `;
 
