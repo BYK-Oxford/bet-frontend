@@ -3,14 +3,19 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import teamLogos from "./teamLogos";
+import JerseySVG from "../../components/ui/Jersey";
 
 interface MatchProps {
   matchId: string;
-  league:string;
+  league: string;
   date: string;
   time: string;
   team1: string;
+  home_team_primary_color: string | null;
+  home_team_secondary_color: string | null;
   team2: string;
+  away_team_primary_color: string | null;
+  away_team_secondary_color: string | null;
   logo1: string;
   logo2: string;
   odds: [number, number, number];
@@ -26,7 +31,11 @@ const MatchListContainer: React.FC<MatchProps> = ({
   date,
   time,
   team1,
+  home_team_primary_color,
+  home_team_secondary_color,
   team2,
+  away_team_primary_color,
+  away_team_secondary_color,
   logo1,
   logo2,
   odds,
@@ -45,7 +54,11 @@ const MatchListContainer: React.FC<MatchProps> = ({
       date,
       time,
       team1,
+      home_team_primary_color,
+      home_team_secondary_color,
       team2,
+      away_team_primary_color,
+      away_team_secondary_color,
       logo1,
       logo2,
       odds,
@@ -78,11 +91,34 @@ const MatchListContainer: React.FC<MatchProps> = ({
           <span className="text-xs break-words leading-tight max-w-[80px] text-right">
             {team1}
           </span>
-          <img src={logo1} alt={team1} className="w-10 h-10 object-contain p-1" />
+          {/* <img
+            src={logo1}
+            alt={team1}
+            className="w-10 h-10 object-contain p-1"
+          /> */}
+          <JerseySVG
+            bodyColor={home_team_primary_color || "#FFFFFF"}
+            accentColor={home_team_secondary_color || "#000000"}
+            width={40}
+            height={40}
+            className="object-contain p-1"
+          />
         </div>
         <span className="text-xs font-semibold w-8 text-center">VS</span>
         <div className="flex items-center gap-2 w-28 justify-start">
-          <img src={logo2} alt={team2} className="w-10 h-10 object-contain p-1" />
+          {/* <img
+            src={logo2}
+            alt={team2}
+            className="w-10 h-10 object-contain p-1"
+          /> */}
+          <JerseySVG
+            bodyColor={away_team_primary_color || "#FFFFFF"}
+            accentColor={away_team_secondary_color || "#000000"}
+            width={40}
+            height={40}
+            className="object-contain p-1"
+          />
+
           <span className="text-xs break-words leading-tight max-w-[80px] text-left">
             {team2}
           </span>

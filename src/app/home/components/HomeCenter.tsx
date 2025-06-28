@@ -1,5 +1,5 @@
-'use client'
-import React, {useMemo, useRef } from "react";
+"use client";
+import React, { useMemo, useRef } from "react";
 import HomeBanner from "./HomeBanner";
 import MatchHeader from "./MatchHeader";
 import MatchCard from "./MatchCard";
@@ -15,12 +15,16 @@ interface MatchOdds {
   away_team_logo: string;
   home_team_id: string;
   home_team_name: string;
+  home_team_primary_color: string | null;
+  home_team_secondary_color: string | null;
   home_team_league: string;
   home_team_country: string;
   match_league: string;
   match_country: string;
   away_team_id: string;
   away_team_name: string;
+  away_team_primary_color: string | null;
+  away_team_secondary_color: string | null;
   away_team_league: string;
   away_team_country: string;
   calculated_home_chance: number;
@@ -42,24 +46,28 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
   selectedCountry,
   selectedLeague,
   setSelectedLeague,
-  matches
+  matches,
 }) => {
-  
-
   // Create an array of refs for scroll containers
   const scrollContainerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Scroll left
   const scrollLeft = (index: number) => {
     if (scrollContainerRefs.current[index]) {
-      scrollContainerRefs.current[index]?.scrollBy({ left: -400, behavior: 'smooth' });
+      scrollContainerRefs.current[index]?.scrollBy({
+        left: -400,
+        behavior: "smooth",
+      });
     }
   };
 
   // Scroll right
   const scrollRight = (index: number) => {
     if (scrollContainerRefs.current[index]) {
-      scrollContainerRefs.current[index]?.scrollBy({ left: 400, behavior: 'smooth' });
+      scrollContainerRefs.current[index]?.scrollBy({
+        left: 400,
+        behavior: "smooth",
+      });
     }
   };
 
@@ -118,32 +126,40 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                     date={formatDate(match.date)}
                     time={match.time.slice(0, 5)}
                     team1={match.home_team_name}
+                    home_team_primary_color={match.home_team_primary_color}
+                    home_team_secondary_color={match.home_team_secondary_color}
+                    away_team_primary_color={match.away_team_primary_color}
+                    away_team_secondary_color={match.away_team_secondary_color}
                     team2={match.away_team_name}
-                    logo1={teamLogos[match.home_team_name] || match.home_team_logo}
-                    logo2={teamLogos[match.away_team_name] || match.away_team_logo}
+                    logo1={
+                      teamLogos[match.home_team_name] || match.home_team_logo
+                    }
+                    logo2={
+                      teamLogos[match.away_team_name] || match.away_team_logo
+                    }
                     odds={[match.home_odds, match.draw_odds, match.away_odds]}
                     isLast={index === filteredByLeague.length - 1}
                     calculated_home_chance={match.calculated_home_chance}
                     calculated_draw_chance={match.calculated_draw_chance}
-                      calculated_away_chance={match.calculated_away_chance}
-                    />
-                  ))
-                ) : (
-                  <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px]">
-                    {/* Background watermark image */}
-                    <img
-                      // src="/BetGenieLogo.png"
-                      src="/logo2.png"
-                      alt="Bet Genie Logo"
-                      className="absolute inset-0 w-32 h-32 mx-auto my-auto object-contain opacity-10 grayscale"
-                    />
-                    
-                    {/* Text on top */}
-                    <p className="relative z-10">No future matches currently</p>
-                  </div>
-                )}
-              </div>
+                    calculated_away_chance={match.calculated_away_chance}
+                  />
+                ))
+              ) : (
+                <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px]">
+                  {/* Background watermark image */}
+                  <img
+                    // src="/BetGenieLogo.png"
+                    src="/logo2.png"
+                    alt="Bet Genie Logo"
+                    className="absolute inset-0 w-32 h-32 mx-auto my-auto object-contain opacity-10 grayscale"
+                  />
+
+                  {/* Text on top */}
+                  <p className="relative z-10">No future matches currently</p>
+                </div>
+              )}
             </div>
+          </div>
         </div>
       ) : (
         <>
@@ -159,7 +175,9 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                   scrollRight={() => scrollRight(index)} // Pass the index
                 />
                 <div
-                  ref={(el) => { scrollContainerRefs.current[index] = el; }}
+                  ref={(el) => {
+                    scrollContainerRefs.current[index] = el;
+                  }}
                   className="flex gap-2 pb-2 overflow-x-auto scrollbar-hide"
                 >
                   {matchList.map((match) => (
@@ -171,12 +189,24 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                       time={match.time.slice(0, 5)}
                       team1={match.home_team_name}
                       team2={match.away_team_name}
-                      logo1={teamLogos[match.home_team_name] || match.home_team_logo}
-                      logo2={teamLogos[match.away_team_name] || match.away_team_logo}
+                      home_team_primary_color={match.home_team_primary_color}
+                      home_team_secondary_color={
+                        match.home_team_secondary_color
+                      }
+                      away_team_primary_color={match.away_team_primary_color}
+                      away_team_secondary_color={
+                        match.away_team_secondary_color
+                      }
+                      logo1={
+                        teamLogos[match.home_team_name] || match.home_team_logo
+                      }
+                      logo2={
+                        teamLogos[match.away_team_name] || match.away_team_logo
+                      }
                       odds={[match.home_odds, match.draw_odds, match.away_odds]}
-                      calculated_home_chance= {match.calculated_home_chance}
-                      calculated_draw_chance= {match.calculated_draw_chance}
-                      calculated_away_chance= {match.calculated_away_chance}
+                      calculated_home_chance={match.calculated_home_chance}
+                      calculated_draw_chance={match.calculated_draw_chance}
+                      calculated_away_chance={match.calculated_away_chance}
                     />
                   ))}
                 </div>

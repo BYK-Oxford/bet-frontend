@@ -8,6 +8,10 @@ interface Match {
   date: string;
   team1: string;
   team2: string;
+  home_team_primary_color: string | null;
+  home_team_secondary_color: string | null;
+  away_team_primary_color: string | null;
+  away_team_secondary_color: string | null;
   logo1: string;
   logo2: string;
   score: string;
@@ -23,6 +27,10 @@ interface RawMatch {
   date: string;
   home_team_name: string;
   away_team_name: string;
+  home_primary_color: string | null;
+  home_secondary_color: string | null;
+  away_primary_color: string | null;
+  away_secondary_color: string | null;
   statistics: Record<string, number | string>;
 }
 
@@ -36,7 +44,9 @@ const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://bet-backend-1.onrender.com/match-statistics/matches/historic/${matchId}`);
+        const res = await fetch(
+          `http://localhost:8000/match-statistics/matches/historic/${matchId}`
+        );
         const rawData: RawMatch[] = await res.json();
 
         if (rawData.length === 0) {
@@ -79,11 +89,14 @@ const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
           date: match.date,
           team1: match.home_team_name,
           team2: match.away_team_name,
+          home_team_primary_color: match.home_primary_color,
+          home_team_secondary_color: match.home_secondary_color,
+          away_team_primary_color: match.away_primary_color,
+          away_team_secondary_color: match.away_secondary_color,
           logo1: "", // Add team logo URLs if available
           logo2: "",
           score: `${match.statistics.full_time_home_goals}-${match.statistics.full_time_away_goals}`,
         }));
-
         setStatsData(stats);
         setHeadToHeadData(matches);
       } catch (error) {
@@ -97,15 +110,15 @@ const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
   }, [matchId]);
 
   if (loading) return <div className="text-white p-4">Loading stats...</div>;
-
   return (
     <div className="bg-[#2E2E30] text-white p-4 rounded-xl w-full sm:max-w-[600px]">
-  
       {/* Tabs */}
       <div className="flex justify-start border-b border-[rgba(255,255,255,0.1)]">
         <button
           className={`px-4 py-2 text-xs sm:text-xs md:text-xs lg:text-xs w-auto mb-2 sm:mb-0 ${
-            activeTab === "stats" ? "text-[#03BEC2] font-semibold border-b-2 border-[#03BEC2]" : "text-white"
+            activeTab === "stats"
+              ? "text-[#03BEC2] font-semibold border-b-2 border-[#03BEC2]"
+              : "text-white"
           }`}
           onClick={() => setActiveTab("stats")}
         >
@@ -114,7 +127,9 @@ const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
 
         <button
           className={`px-4 py-2 text-xs sm:text-xs md:text-xs lg:text-xs w-auto mb-2 sm:mb-0 ${
-            activeTab === "headToHead" ? "text-[#03BEC2] font-semibold border-b-2 border-[#03BEC2]" : "text-white"
+            activeTab === "headToHead"
+              ? "text-[#03BEC2] font-semibold border-b-2 border-[#03BEC2]"
+              : "text-white"
           }`}
           onClick={() => setActiveTab("headToHead")}
         >
@@ -122,7 +137,6 @@ const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
         </button>
       </div>
 
-  
       {/* Tab Content */}
       <div className="mt-4">
         {activeTab === "stats" ? (
@@ -133,7 +147,6 @@ const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
       </div>
     </div>
   );
-  
 };
 
 export default MatchTabs;

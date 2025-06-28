@@ -19,6 +19,10 @@ const MatchDetailPage = () => {
     time: string;
     team1: string;
     team2: string;
+    home_team_primary_color: string;
+    home_team_secondary_color: string;
+    away_team_primary_color: string;
+    away_team_secondary_color: string;
     logo1: string;
     logo2: string;
     odds: [number, number, number];
@@ -42,7 +46,24 @@ const MatchDetailPage = () => {
 
   if (!matchData) return <div>Loading match details...</div>;
 
-  const { league, matchId, date, time, team1, team2, logo1, logo2, odds, calculated_home_chance, calculated_away_chance, calculated_draw_chance } = matchData;
+  const {
+    league,
+    matchId,
+    date,
+    time,
+    team1,
+    team2,
+    home_team_primary_color,
+    home_team_secondary_color,
+    away_team_primary_color,
+    away_team_secondary_color,
+    logo1,
+    logo2,
+    odds,
+    calculated_home_chance,
+    calculated_away_chance,
+    calculated_draw_chance,
+  } = matchData;
 
   return (
     <div className="flex justify-center md:px-2">
@@ -55,6 +76,10 @@ const MatchDetailPage = () => {
             time={time}
             team1={team1}
             team2={team2}
+            home_team_primary_color={home_team_primary_color}
+            home_team_secondary_color={home_team_secondary_color}
+            away_team_primary_color={away_team_primary_color}
+            away_team_secondary_color={away_team_secondary_color}
             logo1={teamLogos[team1]}
             logo2={teamLogos[team2]}
             odds={odds}

@@ -1,10 +1,15 @@
 import React from "react";
 import teamLogos from "../../../home/components/teamLogos";
+import JerseySVG from "../../../components/ui/Jersey";
 
 interface MatchProps {
   date: string;
   team1: string;
   team2: string;
+  home_team_primary_color: string | null;
+  home_team_secondary_color: string | null;
+  away_team_primary_color: string | null;
+  away_team_secondary_color: string | null;
   logo1: string;
   logo2: string;
   score: string;
@@ -15,7 +20,7 @@ const formatDate = (timestamp: string) => {
   const options: Intl.DateTimeFormatOptions = {
     month: "short",
     day: "numeric",
-    year:"numeric"
+    year: "numeric",
   };
   return date.toLocaleDateString(undefined, options);
 };
@@ -25,21 +30,25 @@ const HeadToHeadTab: React.FC<{ matches: MatchProps[] }> = ({ matches }) => {
     <div className="flex flex-col space-y-3">
       {matches.length === 0 ? (
         <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px]">
-        {/* Background watermark image */}
-        <img
-          // src="/BetGenieLogo.png"
-          src="/logo2.png"
-          alt="Bet Genie Logo"
-          className="absolute inset-0 w-80 mx-auto my-auto object-contain opacity-20"
-        />
-        
-        {/* Text on top */}
-        <p className="relative z-10">No past Head 2 Head matches available.</p>
-      </div>
+          {/* Background watermark image */}
+          <img
+            // src="/BetGenieLogo.png"
+            src="/logo2.png"
+            alt="Bet Genie Logo"
+            className="absolute inset-0 w-80 mx-auto my-auto object-contain opacity-20"
+          />
+
+          {/* Text on top */}
+          <p className="relative z-10">
+            No past Head 2 Head matches available.
+          </p>
+        </div>
       ) : (
         matches.map((match, index) => (
-          <div key={index} className="text-white p-2 flex items-center w-full justify-between gap-4 border-b border-[rgba(255,255,255,0.1)]">
-
+          <div
+            key={index}
+            className="text-white p-2 flex items-center w-full justify-between gap-4 border-b border-[rgba(255,255,255,0.1)]"
+          >
             {/* Date */}
             <div className="text-[10px] text-gray-400">
               {formatDate(match.date)}
@@ -50,10 +59,16 @@ const HeadToHeadTab: React.FC<{ matches: MatchProps[] }> = ({ matches }) => {
               {/* Team 1 */}
               <div className="flex items-center justify-center text-right leading-tight">
                 <span className="text-xs">{match.team1}</span>
-                <img
+                {/* <img
                   src={teamLogos[match.team1]}
                   alt={match.team1}
                   className="w-8 h-8 object-contain p-1 mt-1"
+                /> */}
+                <JerseySVG
+                  bodyColor={match.home_team_primary_color || "#FFFFFF"}
+                  accentColor={match.home_team_secondary_color || "#000000"}
+                  width={30}
+                  height={30}
                 />
               </div>
 
@@ -64,10 +79,16 @@ const HeadToHeadTab: React.FC<{ matches: MatchProps[] }> = ({ matches }) => {
 
               {/* Team 2 */}
               <div className="flex items-center justify-center text-left leading-tight">
-                <img
+                {/* <img
                   src={teamLogos[match.team2]}
                   alt={match.team2}
                   className="w-8 h-8 object-contain p-1 mb-1"
+                /> */}
+                <JerseySVG
+                  bodyColor={match.away_team_primary_color || "#FFFFFF"}
+                  accentColor={match.away_team_secondary_color || "#000000"}
+                  width={30}
+                  height={30}
                 />
                 <span className="text-xs">{match.team2}</span>
               </div>
@@ -78,6 +99,5 @@ const HeadToHeadTab: React.FC<{ matches: MatchProps[] }> = ({ matches }) => {
     </div>
   );
 };
-
 
 export default HeadToHeadTab;

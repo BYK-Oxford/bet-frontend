@@ -2,14 +2,19 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Using next/navigation for client-side navigation
+import JerseySVG from "../../components/ui/Jersey";
 
 interface MatchProps {
   matchId: string;
   date: string;
-  league:string;
+  league: string;
   time: string;
   team1: string;
   team2: string;
+  home_team_primary_color: string | null;
+  home_team_secondary_color: string | null;
+  away_team_primary_color: string | null;
+  away_team_secondary_color: string | null;
   logo1: string;
   logo2: string;
   odds: [number, number, number];
@@ -25,6 +30,10 @@ const MatchCard: React.FC<MatchProps> = ({
   time,
   team1,
   team2,
+  home_team_primary_color,
+  home_team_secondary_color,
+  away_team_primary_color,
+  away_team_secondary_color,
   logo1,
   logo2,
   odds,
@@ -41,7 +50,7 @@ const MatchCard: React.FC<MatchProps> = ({
 
   const handleCardClick = () => {
     if (!isClient) return;
-  
+
     const matchData = {
       matchId,
       league,
@@ -49,6 +58,10 @@ const MatchCard: React.FC<MatchProps> = ({
       time,
       team1,
       team2,
+      home_team_primary_color,
+      home_team_secondary_color,
+      away_team_primary_color,
+      away_team_secondary_color,
       logo1,
       logo2,
       odds,
@@ -56,10 +69,10 @@ const MatchCard: React.FC<MatchProps> = ({
       calculated_draw_chance,
       calculated_away_chance,
     };
-  
+
     // Store the data in sessionStorage
     sessionStorage.setItem("matchData", JSON.stringify(matchData));
-  
+
     // Navigate with only matchId in the URL
     router.push(`/match_detail/${matchId}`);
   };
@@ -81,10 +94,16 @@ const MatchCard: React.FC<MatchProps> = ({
         {/* Team 1 */}
         <div className="flex flex-col items-center w-20">
           <div className="w-12 h-12 bg-[#2A2A2C] rounded-full flex items-center justify-center mb-1">
-            <img
+            {/* <img
               src={logo1}
               alt={team1}
               className="w-10 h-10 object-contain aspect-square"
+            /> */}
+            <JerseySVG
+              bodyColor={home_team_primary_color || "#FFFFFF"}
+              accentColor={home_team_secondary_color || "#000000"}
+              width={40}
+              height={40}
             />
           </div>
           <span className="text-[10px] text-center break-words leading-tight h-[36px] flex items-center justify-center text-ellipsis overflow-hidden">
@@ -100,10 +119,16 @@ const MatchCard: React.FC<MatchProps> = ({
         {/* Team 2 */}
         <div className="flex flex-col items-center w-20">
           <div className="w-12 h-12 bg-[#2A2A2C] rounded-full flex items-center justify-center mb-1">
-            <img
+            {/* <img
               src={logo2}
               alt={team2}
               className="w-10 h-10 object-contain aspect-square"
+            /> */}
+            <JerseySVG
+              bodyColor={away_team_primary_color || "#FFFFFF"}
+              accentColor={away_team_secondary_color || "#000000"}
+              width={40}
+              height={40}
             />
           </div>
           <span className="text-[10px] text-center break-words leading-tight h-[36px] flex items-center justify-center text-ellipsis overflow-hidden">

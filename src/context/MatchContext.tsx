@@ -10,12 +10,16 @@ interface MatchOdds {
   away_team_logo: string;
   home_team_id: string;
   home_team_name: string;
+  home_team_primary_color: string | null;
+  home_team_secondary_color: string | null;
   home_team_league: string;
   home_team_country: string;
   match_league: string;
   match_country: string;
   away_team_id: string;
   away_team_name: string;
+  away_team_primary_color: string | null;
+  away_team_secondary_color: string | null;
   away_team_league: string;
   away_team_country: string;
   calculated_home_chance: number;
@@ -45,7 +49,9 @@ export function MatchProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchMatches = async () => {
       try {
-        const res = await fetch("https://bet-backend-1.onrender.com/odds-calculation/calculated-odds/");
+        const res = await fetch(
+          "http://localhost:8000/odds-calculation/calculated-odds/"
+        );
         const data = await res.json();
         const uniqueMatchesMap = new Map<string, MatchOdds>();
 

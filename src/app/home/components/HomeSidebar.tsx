@@ -14,8 +14,6 @@ export default function HomeSidebar({
   selectedCountry,
   selectedLeague,
 }: HomeSidebarProps) {
-
-
   // Handle country selection
   const handleCountryClick = (country: string) => {
     onSelectCountry(country);
@@ -37,9 +35,15 @@ export default function HomeSidebar({
         <InfoBox
           title="Top Leagues"
           items={[
-            { name: "English Premier League", src: "/teamlogo/English Premier League.png" },
+            {
+              name: "English Premier League",
+              src: "/teamlogo/English Premier League.png",
+            },
             { name: "Scottish Premier League", src: "/teamlogo/Scottish.png" },
-            { name: "English Championship", src: "/teamlogo/English Championship.png" },
+            {
+              name: "English Championship",
+              src: "/teamlogo/English Championship.png",
+            },
             { name: "Scottish Championship", src: "/teamlogo/Scottish.png" },
             { name: "Süper Lig", src: "/teamlogo/Super Lig.png" },
             { name: "Serie A", src: "/teamlogo/Serie A.png" },
@@ -47,7 +51,7 @@ export default function HomeSidebar({
             { name: "La Liga", src: "/teamlogo/La Liga.png" },
             { name: "La Liga 2", src: "/teamlogo/La Liga2.png" },
             { name: "Bundesliga", src: "/teamlogo/Bundesliga.png" },
-            { name: "Bundesliga 2", src: "/teamlogo/Bundesliga 2.png" }
+            { name: "Bundesliga 2", src: "/teamlogo/Bundesliga 2.png" },
           ]}
           onItemClick={handleLeagueClick}
           selectedItem={selectedLeague}
@@ -71,7 +75,6 @@ export default function HomeSidebar({
           onClear={clearCountry}
         />
       </div>
-  </div>
-
+    </div>
   );
 }
