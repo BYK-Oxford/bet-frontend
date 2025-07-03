@@ -274,25 +274,6 @@ export default function ValueForMoney({
                     Away
                   </span>
                 </div>
-
-                {/* Biggest Difference Only */}
-                {/* <div className="flex flex-col text-[8px] font-mono items-end">
-                    {diffHome === maxDiff && (
-                      <span className="text-[#03BEC2] text-[12px] font-bold">
-                        Home
-                      </span>
-                    )}
-                    {diffDraw === maxDiff && (
-                      <span className="text-[#03BEC2] text-[12px] font-bold">
-                        Draw
-                      </span>
-                    )}
-                    {diffAway === maxDiff && (
-                      <span className="text-[#03BEC2] text-[12px] font-bold">
-                        Away
-                      </span>
-                    )}
-                  </div> */}
               </div>
             );
           })}
