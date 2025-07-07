@@ -14,7 +14,10 @@ interface Match {
   away_team_secondary_color: string | null;
   logo1: string;
   logo2: string;
-  score: string;
+  score: {
+    full: string;
+    half: string;
+  };
 }
 
 interface Stats {
@@ -36,7 +39,6 @@ interface RawMatch {
 
 const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
   const [activeTab, setActiveTab] = useState<"stats" | "headToHead">("stats");
-
   const [statsData, setStatsData] = useState<Stats[]>([]);
   const [headToHeadData, setHeadToHeadData] = useState<Match[]>([]);
   const [loading, setLoading] = useState(true);
@@ -95,7 +97,10 @@ const MatchTabs: React.FC<{ matchId: string }> = ({ matchId }) => {
           away_team_secondary_color: match.away_secondary_color,
           logo1: "", // Add team logo URLs if available
           logo2: "",
-          score: `${match.statistics.full_time_home_goals}-${match.statistics.full_time_away_goals}`,
+          score: {
+            full: `${match.statistics.full_time_home_goals}-${match.statistics.full_time_away_goals}`,
+            half: `${match.statistics.half_time_home_goals}-${match.statistics.half_time_away_goals}`,
+          },
         }));
         setStatsData(stats);
         setHeadToHeadData(matches);
