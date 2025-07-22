@@ -43,7 +43,7 @@ export default function HomeSidebar({
               name: "English Championship",
               src: "/teamlogo/England.png",
             },
-            { name: "Scottish Premier League", src: "/teamlogo/Scotland.png" },
+            { name: "Scottish Premiership", src: "/teamlogo/Scotland.png" },
             { name: "Scottish Championship", src: "/teamlogo/Scotland.png" },
             { name: "Turkish Super League", src: "/teamlogo/Turkey.png" },
             { name: "Italian Serie A", src: "/teamlogo/Italy.png" },
