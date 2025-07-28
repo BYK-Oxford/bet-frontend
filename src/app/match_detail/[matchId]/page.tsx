@@ -7,8 +7,43 @@ import MatchTabs from "./components/MatchTabs";
 import StatChartContainer from "./components/StatChartContainer";
 import MatchSidebar from "./components/MatchSidebar";
 import teamLogos from "./../../home/components/teamLogos";
+import CorelationContainer from "./components/CorelationContainer";
 
 // 🧠 Types
+
+type RawMatchDataType = {
+  match_id: string;
+  date: string;
+  home_team_id: string;
+  away_team_id: string;
+  home_team_name: string;
+  away_team_name: string;
+  home_primary_color: string | null;
+  home_secondary_color: string | null;
+  away_primary_color: string | null;
+  away_secondary_color: string | null;
+  statistics: {
+    full_time_home_goals: number;
+    full_time_away_goals: number;
+    full_time_result: "H" | "A" | "D";
+    half_time_home_goals: number;
+    half_time_away_goals: number;
+    half_time_result: "H" | "A" | "D";
+    shots_home: number;
+    shots_away: number;
+    shots_on_target_home: number;
+    shots_on_target_away: number;
+    fouls_home: number;
+    fouls_away: number;
+    corners_home: number;
+    corners_away: number;
+    yellow_cards_home: number;
+    yellow_cards_away: number;
+    red_cards_home: number;
+    red_cards_away: number;
+  };
+};
+
 type MatchDataType = {
   matchId: string;
   league: string;
@@ -56,6 +91,7 @@ const MatchDetailPage = () => {
   const currentId = params?.matchId;
 
   const [matchData, setMatchData] = useState<MatchDataType | null>(null);
+  const [rawMatchData, setRawMatchData] = useState<RawMatchDataType[]>([]);
   const [historicStats, setHistoricStats] = useState<Stats[]>([]);
   const [historicMatches, setHistoricMatches] = useState<HistoricMatch[]>([]);
   const [loading, setLoading] = useState(true);
@@ -81,6 +117,7 @@ const MatchDetailPage = () => {
           `http://localhost:8000/match-statistics/matches/historic/${currentId}`
         );
         const rawData = await res.json();
+        setRawMatchData(rawData);
 
         if (rawData.length === 0) {
           setHistoricStats([]);
@@ -189,8 +226,9 @@ const MatchDetailPage = () => {
         </div>
 
         {/* Sidebar */}
-        <div className="w-full md:w-100 mt-2 md:mt-0">
+        <div className="flex flex-col gap-5 w-full md:w-100 mt-2 md:mt-0">
           <MatchSidebar matchData={matchData} />
+          <CorelationContainer rawData={rawMatchData} />
         </div>
       </div>
     </div>
