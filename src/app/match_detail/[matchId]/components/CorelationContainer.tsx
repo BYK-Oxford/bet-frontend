@@ -1,3 +1,5 @@
+import { sampleCorrelation } from "simple-statistics";
+
 interface MatchStatistics {
   full_time_home_goals: number;
   full_time_away_goals: number;
@@ -40,13 +42,61 @@ interface CorrelationContainerProps {
 const CorrelationContainer: React.FC<CorrelationContainerProps> = ({
   rawData,
 }) => {
-  return (
-    <div className="w-full sm:w-auto h-auto bg-[#2E2E30] rounded-xl p-4 shadow text-white">
-      <h2 className="text-md font-semibold mb-4">📊 Correlation Table</h2>
+  // Extract arrays
+  const homeCorners = rawData.map((m) => m.statistics.corners_home);
+  const homeGoals = rawData.map((m) => m.statistics.full_time_home_goals);
+  const homeShotsOnTarget = rawData.map(
+    (m) => m.statistics.shots_on_target_home
+  );
 
-      <pre className="text-xs overflow-x-auto">
-        {JSON.stringify(rawData, null, 2)}
-      </pre>
+  const awayCorners = rawData.map((m) => m.statistics.corners_away);
+  const awayGoals = rawData.map((m) => m.statistics.full_time_away_goals);
+  const awayShotsOnTarget = rawData.map(
+    (m) => m.statistics.shots_on_target_away
+  );
+
+  // Calculate correlations using simple-statistics
+  const homeCornersGoalsCorr = sampleCorrelation(homeCorners, homeGoals);
+  const homeShotsGoalsCorr = sampleCorrelation(homeShotsOnTarget, homeGoals);
+
+  const awayCornersGoalsCorr = sampleCorrelation(awayCorners, awayGoals);
+  const awayShotsGoalsCorr = sampleCorrelation(awayShotsOnTarget, awayGoals);
+  return (
+    <div className="w-full sm:w-auto h-auto bg-[#2E2E30] rounded-xl p-3 shadow text-white">
+      <h2 className="text-md font-semibold mb-4">Correlation Table</h2>
+      <table className="w-full text-left border-collapse bg-[#2E2E30] rounded-lg overflow-hidden">
+        <thead>
+          <tr className="border-b border-[rgba(255,255,255,0.1)]">
+            <th className="py-2  text-sm font-semibold text-gray-300">
+              Metric
+            </th>
+            <th className=" py-2 text-sm font-semibold text-gray-300">Home</th>
+            <th className="py-2  text-sm font-semibold text-gray-300">Away</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="border-b border-[rgba(255,255,255,0.1)] last:border-none">
+            <td className="py-2  text-xs text-gray-200">Corners vs Goals</td>
+            <td className="py-2  text-xs text-gray-200">
+              {homeCornersGoalsCorr.toFixed(3)}
+            </td>
+            <td className="py-2  text-xs text-gray-200">
+              {awayCornersGoalsCorr.toFixed(3)}
+            </td>
+          </tr>
+          <tr className="border-b border-gray-700 last:border-none">
+            <td className="py-2  text-xs text-gray-200">
+              Shots on Target vs Goals
+            </td>
+            <td className="py-2  text-xs text-gray-200">
+              {homeShotsGoalsCorr.toFixed(3)}
+            </td>
+            <td className="py-2  text-xs text-gray-200">
+              {awayShotsGoalsCorr.toFixed(3)}
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };

@@ -152,6 +152,37 @@ const MatchDetailPage = () => {
           };
         });
 
+        // Calculate Shots on Target / Shots ratio for each team
+        let totalShotsHome = 0;
+        let totalShotsAway = 0;
+        let totalShotsOnTargetHome = 0;
+        let totalShotsOnTargetAway = 0;
+
+        rawData.forEach((match: any) => {
+          totalShotsHome += match.statistics.shots_home || 0;
+          totalShotsAway += match.statistics.shots_away || 0;
+          totalShotsOnTargetHome += match.statistics.shots_on_target_home || 0;
+          totalShotsOnTargetAway += match.statistics.shots_on_target_away || 0;
+        });
+
+        const count = rawData.length;
+
+        // To avoid divide by zero
+        const ratioHome =
+          totalShotsHome === 0
+            ? 0
+            : (totalShotsOnTargetHome / totalShotsHome) * 100;
+        const ratioAway =
+          totalShotsAway === 0
+            ? 0
+            : (totalShotsOnTargetAway / totalShotsAway) * 100;
+
+        stats.push({
+          label: "Average Shots on Target Ratio (%)",
+          team1: parseFloat(ratioHome.toFixed(1)),
+          team2: parseFloat(ratioAway.toFixed(1)),
+        });
+
         const matches = rawData.map((match: any) => ({
           date: match.date,
           team1: match.home_team_name,
