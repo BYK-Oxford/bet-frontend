@@ -106,7 +106,7 @@ const FootballStatBandedChart: React.FC<FootballStatBandedChartProps> = ({
             type="monotone"
             dataKey="stdRange"
             stroke="none"
-            fill="#88888855"
+            fill="#aae5e67d"
             connectNulls
             dot={false}
             activeDot={false}
@@ -121,6 +121,7 @@ const FootballStatBandedChart: React.FC<FootballStatBandedChartProps> = ({
             isAnimationActive={false}
             connectNulls
           />
+
           <Line
             type="monotone"
             dataKey="liveActual"
