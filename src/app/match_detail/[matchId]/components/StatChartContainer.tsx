@@ -49,7 +49,7 @@ const StatChartContainer: React.FC<StatChartContainerProps> = ({
   const team2Data = getBandedPoints(stat.team2);
 
   return (
-    <div className="flex flex-row gap-2 bg-[#2E2E30] text-white p-4 rounded-xl w-full sm:max-w-[600px] space-y-6">
+    <div className="flex flex-col sm:flex-row gap-2 bg-[#2E2E30] text-white p-4 rounded-xl w-full sm:max-w-[600px]">
       <FootballStatBandedChart
         data={team1Data}
         statLabel={statLabel}

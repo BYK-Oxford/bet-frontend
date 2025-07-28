@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import type { TooltipProps, LegendProps } from "recharts";
+import type { TooltipProps } from "recharts";
 import type { Payload as LegendPayload } from "recharts/types/component/DefaultLegendContent";
 
 import {
@@ -13,7 +13,6 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  DefaultLegendContent,
 } from "recharts";
 
 type StatPoint = {
@@ -34,6 +33,11 @@ const FootballStatBandedChart: React.FC<FootballStatBandedChartProps> = ({
   title = "Stat Banded Chart",
   statLabel = "Shots",
 }) => {
+  // Determine if there's any liveActual data
+  const hasLiveActual = data.some(
+    (d) => d.liveActual !== null && d.liveActual !== undefined
+  );
+
   // Prepare data for Recharts
   const chartData = data.map((d) => ({
     time: d.time,
@@ -67,7 +71,12 @@ const FootballStatBandedChart: React.FC<FootballStatBandedChartProps> = ({
   }: {
     payload?: LegendPayload[];
   }) => {
-    const filtered = payload.filter((entry) => entry.dataKey !== "stdRange");
+    const filtered = payload.filter((entry) => {
+      if (entry.dataKey === "stdRange") return false;
+      if (entry.dataKey === "liveActual" && !hasLiveActual) return false;
+      return true;
+    });
+
     return (
       <ul className="flex gap-4 text-xs mt-2 text-white">
         {filtered.map((entry, index) => (
@@ -101,7 +110,8 @@ const FootballStatBandedChart: React.FC<FootballStatBandedChartProps> = ({
           <YAxis stroke="#ccc" fontSize={10} />
           <Tooltip content={renderFilteredTooltip} />
           <Legend content={renderFilteredLegend} />
-          {/* Shaded band: standard deviation range */}
+
+          {/* Standard deviation range */}
           <Area
             type="monotone"
             dataKey="stdRange"
@@ -111,7 +121,8 @@ const FootballStatBandedChart: React.FC<FootballStatBandedChartProps> = ({
             dot={false}
             activeDot={false}
           />
-          {/* Actual value line */}
+
+          {/* Actual stat line */}
           <Line
             type="monotone"
             dataKey="actual"
@@ -122,15 +133,18 @@ const FootballStatBandedChart: React.FC<FootballStatBandedChartProps> = ({
             connectNulls
           />
 
-          <Line
-            type="monotone"
-            dataKey="liveActual"
-            stroke="#FF5733"
-            dot={{ r: 2 }}
-            name="Live Stats"
-            isAnimationActive={false}
-            connectNulls
-          />
+          {/* Live stat line (only if exists) */}
+          {hasLiveActual && (
+            <Line
+              type="monotone"
+              dataKey="liveActual"
+              stroke="#FF5733"
+              dot={{ r: 2 }}
+              name="Live Stats"
+              isAnimationActive={false}
+              connectNulls
+            />
+          )}
         </ComposedChart>
       </ResponsiveContainer>
     </div>
