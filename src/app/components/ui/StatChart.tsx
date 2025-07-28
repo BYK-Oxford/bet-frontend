@@ -93,7 +93,7 @@ const FootballStatBandedChart: React.FC<FootballStatBandedChartProps> = ({
   };
 
   return (
-    <div className="w-full h-[300px] bg-[#2E2E30] rounded-xl pb-10 pt-4 px-4 shadow text-white">
+    <div className="w-full h-[300px] bg-[#2E2E30] rounded-xl pb-10 pt-4 px-4 text-white">
       <h2 className="text-sm font-semibold mb-2">{title}</h2>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart
