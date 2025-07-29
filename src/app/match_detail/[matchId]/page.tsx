@@ -241,19 +241,23 @@ const MatchDetailPage = () => {
             />
           </div>
 
-          {/* <div className="mt-6">
-            <StatChartContainer
-              statsData={historicStats}
-              statLabel="Average Corners"
-            />
-          </div>
+          {historicStats.some((s) => s.label === "Average Corners") && (
+            <div className="mt-6">
+              <StatChartContainer
+                statsData={historicStats}
+                statLabel="Average Corners"
+              />
+            </div>
+          )}
 
-          <div className="mt-6">
-            <StatChartContainer
-              statsData={historicStats}
-              statLabel="Average Shots on Target"
-            />
-          </div> */}
+          {historicStats.some((s) => s.label === "Average Shots on Target") && (
+            <div className="mt-6">
+              <StatChartContainer
+                statsData={historicStats}
+                statLabel="Average Shots on Target"
+              />
+            </div>
+          )}
         </div>
 
         {/* Sidebar */}

@@ -11,7 +11,7 @@ type Stats = {
 
 interface StatChartContainerProps {
   statsData: Stats[];
-  statLabel: string; // NEW prop to specify which stat to display
+  statLabel: string;
 }
 
 type StatPoint = {
@@ -25,9 +25,39 @@ const StatChartContainer: React.FC<StatChartContainerProps> = ({
   statsData,
   statLabel,
 }) => {
-  // Find the stat object based on the statLabel prop
+  // Safety check
+  if (!Array.isArray(statsData) || statsData.length === 0) {
+    return (
+      <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px] bg-[#2E2E30] rounded-xl">
+        <img
+          src="/logo2.png"
+          alt="Bet Genie Logo"
+          className="absolute inset-0 w-80 mx-auto my-auto object-contain opacity-20"
+        />
+        <p className="relative z-10">
+          No statistical data found for the selected metric.
+        </p>
+      </div>
+    );
+  }
+
+  // Find the matching stat
   const stat = statsData.find((s) => s.label === statLabel);
-  if (!stat) return null;
+
+  if (!stat) {
+    return (
+      <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px] bg-[#2E2E30] rounded-xl">
+        <img
+          src="/logo2.png"
+          alt="Bet Genie Logo"
+          className="absolute inset-0 w-80 mx-auto my-auto object-contain opacity-20"
+        />
+        <p className="relative z-10">
+          No {statLabel} data available for either team.
+        </p>
+      </div>
+    );
+  }
 
   const timeIntervals = [0, 15, 30, 45, 60, 75, 90];
 
