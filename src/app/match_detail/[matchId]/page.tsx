@@ -241,7 +241,7 @@ const MatchDetailPage = () => {
             />
           </div>
 
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <StatChartContainer
               statsData={historicStats}
               statLabel="Average Corners"
@@ -253,7 +253,7 @@ const MatchDetailPage = () => {
               statsData={historicStats}
               statLabel="Average Shots on Target"
             />
-          </div>
+          </div> */}
         </div>
 
         {/* Sidebar */}
