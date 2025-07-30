@@ -71,12 +71,27 @@ const CorrelationContainer: React.FC<CorrelationContainerProps> = ({
     (m) => m.statistics.shots_on_target_away
   );
 
+  // Shots Accuracy (as percentage)
+  const homeShotsAccuracy = rawData.map((m) =>
+    m.statistics.shots_home > 0
+      ? (m.statistics.shots_on_target_home / m.statistics.shots_home) * 100
+      : 0
+  );
+
+  const awayShotsAccuracy = rawData.map((m) =>
+    m.statistics.shots_away > 0
+      ? (m.statistics.shots_on_target_away / m.statistics.shots_away) * 100
+      : 0
+  );
+
   // Calculate correlations
   const homeCornersGoalsCorr = sampleCorrelation(homeCorners, homeGoals);
   const homeShotsGoalsCorr = sampleCorrelation(homeShotsOnTarget, homeGoals);
+  const homeShotsAccrCorr = sampleCorrelation(homeShotsAccuracy, homeGoals);
 
   const awayCornersGoalsCorr = sampleCorrelation(awayCorners, awayGoals);
   const awayShotsGoalsCorr = sampleCorrelation(awayShotsOnTarget, awayGoals);
+  const awayShotsAccrCorr = sampleCorrelation(awayShotsAccuracy, homeGoals);
 
   return (
     <div className="w-full sm:w-auto h-auto bg-[#2E2E30] rounded-xl p-3 shadow text-white">
@@ -108,6 +123,15 @@ const CorrelationContainer: React.FC<CorrelationContainerProps> = ({
             </td>
             <td className="py-2 text-xs text-gray-200">
               {awayShotsGoalsCorr.toFixed(3)}
+            </td>
+          </tr>
+          <tr className="border-b border-gray-700 last:border-none">
+            <td className="py-2 text-xs text-gray-200">Shots Accuracy</td>
+            <td className="py-2 text-xs text-gray-200">
+              {homeShotsAccrCorr.toFixed(3)}
+            </td>
+            <td className="py-2 text-xs text-gray-200">
+              {awayShotsAccrCorr.toFixed(3)}
             </td>
           </tr>
         </tbody>

@@ -9,18 +9,18 @@ const StatsTab: React.FC<{ statsData: Stat[] }> = ({ statsData }) => {
   return (
     <div className="flex flex-col space-y-5">
       {statsData.length === 0 ? (
-         <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px]">
-         {/* Background watermark image */}
-         <img
-          // src="/BetGenieLogo.png"
-          src="/logo2.png"
-          alt="Bet Genie Logo"
-          className="absolute inset-0 w-80 mx-auto my-auto object-contain opacity-20"
-         />
-         
-         {/* Text on top */}
-         <p className="relative z-10">No past Head 2 Head stats available.</p>
-       </div>
+        <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px]">
+          {/* Background watermark image */}
+          <img
+            // src="/BetGenieLogo.png"
+            src="/logo2.png"
+            alt="Bet Genie Logo"
+            className="absolute inset-0 w-80 mx-auto my-auto object-contain opacity-20"
+          />
+
+          {/* Text on top */}
+          <p className="relative z-10">No past Head 2 Head stats available.</p>
+        </div>
       ) : (
         statsData.map((stat, index) => {
           const max = Math.max(stat.team1, stat.team2);
@@ -31,9 +31,15 @@ const StatsTab: React.FC<{ statsData: Stat[] }> = ({ statsData }) => {
           return (
             <div key={index} className="space-y-1">
               <div className="flex justify-between text-xs font-semibold text-gray-400">
-                <span>{stat.team1}</span>
+                <span>
+                  {stat.team1}
+                  {stat.label === "Average Shots Accuracy" && " %"}
+                </span>
                 <span>{stat.label}</span>
-                <span>{stat.team2}</span>
+                <span>
+                  {stat.team2}
+                  {stat.label === "Average Shots Accuracy" && " %"}
+                </span>
               </div>
               <div className="flex h-2 bg-gray-600 rounded-full overflow-hidden">
                 <div

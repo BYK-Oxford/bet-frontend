@@ -178,7 +178,7 @@ const MatchDetailPage = () => {
             : (totalShotsOnTargetAway / totalShotsAway) * 100;
 
         stats.push({
-          label: "Average Shots on Target Ratio (%)",
+          label: "Average Shots Accuracy",
           team1: parseFloat(ratioHome.toFixed(1)),
           team2: parseFloat(ratioAway.toFixed(1)),
         });
