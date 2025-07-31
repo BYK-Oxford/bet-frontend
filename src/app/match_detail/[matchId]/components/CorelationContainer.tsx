@@ -58,27 +58,36 @@ const CorrelationContainer: React.FC<CorrelationContainerProps> = ({
     );
   }
 
+  const filteredData =
+    rawData.length > 3
+      ? [...rawData]
+          .sort(
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+          )
+          .slice(0, 3)
+      : rawData;
+
   // Extract arrays
-  const homeCorners = rawData.map((m) => m.statistics.corners_home);
-  const homeGoals = rawData.map((m) => m.statistics.full_time_home_goals);
-  const homeShotsOnTarget = rawData.map(
+  const homeCorners = filteredData.map((m) => m.statistics.corners_home);
+  const homeGoals = filteredData.map((m) => m.statistics.full_time_home_goals);
+  const homeShotsOnTarget = filteredData.map(
     (m) => m.statistics.shots_on_target_home
   );
 
-  const awayCorners = rawData.map((m) => m.statistics.corners_away);
-  const awayGoals = rawData.map((m) => m.statistics.full_time_away_goals);
-  const awayShotsOnTarget = rawData.map(
+  const awayCorners = filteredData.map((m) => m.statistics.corners_away);
+  const awayGoals = filteredData.map((m) => m.statistics.full_time_away_goals);
+  const awayShotsOnTarget = filteredData.map(
     (m) => m.statistics.shots_on_target_away
   );
 
   // Shots Accuracy (as percentage)
-  const homeShotsAccuracy = rawData.map((m) =>
+  const homeShotsAccuracy = filteredData.map((m) =>
     m.statistics.shots_home > 0
       ? (m.statistics.shots_on_target_home / m.statistics.shots_home) * 100
       : 0
   );
 
-  const awayShotsAccuracy = rawData.map((m) =>
+  const awayShotsAccuracy = filteredData.map((m) =>
     m.statistics.shots_away > 0
       ? (m.statistics.shots_on_target_away / m.statistics.shots_away) * 100
       : 0
