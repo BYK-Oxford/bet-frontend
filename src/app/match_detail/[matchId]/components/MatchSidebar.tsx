@@ -9,7 +9,8 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-  LabelList, LabelProps
+  LabelList,
+  LabelProps,
 } from "recharts";
 
 type MatchData = {
@@ -28,42 +29,51 @@ type MatchData = {
 };
 
 const MatchSidebar = ({ matchData }: { matchData: MatchData }) => {
-  const { odds, calculated_home_chance, calculated_draw_chance, calculated_away_chance } =
-    matchData;
+  const {
+    odds,
+    calculated_home_chance,
+    calculated_draw_chance,
+    calculated_away_chance,
+  } = matchData;
 
   const totalBookmakerProb = 1 / odds[0] + 1 / odds[1] + 1 / odds[2];
 
   const data = [
     {
       name: "Home",
-      Bookmaker: ((1 / odds[0]) / totalBookmakerProb) * 100,
+      Bookmaker: (1 / odds[0] / totalBookmakerProb) * 100,
       BetGenie: calculated_home_chance * 100,
     },
     {
       name: "Draw",
-      Bookmaker: ((1 / odds[1]) / totalBookmakerProb) * 100,
+      Bookmaker: (1 / odds[1] / totalBookmakerProb) * 100,
       BetGenie: calculated_draw_chance * 100,
     },
     {
       name: "Away",
-      Bookmaker: ((1 / odds[2]) / totalBookmakerProb) * 100,
+      Bookmaker: (1 / odds[2] / totalBookmakerProb) * 100,
       BetGenie: calculated_away_chance * 100,
     },
   ];
 
   // Find the index with the maximum difference for BetGenie only
-  const maxDiffIndex = data.reduce(
-    (maxIdx, curr, idx, arr) => {
-      const currDiff = Math.abs(curr.Bookmaker - curr.BetGenie);
-      const maxDiff = Math.abs(arr[maxIdx].Bookmaker - arr[maxIdx].BetGenie);
-      return currDiff > maxDiff ? idx : maxIdx;
-    },
-    0
-  );
+  const maxDiffIndex = data.reduce((maxIdx, curr, idx, arr) => {
+    const currDiff = curr.BetGenie - curr.Bookmaker;
+    const maxDiff = arr[maxIdx].BetGenie - arr[maxIdx].Bookmaker;
+    return currDiff > maxDiff ? idx : maxIdx;
+  }, 0);
+
+  // const maxDiffIndex = data.reduce((maxIdx, curr, idx, arr) => {
+  //   const currDiff = Math.abs(curr.Bookmaker - curr.BetGenie);
+  //   const maxDiff = Math.abs(arr[maxIdx].Bookmaker - arr[maxIdx].BetGenie);
+  //   return currDiff > maxDiff ? idx : maxIdx;
+  // }, 0);
 
   return (
     <div className="w-full sm:w-auto h-auto bg-[#2E2E30] rounded-xl p-4 shadow text-white">
-      <h2 className="text-md font-semibold mb-2">Value for Money (V4M) Prediction</h2>
+      <h2 className="text-md font-semibold mb-2">
+        Value for Money (V4M) Prediction
+      </h2>
       <ResponsiveContainer width="100%" height={200}>
         <BarChart
           data={data}
@@ -83,10 +93,14 @@ const MatchSidebar = ({ matchData }: { matchData: MatchData }) => {
             contentStyle={{
               backgroundColor: "#333",
               border: "none",
-              borderRadius: "6px", fontSize: "10px",
+              borderRadius: "6px",
+              fontSize: "10px",
             }}
             labelStyle={{ color: "#fff", fontSize: "10px" }}
-            formatter={(value: number, name: string) => [`${value.toFixed(1)}%`, name]}
+            formatter={(value: number, name: string) => [
+              `${value.toFixed(1)}%`,
+              name,
+            ]}
           />
           <Legend
             verticalAlign="top"
@@ -106,16 +120,30 @@ const MatchSidebar = ({ matchData }: { matchData: MatchData }) => {
             }}
           />
           {/* Bookmaker Bar */}
-          <Bar dataKey="Bookmaker" fill="#777777" barSize={10} radius={[4, 4, 0, 0]}>
+          <Bar
+            dataKey="Bookmaker"
+            fill="#777777"
+            barSize={10}
+            radius={[4, 4, 0, 0]}
+          >
             <LabelList
               dataKey="Bookmaker"
-              content={({ x, y, index }) =>
-                index === maxDiffIndex && index !== data.findIndex(d => d.name === "Draw") ? null : null // Do not render stars for Bookmaker
+              content={
+                ({ x, y, index }) =>
+                  index === maxDiffIndex &&
+                  index !== data.findIndex((d) => d.name === "Draw")
+                    ? null
+                    : null // Do not render stars for Bookmaker
               }
             />
           </Bar>
           {/* BetGenie Bar */}
-          <Bar dataKey="BetGenie" fill="#03BEC2" barSize={10} radius={[4, 4, 0, 0]}>
+          <Bar
+            dataKey="BetGenie"
+            fill="#03BEC2"
+            barSize={10}
+            radius={[4, 4, 0, 0]}
+          >
             <LabelList
               dataKey="BetGenie"
               content={({ x, y, index }: LabelProps) => {
