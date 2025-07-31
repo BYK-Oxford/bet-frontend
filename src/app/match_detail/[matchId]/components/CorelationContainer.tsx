@@ -104,7 +104,7 @@ const CorrelationContainer: React.FC<CorrelationContainerProps> = ({
 
   return (
     <div className="w-full sm:w-auto h-auto bg-[#2E2E30] rounded-xl p-3 shadow text-white">
-      <h2 className="text-md font-semibold mb-4">Correlation Table</h2>
+      <h2 className="text-md font-semibold mb-4 ">Correlation Table</h2>
       <table className="w-full text-left border-collapse bg-[#2E2E30] rounded-lg overflow-hidden">
         <thead>
           <tr className="border-b border-[rgba(255,255,255,0.1)]">

@@ -8,6 +8,7 @@ import StatChartContainer from "./components/StatChartContainer";
 import MatchSidebar from "./components/MatchSidebar";
 import teamLogos from "./../../home/components/teamLogos";
 import CorelationContainer from "./components/CorelationContainer";
+import MatchTips from "./components/MatchTips";
 
 // 🧠 Types
 
@@ -264,6 +265,7 @@ const MatchDetailPage = () => {
         <div className="flex flex-col gap-5 w-full md:w-100 mt-2 md:mt-0">
           <MatchSidebar matchData={matchData} />
           <CorelationContainer rawData={rawMatchData} />
+          <MatchTips />
         </div>
       </div>
     </div>
