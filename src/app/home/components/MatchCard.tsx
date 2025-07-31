@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Using next/navigation for client-side navigation
 import JerseySVG from "../../components/ui/Jersey";
+import { getLocalDateTime } from "../../utils/dateUtils";
 
 interface MatchProps {
   matchId: string;
@@ -85,9 +86,14 @@ const MatchCard: React.FC<MatchProps> = ({
       className="space-y-2 bg-[#2E2E30] text-white p-4 rounded-xl flex flex-col items-center w-52 min-h-[160px] cursor-pointer"
     >
       {/* Date and Time */}
-      <div className="text-xs text-gray-400">
-        {date}, {time}
-      </div>
+      {(() => {
+        const { localDate, localTime } = getLocalDateTime(date, time);
+        return (
+          <div className="text-xs text-gray-400">
+            {localDate}, {localTime}
+          </div>
+        );
+      })()}
 
       {/* Teams and VS */}
       <div className="flex items-start justify-center gap-4 mt-3">

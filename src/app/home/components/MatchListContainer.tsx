@@ -2,8 +2,8 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import teamLogos from "./teamLogos";
 import JerseySVG from "../../components/ui/Jersey";
+import { getLocalDateTime } from "../../utils/dateUtils";
 
 interface MatchProps {
   matchId: string;
@@ -81,9 +81,14 @@ const MatchListContainer: React.FC<MatchProps> = ({
       }`}
     >
       {/* Date and Time */}
-      <div className="text-[10px] text-gray-400 w-20">
-        {date}, {time}
-      </div>
+      {(() => {
+        const { localDate, localTime } = getLocalDateTime(date, time);
+        return (
+          <div className="text-[10px] text-gray-400 w-20">
+            {localDate}, {localTime}
+          </div>
+        );
+      })()}
 
       {/* Teams Row */}
       <div className="flex items-center justify-center flex-1 gap-3">

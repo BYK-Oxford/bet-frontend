@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowLeft } from "@phosphor-icons/react";
 import JerseySVG from "../../../components/ui/Jersey";
+import { getLocalDateTime } from "../../../utils/dateUtils";
 
 interface MatchProps {
   league: string;
@@ -84,10 +85,15 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
       </div>
 
       {/* Date and Time */}
-      <div className="text-xs flex justify-center text-gray-400 w-full relative z-10">
-        <div>{date}, </div>
-        <div>{time}</div>
-      </div>
+      {(() => {
+        const { localDate, localTime } = getLocalDateTime(date, time);
+        return (
+          <div className="text-xs flex justify-center text-gray-400 w-full relative z-10">
+            <div>{localDate}, </div>
+            <div>{localTime}</div>
+          </div>
+        );
+      })()}
 
       {/* Teams Row - Centered Layout */}
       <div className="flex items-center justify-center flex-1 gap-3 relative z-10 px-1">
