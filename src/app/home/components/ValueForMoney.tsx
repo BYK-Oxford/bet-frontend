@@ -135,7 +135,7 @@ export default function ValueForMoney({
             <br />
             <br />
             In basic terms it is not a guaranteed win but it is where you get
-            the maximum return with the risk calculated - where the arbitrage is
+            the maximum return with the calculated risk - where the arbitrage is
             in favour at the peak point.
           </div>
         </div>

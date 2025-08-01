@@ -95,7 +95,7 @@ export default function TermsModal({ onAccept }: { onAccept: () => void }) {
   return (
     <div className="fixed inset-0 backdrop-blur-xs flex items-center justify-center z-50">
       <div className="bg-black p-8 rounded-2xl shadow-xl max-w-lg w-full">
-        <h2 className="text-xl font-bold mb-4">Terms & Conditions</h2>
+        <h2 className="text-xl font-bold mb-4">Terms of Use</h2>
 
         <div
           className="text-xs prose prose-invert h-64 overflow-y-auto mb-4 pr-2"
@@ -139,7 +139,9 @@ export default function TermsModal({ onAccept }: { onAccept: () => void }) {
           onClick={handleSubmit}
           disabled={!accepted || !is18Plus} // Disable button if either checkbox is not selected
           className={`w-full py-2 rounded bg-[#03BEC2] text-white transition ${
-            !accepted || !is18Plus ? "opacity-50 cursor-not-allowed" : "hover:bg-[#03BEC2]-700"
+            !accepted || !is18Plus
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:bg-[#03BEC2]-700"
           }`}
         >
           Continue
