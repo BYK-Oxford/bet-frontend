@@ -93,49 +93,40 @@ const MatchListContainer: React.FC<MatchProps> = ({
       {/* Teams Row */}
       <div className="flex items-center justify-center flex-1 gap-3">
         <div className="flex items-center gap-2 w-28 justify-end">
-          <span className="text-xs break-words leading-tight max-w-[80px] text-right">
+          <span className="text-[10px] text-right leading-tight break-normal whitespace-normal w-[80px]">
             {team1}
           </span>
-          {/* <img
-            src={logo1}
-            alt={team1}
-            className="w-10 h-10 object-contain p-1"
-          /> */}
+
           <JerseySVG
             bodyColor={home_team_primary_color || "#FFFFFF"}
             accentColor={home_team_secondary_color || "#000000"}
             width={40}
             height={40}
-            className="object-contain p-1"
+            className="shrink-0"
           />
         </div>
         <span className="text-xs font-semibold w-8 text-center">VS</span>
         <div className="flex items-center gap-2 w-28 justify-start">
-          {/* <img
-            src={logo2}
-            alt={team2}
-            className="w-10 h-10 object-contain p-1"
-          /> */}
           <JerseySVG
             bodyColor={away_team_primary_color || "#FFFFFF"}
             accentColor={away_team_secondary_color || "#000000"}
             width={40}
             height={40}
-            className="object-contain p-1"
+            className="shrink-0"
           />
 
-          <span className="text-xs break-words leading-tight max-w-[80px] text-left">
+          <span className="text-[10px] text-left leading-tight break-normal whitespace-normal w-[80px]">
             {team2}
           </span>
         </div>
       </div>
 
       {/* Odds Row */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 min-w-[130px] justify-end">
         {odds.map((odd, index) => (
           <span
             key={index}
-            className="bg-[#2A2A2C] px-4 py-1 rounded-lg text-xs border border-[#464649]"
+            className="bg-[#2A2A2C] w-12 text-center py-1 rounded-lg text-xs border border-[#464649]"
           >
             {odd}
           </span>
