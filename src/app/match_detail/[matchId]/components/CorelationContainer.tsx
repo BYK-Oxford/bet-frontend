@@ -135,7 +135,9 @@ const CorrelationContainer: React.FC<CorrelationContainerProps> = ({
             </td>
           </tr>
           <tr className="border-b border-gray-700 last:border-none">
-            <td className="py-2 text-xs text-gray-200">Shots Accuracy</td>
+            <td className="py-2 text-xs text-gray-200">
+              Shots Accuracy vs Goals
+            </td>
             <td className="py-2 text-xs text-gray-200">
               {homeShotsAccrCorr.toFixed(3)}
             </td>
