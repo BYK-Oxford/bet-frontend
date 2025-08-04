@@ -154,34 +154,35 @@ const MatchDetailPage = () => {
         });
 
         // Calculate Shots on Target / Shots ratio for each team
-        let totalShotsHome = 0;
-        let totalShotsAway = 0;
-        let totalShotsOnTargetHome = 0;
-        let totalShotsOnTargetAway = 0;
+        // Reuse from existing stats array
+        const avgShots = stats.find((s) => s.label === "Average Shots");
+        const avgShotsOnTarget = stats.find(
+          (s) => s.label === "Average Shots on Target"
+        );
 
-        rawData.forEach((match: any) => {
-          totalShotsHome += match.statistics.shots_home || 0;
-          totalShotsAway += match.statistics.shots_away || 0;
-          totalShotsOnTargetHome += match.statistics.shots_on_target_home || 0;
-          totalShotsOnTargetAway += match.statistics.shots_on_target_away || 0;
-        });
+        let accuracyHome = 0;
+        let accuracyAway = 0;
 
-        const count = rawData.length;
+        if (avgShots && avgShotsOnTarget) {
+          accuracyHome =
+            avgShots.team1 === 0
+              ? 0
+              : parseFloat(
+                  ((avgShotsOnTarget.team1 / avgShots.team1) * 100).toFixed(1)
+                );
+          accuracyAway =
+            avgShots.team2 === 0
+              ? 0
+              : parseFloat(
+                  ((avgShotsOnTarget.team2 / avgShots.team2) * 100).toFixed(1)
+                );
+        }
 
-        // To avoid divide by zero
-        const ratioHome =
-          totalShotsHome === 0
-            ? 0
-            : (totalShotsOnTargetHome / totalShotsHome) * 100;
-        const ratioAway =
-          totalShotsAway === 0
-            ? 0
-            : (totalShotsOnTargetAway / totalShotsAway) * 100;
-
+        // Add to stats array
         stats.push({
           label: "Average Shots Accuracy",
-          team1: parseFloat(ratioHome.toFixed(1)),
-          team2: parseFloat(ratioAway.toFixed(1)),
+          team1: accuracyHome,
+          team2: accuracyAway,
         });
 
         const matches = rawData.map((match: any) => ({
