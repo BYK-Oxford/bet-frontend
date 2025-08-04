@@ -51,7 +51,7 @@ export default function HomeSidebar({
             { name: "Spanish Segunda", src: "/teamlogo/Spain.png" },
             { name: "German Bundesliga", src: "/teamlogo/German.png" },
             { name: "German Bundesliga 2", src: "/teamlogo/German.png" },
-            { name: "French Ligue 1", src: "/teamlogo/Scotland.png" },
+            { name: "French Ligue 1", src: "/teamlogo/France.png" },
             { name: "Turkish Super League", src: "/teamlogo/Turkey.png" },
           ]}
           onItemClick={handleLeagueClick}
@@ -69,7 +69,7 @@ export default function HomeSidebar({
             { name: "Italy", src: "/teamlogo/Italy.png" },
             { name: "Spain", src: "/teamlogo/Spain.png" },
             { name: "German", src: "/teamlogo/German.png" },
-            { name: "France", src: "/teamlogo/Turkey.png" },
+            { name: "France", src: "/teamlogo/France.png" },
             { name: "Turkey", src: "/teamlogo/Turkey.png" },
           ]}
           onItemClick={handleCountryClick}
