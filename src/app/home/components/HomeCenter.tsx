@@ -115,7 +115,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
             leagueName={selectedLeague}
             leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg"
           />
-          <div className="bg-[#2E2E30] text-white p-2 rounded-xl w-full min-w-[400px] max-w-[800px] min-h-[200px] h-auto overflow-hidden">
+          <div className="bg-[#2E2E30] text-white p-2 rounded-xl w-full max-w-[700px] min-h-[200px] h-auto overflow-hidden">
             <div className="space-y-2">
               {filteredByLeague.length > 0 ? (
                 filteredByLeague.map((match, index) => (

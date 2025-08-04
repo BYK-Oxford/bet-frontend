@@ -76,7 +76,7 @@ const MatchListContainer: React.FC<MatchProps> = ({
   return (
     <div
       onClick={handleClick}
-      className={`cursor-pointer hover:bg-[#1a1a1a] transition-all hover:rounded-lg text-white p-2 flex items-center w-full min-w-[400px] max-w-[700px] justify-between gap-4 ${
+      className={`cursor-pointer hover:bg-[#1a1a1a] transition-all hover:rounded-lg text-white p-2 flex flex-col sm:flex-row items-center w-full sm:min-w-[400px] max-w-[700px] justify-between gap-4 ${
         isLast ? "" : "border-b border-[#3a3a3a] pb-4 mb-2"
       }`}
     >
