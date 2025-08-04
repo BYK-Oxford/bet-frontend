@@ -117,10 +117,14 @@ const CorrelationContainer: React.FC<CorrelationContainerProps> = ({
           <tr className="border-b border-[rgba(255,255,255,0.1)] last:border-none">
             <td className="py-2 text-xs text-gray-200">Corners vs Goals</td>
             <td className="py-2 text-xs text-gray-200">
-              {homeCornersGoalsCorr.toFixed(3)}
+              {isNaN(homeCornersGoalsCorr)
+                ? "-"
+                : homeCornersGoalsCorr.toFixed(3)}
             </td>
             <td className="py-2 text-xs text-gray-200">
-              {awayCornersGoalsCorr.toFixed(3)}
+              {isNaN(awayCornersGoalsCorr)
+                ? "-"
+                : awayCornersGoalsCorr.toFixed(3)}
             </td>
           </tr>
           <tr className="border-b border-gray-700 last:border-none">
@@ -128,10 +132,10 @@ const CorrelationContainer: React.FC<CorrelationContainerProps> = ({
               Shots on Target vs Goals
             </td>
             <td className="py-2 text-xs text-gray-200">
-              {homeShotsGoalsCorr.toFixed(3)}
+              {isNaN(homeShotsGoalsCorr) ? "-" : homeShotsGoalsCorr.toFixed(3)}
             </td>
             <td className="py-2 text-xs text-gray-200">
-              {awayShotsGoalsCorr.toFixed(3)}
+              {isNaN(awayShotsGoalsCorr) ? "-" : awayShotsGoalsCorr.toFixed(3)}
             </td>
           </tr>
           <tr className="border-b border-gray-700 last:border-none">
@@ -139,10 +143,10 @@ const CorrelationContainer: React.FC<CorrelationContainerProps> = ({
               Shots Accuracy vs Goals
             </td>
             <td className="py-2 text-xs text-gray-200">
-              {homeShotsAccrCorr.toFixed(3)}
+              {isNaN(homeShotsAccrCorr) ? "-" : homeShotsAccrCorr.toFixed(3)}
             </td>
             <td className="py-2 text-xs text-gray-200">
-              {awayShotsAccrCorr.toFixed(3)}
+              {isNaN(awayShotsAccrCorr) ? "-" : awayShotsAccrCorr.toFixed(3)}
             </td>
           </tr>
         </tbody>

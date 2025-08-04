@@ -169,50 +169,34 @@ export default function ValueForMoney({
                 }`}
               >
                 {/* Teams with names below logos */}
-                <div className="flex items-center gap-2 flex-1">
+                <div className="flex items-center justify-start gap-2 px-2 flex-1">
                   {/* Home Team */}
-                  <div className="flex flex-col items-center min-w-[60px] max-w-[100px]">
-                    {/* <Image
-                      src={
-                        teamLogos[match.home_team_name] || match.home_team_logo
-                      }
-                      alt={match.home_team_name}
-                      width={28}
-                      height={28}
-                      className="rounded-full object-cover mb-0.5"
-                    /> */}
+                  <div className="flex flex-col items-center w-[50px]">
                     <JerseySVG
                       bodyColor={match.home_team_primary_color || "#FFFFFF"}
                       accentColor={match.home_team_secondary_color || "#000000"}
                       width={28}
                       height={28}
                     />
-                    <span className="text-[8px] text-center text-gray-300 leading-tight break-words whitespace-normal w-full">
+                    <span className="text-[8px] text-center text-gray-300 leading-tight w-full whitespace-normal break-normal">
                       {match.home_team_name}
                     </span>
                   </div>
 
                   {/* VS */}
-                  <span className="text-gray-400 text-[8px]">vs</span>
+                  <div className="w-[10px] flex justify-center">
+                    <span className="text-gray-400 text-[8px]">vs</span>
+                  </div>
 
                   {/* Away Team */}
-                  <div className="flex flex-col items-center w-14">
-                    {/* <Image
-                      src={
-                        teamLogos[match.away_team_name] || match.away_team_logo
-                      }
-                      alt={match.away_team_name}
-                      width={28}
-                      height={28}
-                      className="rounded-full object-cover mb-0.5"
-                    /> */}
+                  <div className="flex flex-col items-center w-[50px]">
                     <JerseySVG
                       bodyColor={match.away_team_primary_color || "#FFFFFF"}
                       accentColor={match.away_team_secondary_color || "#000000"}
                       width={28}
                       height={28}
                     />
-                    <span className="text-[8px] text-center text-gray-300 leading-tight break-words whitespace-normal w-full">
+                    <span className="text-[8px] text-center text-gray-300 leading-tight w-full whitespace-normal break-normal">
                       {match.away_team_name}
                     </span>
                   </div>
