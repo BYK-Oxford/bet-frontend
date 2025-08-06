@@ -98,15 +98,38 @@ const MatchListContainer: React.FC<MatchProps> = ({
         isLast ? "" : "border-b border-[#3a3a3a] pb-4 mb-2"
       }`}
     >
-      {/* Date and Time */}
-      {(() => {
-        const { localDate, localTime } = getLocalDateTime(date, time);
-        return (
-          <div className="text-[10px] text-gray-400 w-20">
-            {localDate}, {localTime}
+      <div className="flex flex-col items-start text-left gap-1">
+        {true ? (
+          <div className="flex items-center  w-6">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
           </div>
-        );
-      })()}
+        ) : (
+          <div className="w-6" />
+        )}
+        {/* Date and Time */}
+        {(() => {
+          const { localDate, localTime } = getLocalDateTime(date, time);
+          return (
+            <div className="text-[10px] text-gray-400 w-20">
+              {localDate}, {localTime}
+            </div>
+          );
+        })()}
+
+        {/* {live_data?.is_live && live_data.match_time && (
+                <div className="text-green-400 text-[10px] font-semibold">
+                  LIVE: {live_data.match_time}
+                </div>
+              )} */}
+        {true && (
+          <div className="text-green-400 text-[10px] font-semibold">
+            LIVE: 22'
+          </div>
+        )}
+      </div>
 
       {/* Teams Row */}
       <div className="flex items-center justify-center flex-1 gap-3">
@@ -123,7 +146,21 @@ const MatchListContainer: React.FC<MatchProps> = ({
             className="shrink-0"
           />
         </div>
-        <span className="text-xs font-semibold w-8 text-center">VS</span>
+        {/* <span className="text-xs font-semibold w-8 text-center">
+          {isLive ? <span className="text-green-400">{liveScore}</span> : "VS"}
+        </span> */}
+        {/* <span className="text-xs font-semibold w-8 text-center">
+          {true ? (
+            <span className="text-green-400">
+              {live_data.live_home_score} : {live_data.live_away_score}
+            </span>
+          ) : (
+            "VS"
+          )}
+        </span> */}
+        <span className="text-xs font-semibold w-8 text-center">
+          {true ? <span className="text-green-400">2 : 0</span> : "VS"}
+        </span>
         <div className="flex items-center gap-2 w-28 justify-start">
           <JerseySVG
             bodyColor={away_team_primary_color || "#FFFFFF"}

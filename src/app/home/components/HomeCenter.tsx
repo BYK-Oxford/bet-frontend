@@ -159,6 +159,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                     calculated_home_chance={match.calculated_home_chance}
                     calculated_draw_chance={match.calculated_draw_chance}
                     calculated_away_chance={match.calculated_away_chance}
+                    live_data={match.live_data}
                   />
                 ))
               ) : (
