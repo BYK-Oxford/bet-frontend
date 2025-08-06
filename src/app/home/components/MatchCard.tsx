@@ -118,7 +118,7 @@ const MatchCard: React.FC<MatchProps> = ({
                 </div>
 
                 {/* Right: LIVE Dot */}
-                {true ? (
+                {live_data?.is_live ? (
                   <div className="flex items-center justify-end w-6">
                     <span className="relative flex h-2 w-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -130,14 +130,9 @@ const MatchCard: React.FC<MatchProps> = ({
                 )}
               </div>
 
-              {/* {live_data?.is_live && live_data.match_time && (
+              {live_data?.is_live && live_data.match_time && (
                 <div className="text-green-400 text-[10px] font-semibold">
                   LIVE: {live_data.match_time}
-                </div>
-              )} */}
-              {true && (
-                <div className="text-green-400 text-[10px] font-semibold">
-                  LIVE: 55'
                 </div>
               )}
             </>
@@ -163,18 +158,12 @@ const MatchCard: React.FC<MatchProps> = ({
         </div>
 
         {/* VS */}
-        {/* <div className="flex items-center justify-center h-full">
+
+        <div className="flex flex-row items-center min-w-[30px] justify-center h-full">
           {live_data?.is_live ? (
-            <span className="text-sm font-bold text-green-400">
+            <span className="text-[12px] font-bold text-green-400">
               {live_data.live_home_score} : {live_data.live_away_score}
             </span>
-          ) : (
-            <span className="text-sm">VS</span>
-          )}
-        </div> */}
-        <div className="flex flex-row items-center min-w-[30px] justify-center h-full">
-          {true ? (
-            <span className="text-[12px] font-bold text-green-400">2 : 0</span>
           ) : (
             <span className="text-sm">VS</span>
           )}

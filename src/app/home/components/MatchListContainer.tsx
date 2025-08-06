@@ -99,7 +99,7 @@ const MatchListContainer: React.FC<MatchProps> = ({
       }`}
     >
       <div className="flex flex-col items-start text-left gap-1">
-        {true ? (
+        {live_data?.is_live ? (
           <div className="flex items-center  w-6">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -119,12 +119,7 @@ const MatchListContainer: React.FC<MatchProps> = ({
           );
         })()}
 
-        {/* {live_data?.is_live && live_data.match_time && (
-                <div className="text-green-400 text-[10px] font-semibold">
-                  LIVE: {live_data.match_time}
-                </div>
-              )} */}
-        {true && (
+        {live_data?.is_live && live_data.match_time && (
           <div className="text-green-400 text-[10px] font-semibold">
             LIVE: 22'
           </div>
@@ -149,18 +144,16 @@ const MatchListContainer: React.FC<MatchProps> = ({
         {/* <span className="text-xs font-semibold w-8 text-center">
           {isLive ? <span className="text-green-400">{liveScore}</span> : "VS"}
         </span> */}
-        {/* <span className="text-xs font-semibold w-8 text-center">
-          {true ? (
+        <span className="text-xs font-semibold w-8 text-center">
+          {live_data?.is_live ? (
             <span className="text-green-400">
               {live_data.live_home_score} : {live_data.live_away_score}
             </span>
           ) : (
             "VS"
           )}
-        </span> */}
-        <span className="text-xs font-semibold w-8 text-center">
-          {true ? <span className="text-green-400">2 : 0</span> : "VS"}
         </span>
+
         <div className="flex items-center gap-2 w-28 justify-start">
           <JerseySVG
             bodyColor={away_team_primary_color || "#FFFFFF"}
