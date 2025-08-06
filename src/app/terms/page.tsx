@@ -9,12 +9,12 @@ const markdown = `
 ### 1. <u>Introduction</u>
 <br />
 
-www.betgenieuk.com(the "Website") is operated and managed by BYK Oxford Ltd, a company incorporated and registered under the laws of England and Wales, with Company Registration No 16031597 , and having its registered office and business address at 128 City Road, London, United Kingdom, EC1V 2NX.
+www.betgenieuk.com(the "Website") is operated and managed by NexGenie Technologies Ltd, a company incorporated and registered under the laws of England and Wales, with Company Registration No 16031597 , and having its registered office and business address at 128 City Road, London, United Kingdom, EC1V 2NX.
 
 
 <br />
 
-References in these Terms to "BetGenie", "we", "us" and "our" are references to BYK Oxford Limited.
+References in these Terms to "BetGenie", "we", "us" and "our" are references to NexGenie Technologies Ltd.
 
 
 <br />

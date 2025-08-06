@@ -5,6 +5,22 @@ import { useRouter } from "next/navigation"; // Using next/navigation for client
 import JerseySVG from "../../components/ui/Jersey";
 import { getLocalDateTime } from "../../utils/dateUtils";
 
+interface LiveData {
+  is_live: boolean;
+  scrape_url: string;
+  live_home_score: number | null;
+  live_away_score: number | null;
+  match_time: string | null;
+  live_home_odds: number | null;
+  live_draw_odds: number | null;
+  live_away_odds: number | null;
+  shots_on_target_home: number | null;
+  shots_on_target_away: number | null;
+  corners_home: number | null;
+  corners_away: number | null;
+  last_updated: string | null;
+}
+
 interface MatchProps {
   matchId: string;
   date: string;
@@ -22,6 +38,7 @@ interface MatchProps {
   calculated_home_chance: number;
   calculated_draw_chance: number;
   calculated_away_chance: number;
+  live_data?: LiveData; // ✅ optional live data
 }
 
 const MatchCard: React.FC<MatchProps> = ({

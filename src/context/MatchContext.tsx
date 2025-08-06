@@ -2,6 +2,22 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 
+interface LiveData {
+  is_live: boolean;
+  scrape_url: string;
+  live_home_score: number | null;
+  live_away_score: number | null;
+  match_time: string | null;
+  live_home_odds: number | null;
+  live_draw_odds: number | null;
+  live_away_odds: number | null;
+  shots_on_target_home: number | null;
+  shots_on_target_away: number | null;
+  corners_home: number | null;
+  corners_away: number | null;
+  last_updated: string | null;
+}
+
 interface MatchOdds {
   odds_calculation_id: string;
   date: string;
@@ -28,6 +44,7 @@ interface MatchOdds {
   home_odds: number;
   draw_odds: number;
   away_odds: number;
+  live_data?: LiveData; // ✅ optional live data
 }
 
 interface MatchContextType {
