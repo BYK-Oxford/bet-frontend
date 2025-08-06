@@ -153,11 +153,9 @@ You can contact us in any of the following ways:
 
 <br />
 
-### -  By email: xxxxxx##
+### -  By email: contact@betgenieuk.com
 
 <br />
-
-### -  By our Website "Contact Us" page here
 
 <br />
 
