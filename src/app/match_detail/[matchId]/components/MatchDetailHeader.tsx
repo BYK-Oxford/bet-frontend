@@ -85,7 +85,7 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
         <h2 className="text-sm font-semibold">{league}</h2>
 
         {/* live beep color or empty space if not live*/}
-        {true ? (
+        {isLive ? (
           <div className="flex items-center justify-end w-6">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -107,14 +107,9 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
               <div>{localTime}</div>
             </div>
             {/* Live Match Time below date and time */}
-            {/* {isLive && liveMatchTime && (
+            {isLive && liveMatchTime && (
               <div className="text-green-400 font-semibold text-sm">
                 Live Time: {liveMatchTime}
-              </div>
-            )} */}
-            {true && (
-              <div className="text-green-400 font-semibold text-sm">
-                Live Time: 55'
               </div>
             )}
           </div>
@@ -141,18 +136,14 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
         </div>
 
         {/* VS */}
-        {true ? (
-          <span className="text-md font-extrabold text-green-400">2 : 0</span>
-        ) : (
-          <span className="text-xs font-semibold w-8 text-center">VS</span>
-        )}
-        {/* {isLive && liveHomeScore !== null && liveAwayScore !== null ? (
+
+        {isLive && liveHomeScore !== null && liveAwayScore !== null ? (
           <span className="text-md font-extrabold text-green-400">
             {liveHomeScore} : {liveAwayScore}
           </span>
         ) : (
           <span className="text-xs font-semibold w-8 text-center">VS</span>
-        )} */}
+        )}
 
         {/* Team 2 */}
         <div className="w-16 h-16 bg-[#2A2A2C] rounded-full flex items-center justify-center my-1">
