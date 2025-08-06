@@ -12,6 +12,9 @@ type Stats = {
 interface StatChartContainerProps {
   statsData: Stats[];
   statLabel: string;
+  liveTime?: number;
+  liveHomeValue?: number;
+  liveAwayValue?: number;
 }
 
 type StatPoint = {
@@ -24,6 +27,9 @@ type StatPoint = {
 const StatChartContainer: React.FC<StatChartContainerProps> = ({
   statsData,
   statLabel,
+  liveTime,
+  liveHomeValue,
+  liveAwayValue,
 }) => {
   // Safety check
   if (!Array.isArray(statsData) || statsData.length === 0) {
@@ -83,15 +89,15 @@ const StatChartContainer: React.FC<StatChartContainerProps> = ({
       <FootballStatBandedChart
         data={team1Data}
         statLabel={statLabel}
-        liveTime={22} // current minute
-        liveValue={2}
+        liveTime={liveTime} // current minute
+        liveValue={liveHomeValue}
         title={`Home: ${statLabel}`}
       />
       <FootballStatBandedChart
         data={team2Data}
         statLabel={statLabel}
-        liveTime={60} // current minute
-        liveValue={2}
+        liveTime={liveTime} // current minute
+        liveValue={liveAwayValue}
         title={`Away: ${statLabel}`}
       />
     </div>

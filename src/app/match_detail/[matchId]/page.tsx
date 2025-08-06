@@ -287,6 +287,9 @@ const MatchDetailPage = () => {
               <StatChartContainer
                 statsData={historicStats}
                 statLabel="Average Corners"
+                liveTime={Number(liveData?.match_time)}
+                liveHomeValue={liveData?.corners_home ?? undefined}
+                liveAwayValue={liveData?.corners_away ?? undefined}
               />
             </div>
           )}
@@ -296,6 +299,9 @@ const MatchDetailPage = () => {
               <StatChartContainer
                 statsData={historicStats}
                 statLabel="Average Shots on Target"
+                liveTime={Number(liveData?.match_time)}
+                liveHomeValue={liveData?.shots_on_target_home ?? undefined}
+                liveAwayValue={liveData?.shots_on_target_away ?? undefined}
               />
             </div>
           )}
