@@ -87,6 +87,7 @@ const MatchCard: React.FC<MatchProps> = ({
       calculated_home_chance,
       calculated_draw_chance,
       calculated_away_chance,
+      live_data,
     };
 
     // Store the data in sessionStorage

@@ -83,6 +83,7 @@ const MatchListContainer: React.FC<MatchProps> = ({
       calculated_home_chance,
       calculated_draw_chance,
       calculated_away_chance,
+      live_data,
     };
 
     sessionStorage.setItem("matchData", JSON.stringify(matchData));
@@ -141,9 +142,7 @@ const MatchListContainer: React.FC<MatchProps> = ({
             className="shrink-0"
           />
         </div>
-        {/* <span className="text-xs font-semibold w-8 text-center">
-          {isLive ? <span className="text-green-400">{liveScore}</span> : "VS"}
-        </span> */}
+
         <span className="text-xs font-semibold w-8 text-center">
           {live_data?.is_live ? (
             <span className="text-green-400">

@@ -17,6 +17,17 @@ interface MatchProps {
   logo2: string;
   odds: [number, number, number];
   onBack: () => void;
+  liveHomeScore?: number | null;
+  liveAwayScore?: number | null;
+  liveMatchTime?: string | null;
+  liveHomeOdds?: number | null;
+  liveAwayOdds?: number | null;
+  liveDrawOdds?: number | null;
+  liveShotsOnTargetHome?: number | null;
+  liveShotsOnTargetAway?: number | null;
+  liveCornerHome?: number | null;
+  liveCornerAway?: number | null;
+  isLive?: boolean;
 }
 
 const MatchDetailHeader: React.FC<MatchProps> = ({
@@ -33,6 +44,17 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
   logo2,
   odds,
   onBack,
+  liveHomeScore,
+  liveAwayScore,
+  liveMatchTime,
+  liveHomeOdds,
+  liveAwayOdds,
+  liveDrawOdds,
+  liveShotsOnTargetHome,
+  liveShotsOnTargetAway,
+  liveCornerHome,
+  liveCornerAway,
+  isLive,
 }) => {
   return (
     <div className="relative bg-[#2E2E30] text-white p-4 flex flex-col rounded-xl items-center w-full sm:max-w-[600px] justify-between gap-4 overflow-hidden">

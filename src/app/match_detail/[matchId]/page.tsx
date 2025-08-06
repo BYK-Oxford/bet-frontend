@@ -11,6 +11,21 @@ import CorelationContainer from "./components/CorelationContainer";
 import MatchTips from "./components/MatchTips";
 
 // 🧠 Types
+interface LiveData {
+  is_live: boolean;
+  scrape_url: string;
+  live_home_score: number | null;
+  live_away_score: number | null;
+  match_time: string | null;
+  live_home_odds: number | null;
+  live_draw_odds: number | null;
+  live_away_odds: number | null;
+  shots_on_target_home: number | null;
+  shots_on_target_away: number | null;
+  corners_home: number | null;
+  corners_away: number | null;
+  last_updated: string | null;
+}
 
 type RawMatchDataType = {
   match_id: string;
@@ -96,6 +111,23 @@ const MatchDetailPage = () => {
   const [historicStats, setHistoricStats] = useState<Stats[]>([]);
   const [historicMatches, setHistoricMatches] = useState<HistoricMatch[]>([]);
   const [loading, setLoading] = useState(true);
+  const [liveData, setLiveData] = useState<LiveData | null>(null);
+
+  useEffect(() => {
+    const data = sessionStorage.getItem("matchData");
+    if (data) {
+      const parsed = JSON.parse(data);
+      if (parsed.matchId === currentId) {
+        setMatchData(parsed);
+        if (parsed.live_data) {
+          setLiveData(parsed.live_data);
+        }
+      } else {
+        setMatchData(null);
+        setLiveData(null);
+      }
+    }
+  }, [currentId]);
 
   useEffect(() => {
     const data = sessionStorage.getItem("matchData");
@@ -234,6 +266,17 @@ const MatchDetailPage = () => {
             logo2={teamLogos[matchData.team2]}
             odds={matchData.odds}
             onBack={() => router.push("/home")}
+            liveHomeScore={liveData?.live_home_score}
+            liveAwayScore={liveData?.live_away_score}
+            liveMatchTime={liveData?.match_time}
+            liveHomeOdds={liveData?.live_home_odds}
+            liveAwayOdds={liveData?.live_away_odds}
+            liveDrawOdds={liveData?.live_draw_odds}
+            liveShotsOnTargetHome={liveData?.shots_on_target_home}
+            liveShotsOnTargetAway={liveData?.shots_on_target_away}
+            liveCornerHome={liveData?.corners_home}
+            liveCornerAway={liveData?.corners_away}
+            isLive={liveData?.is_live ?? false}
           />
 
           <div className="mt-6">
