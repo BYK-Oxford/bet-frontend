@@ -12,7 +12,9 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  Scatter,
   ResponsiveContainer,
+  ReferenceLine,
 } from "recharts";
 
 type StatPoint = {
@@ -26,24 +28,44 @@ type FootballStatBandedChartProps = {
   data: StatPoint[];
   title?: string;
   statLabel?: string;
+  liveTime?: number;
+  liveValue?: number;
 };
 
 const FootballStatBandedChart: React.FC<FootballStatBandedChartProps> = ({
   data,
   title = "Stat Banded Chart",
   statLabel = "Shots",
+  liveTime,
+  liveValue,
 }) => {
-  // Determine if there's any liveActual data
-  const hasLiveActual = data.some(
-    (d) => d.liveActual !== null && d.liveActual !== undefined
-  );
+  const findNearestTimeIndex = (data: StatPoint[], liveTime: number) => {
+    let nearestIndex = 0;
+    let minDiff = Infinity;
+
+    data.forEach((d, i) => {
+      const diff = Math.abs(d.time - liveTime);
+      if (diff < minDiff) {
+        minDiff = diff;
+        nearestIndex = i;
+      }
+    });
+
+    return nearestIndex;
+  };
+
+  const nearestIndex =
+    liveTime !== undefined ? findNearestTimeIndex(data, liveTime) : -1;
 
   // Prepare data for Recharts
-  const chartData = data.map((d) => ({
+  const chartData = data.map((d, i) => ({
     time: d.time,
     stdRange: d.stdRange,
     actual: d.actual,
-    liveActual: d.liveActual ?? null,
+    liveActual:
+      liveTime !== undefined && liveValue !== undefined && i === nearestIndex
+        ? liveValue
+        : null,
   }));
 
   const renderFilteredTooltip: TooltipProps<number, string>["content"] = ({
@@ -73,7 +95,6 @@ const FootballStatBandedChart: React.FC<FootballStatBandedChartProps> = ({
   }) => {
     const filtered = payload.filter((entry) => {
       if (entry.dataKey === "stdRange") return false;
-      if (entry.dataKey === "liveActual" && !hasLiveActual) return false;
       return true;
     });
 
@@ -92,6 +113,21 @@ const FootballStatBandedChart: React.FC<FootballStatBandedChartProps> = ({
     );
   };
 
+  // Flatten all values to calculate Y-axis bounds
+  const allYValues = chartData.flatMap((d) => [
+    d.actual,
+    d.liveActual,
+    ...(d.stdRange ?? []),
+  ]);
+
+  const validYValues = allYValues.filter(
+    (v): v is number => v !== null && v !== undefined
+  );
+  const maxY = Math.ceil(Math.max(...validYValues));
+
+  const step = Math.ceil(maxY / 5); // or any number of steps you want
+  const ticks = Array.from({ length: 6 }, (_, i) => i * step);
+
   return (
     <div className="w-full h-[300px] bg-[#2E2E30] rounded-xl pb-10 pt-4 px-4 text-white">
       <h2 className="text-sm font-semibold mb-2">{title}</h2>
@@ -105,9 +141,16 @@ const FootballStatBandedChart: React.FC<FootballStatBandedChartProps> = ({
             dataKey="time"
             stroke="#ccc"
             fontSize={10}
-            tickFormatter={(value) => `${value}’`}
+            domain={[0, 90]}
+            type="number"
+            ticks={[0, 15, 30, 45, 60, 75, 90]}
           />
-          <YAxis stroke="#ccc" fontSize={10} />
+          <YAxis
+            stroke="#ccc"
+            fontSize={10}
+            domain={[0, maxY]}
+            ticks={ticks} // or tweak as needed
+          />
           <Tooltip content={renderFilteredTooltip} />
           <Legend content={renderFilteredLegend} />
 
@@ -133,18 +176,15 @@ const FootballStatBandedChart: React.FC<FootballStatBandedChartProps> = ({
             connectNulls
           />
 
-          {/* Live stat line (only if exists) */}
-          {hasLiveActual && (
-            <Line
-              type="monotone"
-              dataKey="liveActual"
-              stroke="#FF5733"
-              dot={{ r: 2 }}
-              name="Live Stats"
-              isAnimationActive={false}
-              connectNulls
-            />
-          )}
+          {/* Live dot */}
+          <Scatter
+            data={chartData}
+            dataKey="liveActual"
+            fill="#FF6F61"
+            name="Live"
+            shape="circle"
+            line={{ connectNulls: false }}
+          />
         </ComposedChart>
       </ResponsiveContainer>
     </div>

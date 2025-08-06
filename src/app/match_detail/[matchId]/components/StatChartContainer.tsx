@@ -70,7 +70,7 @@ const StatChartContainer: React.FC<StatChartContainerProps> = ({
         time: t,
         stdRange: [val - std, val + std],
         actual: val,
-        liveActual: null,
+        liveActual: 2,
       };
     });
   };
@@ -83,11 +83,15 @@ const StatChartContainer: React.FC<StatChartContainerProps> = ({
       <FootballStatBandedChart
         data={team1Data}
         statLabel={statLabel}
+        liveTime={22} // current minute
+        liveValue={2}
         title={`Home: ${statLabel}`}
       />
       <FootballStatBandedChart
         data={team2Data}
         statLabel={statLabel}
+        liveTime={60} // current minute
+        liveValue={2}
         title={`Away: ${statLabel}`}
       />
     </div>
