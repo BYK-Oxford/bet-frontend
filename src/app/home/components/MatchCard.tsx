@@ -58,6 +58,7 @@ const MatchCard: React.FC<MatchProps> = ({
   calculated_home_chance,
   calculated_draw_chance,
   calculated_away_chance,
+  live_data,
 }) => {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
@@ -102,26 +103,49 @@ const MatchCard: React.FC<MatchProps> = ({
       onClick={handleCardClick}
       className="space-y-2 bg-[#2E2E30] text-white p-4 rounded-xl flex flex-col items-center w-52 min-h-[160px] cursor-pointer"
     >
-      {/* Date and Time */}
-      {(() => {
-        const { localDate, localTime } = getLocalDateTime(date, time);
-        return (
-          <div className="text-xs text-gray-400">
-            {localDate}, {localTime}
-          </div>
-        );
-      })()}
+      <div className="text-xs text-gray-400 w-full text-center">
+        {(() => {
+          const { localDate, localTime } = getLocalDateTime(date, time);
+          return (
+            <>
+              <div className="flex justify-between items-center w-full text-xs text-gray-400">
+                {/* Left Placeholder */}
+                <div className="w-6" />
+
+                {/* Centered Date and Time */}
+                <div className="text-center flex-1">
+                  {localDate}, {localTime}
+                </div>
+
+                {/* Right: LIVE Dot */}
+                {true ? (
+                  <div className="flex items-center justify-end w-6">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                    </span>
+                  </div>
+                ) : (
+                  <div className="w-6" />
+                )}
+              </div>
+
+              {/* {live_data?.is_live && live_data.match_time && (
+                <div className="text-red-400 font-semibold">
+                  LIVE: {live_data.match_time}
+                </div>
+              )} */}
+              {true && <div className=" font-semibold">LIVE: 55'</div>}
+            </>
+          );
+        })()}
+      </div>
 
       {/* Teams and VS */}
       <div className="flex items-start justify-center gap-4 mt-3">
         {/* Team 1 */}
         <div className="flex flex-col items-center w-20">
           <div className="w-12 h-12 bg-[#2A2A2C] rounded-full flex items-center justify-center mb-1">
-            {/* <img
-              src={logo1}
-              alt={team1}
-              className="w-10 h-10 object-contain aspect-square"
-            /> */}
             <JerseySVG
               bodyColor={home_team_primary_color || "#FFFFFF"}
               accentColor={home_team_secondary_color || "#000000"}
@@ -129,14 +153,27 @@ const MatchCard: React.FC<MatchProps> = ({
               height={40}
             />
           </div>
-          <span className="text-[10px] text-center break-words leading-tight h-[36px] flex items-center justify-center text-ellipsis overflow-hidden">
+          <span className="text-[10px] px-1 text-center break-words leading-tight h-[36px] flex items-center justify-center text-ellipsis overflow-hidden">
             {team1}
           </span>
         </div>
 
         {/* VS */}
-        <div className="flex items-center justify-center h-full">
-          <span className="text-sm">VS</span>
+        {/* <div className="flex items-center justify-center h-full">
+          {live_data?.is_live ? (
+            <span className="text-sm font-bold text-red-400">
+              {live_data.live_home_score} : {live_data.live_away_score}
+            </span>
+          ) : (
+            <span className="text-sm">VS</span>
+          )}
+        </div> */}
+        <div className="flex flex-row items-center min-w-[30px] justify-center h-full">
+          {true ? (
+            <span className="text-[12px] font-bold text-red-400">2 : 0</span>
+          ) : (
+            <span className="text-sm">VS</span>
+          )}
         </div>
 
         {/* Team 2 */}
@@ -154,7 +191,7 @@ const MatchCard: React.FC<MatchProps> = ({
               height={40}
             />
           </div>
-          <span className="text-[10px] text-center break-words leading-tight h-[36px] flex items-center justify-center text-ellipsis overflow-hidden">
+          <span className="text-[10px] px-1 text-center break-words leading-tight h-[36px] flex items-center justify-center text-ellipsis overflow-hidden">
             {team2}
           </span>
         </div>
