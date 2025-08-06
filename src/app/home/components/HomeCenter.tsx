@@ -130,7 +130,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
 
           <MatchListHeader
             leagueName={selectedLeague}
-            leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg"
+            leagueLogo={`/teamlogo/${matches[0].match_country}.png`}
           />
           <div className="bg-[#2E2E30] text-white p-2 rounded-xl w-full max-w-[700px] min-h-[200px] h-auto overflow-hidden">
             <div className="space-y-2">
@@ -182,12 +182,81 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
       ) : (
         <>
           <HomeBanner />
+          {(() => {
+            const allMatches = Object.values(groupedMatches).flat();
+            const liveMatches = allMatches.filter(
+              (match) => match.live_data?.is_live === true
+            );
+
+            return liveMatches.length > 0 ? (
+              <div className="mb-4">
+                <div className="flex items-center gap-2">
+                  {/* Blinking dot */}
+                  <div className="flex items-center justify-center w-4 h-4">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                  </div>
+
+                  {/* Match Header */}
+                  <div className="w-full">
+                    <MatchHeader
+                      leagueName="LIVE Matches"
+                      showSeeAll={false}
+                      scrollLeft={() => scrollLeft(-1)}
+                      scrollRight={() => scrollRight(-1)}
+                    />
+                  </div>
+                </div>
+
+                <div
+                  ref={(el) => {
+                    scrollContainerRefs.current[-1] = el; // optional: assign a ref index for live
+                  }}
+                  className="flex gap-2 pb-2 overflow-x-auto scrollbar-hide"
+                >
+                  {liveMatches.map((match) => (
+                    <MatchCard
+                      key={match.odds_calculation_id}
+                      matchId={match.odds_calculation_id}
+                      league={match.match_league}
+                      date={formatDate(match.date)}
+                      time={match.time.slice(0, 5)}
+                      team1={match.home_team_name}
+                      team2={match.away_team_name}
+                      home_team_primary_color={match.home_team_primary_color}
+                      home_team_secondary_color={
+                        match.home_team_secondary_color
+                      }
+                      away_team_primary_color={match.away_team_primary_color}
+                      away_team_secondary_color={
+                        match.away_team_secondary_color
+                      }
+                      logo1={
+                        teamLogos[match.home_team_name] || match.home_team_logo
+                      }
+                      logo2={
+                        teamLogos[match.away_team_name] || match.away_team_logo
+                      }
+                      odds={[match.home_odds, match.draw_odds, match.away_odds]}
+                      calculated_home_chance={match.calculated_home_chance}
+                      calculated_draw_chance={match.calculated_draw_chance}
+                      calculated_away_chance={match.calculated_away_chance}
+                      live_data={match.live_data}
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : null;
+          })()}
           {Object.entries(groupedMatches).map(([league, matchList], index) => {
             return (
               <div key={league}>
                 <MatchHeader
                   leagueName={league}
-                  leagueLogo="https://rightanglecreative.co.uk/wp-content/uploads/2020/04/Blog-Post-260816-Premier-League-Logo-Thumbnail.jpg"
+                  leagueLogo={`/teamlogo/${matches[0].match_country}.png`}
+                  showSeeAll={true}
                   onSeeAll={() => setSelectedLeague(league)}
                   scrollLeft={() => scrollLeft(index)} // Pass the index
                   scrollRight={() => scrollRight(index)} // Pass the index
