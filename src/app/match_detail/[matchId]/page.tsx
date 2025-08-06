@@ -272,10 +272,6 @@ const MatchDetailPage = () => {
             liveHomeOdds={liveData?.live_home_odds}
             liveAwayOdds={liveData?.live_away_odds}
             liveDrawOdds={liveData?.live_draw_odds}
-            liveShotsOnTargetHome={liveData?.shots_on_target_home}
-            liveShotsOnTargetAway={liveData?.shots_on_target_away}
-            liveCornerHome={liveData?.corners_home}
-            liveCornerAway={liveData?.corners_away}
             isLive={liveData?.is_live ?? false}
           />
 

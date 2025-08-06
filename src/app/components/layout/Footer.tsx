@@ -23,7 +23,7 @@ const Footer = () => {
       </div>
 
       <p className="text-xs text-gray-500">
-        © {new Date().getFullYear()} Bet Genie. All rights reserved.
+        © {new Date().getFullYear()} BetGenie UK. All rights reserved.
       </p>
     </footer>
   );

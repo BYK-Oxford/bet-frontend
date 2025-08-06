@@ -23,10 +23,6 @@ interface MatchProps {
   liveHomeOdds?: number | null;
   liveAwayOdds?: number | null;
   liveDrawOdds?: number | null;
-  liveShotsOnTargetHome?: number | null;
-  liveShotsOnTargetAway?: number | null;
-  liveCornerHome?: number | null;
-  liveCornerAway?: number | null;
   isLive?: boolean;
 }
 
@@ -50,21 +46,12 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
   liveHomeOdds,
   liveAwayOdds,
   liveDrawOdds,
-  liveShotsOnTargetHome,
-  liveShotsOnTargetAway,
-  liveCornerHome,
-  liveCornerAway,
   isLive,
 }) => {
   return (
     <div className="relative bg-[#2E2E30] text-white p-4 flex flex-col rounded-xl items-center w-full sm:max-w-[600px] justify-between gap-4 overflow-hidden">
       {/* Background Logos */}
       {logo1 && (
-        // <img
-        //   src={logo1}
-        //   alt={team1}
-        //   className="absolute left-1/8 top-1/2 transform -translate-y-1/2 opacity-20 w-24 h-24 sm:w-32 sm:h-32 object-contain filter brightness-25 invert-[15%]"
-        // />
         <JerseySVG
           bodyColor={home_team_primary_color || "#FFFFFF"}
           accentColor={home_team_secondary_color || "#000000"}
@@ -74,11 +61,6 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
         />
       )}
       {logo2 && (
-        // <img
-        //   src={logo2}
-        //   alt={team2}
-        //   className="absolute right-1/8 top-1/2 transform -translate-y-1/2 opacity-20 w-24 h-24 sm:w-32 sm:h-32 object-contain filter brightness-25 invert-[15%]"
-        // />
         <JerseySVG
           bodyColor={away_team_primary_color || "#FFFFFF"}
           accentColor={away_team_secondary_color || "#000000"}
@@ -102,17 +84,39 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
         {/* League Name */}
         <h2 className="text-sm font-semibold">{league}</h2>
 
-        {/* Empty div for spacing (to center the league name) */}
-        <div className="w-6" />
+        {/* live beep color or empty space if not live*/}
+        {true ? (
+          <div className="flex items-center justify-end w-6">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+          </div>
+        ) : (
+          <div className="w-6" />
+        )}
       </div>
 
       {/* Date and Time */}
       {(() => {
         const { localDate, localTime } = getLocalDateTime(date, time);
         return (
-          <div className="text-xs flex justify-center text-gray-400 w-full relative z-10">
-            <div>{localDate}, </div>
-            <div>{localTime}</div>
+          <div className="text-xs flex-col align-center items-center flex justify-center text-gray-400 w-full relative z-10">
+            <div className="flex">
+              <div>{localDate},&nbsp;</div>
+              <div>{localTime}</div>
+            </div>
+            {/* Live Match Time below date and time */}
+            {/* {isLive && liveMatchTime && (
+              <div className="text-green-400 font-semibold text-sm">
+                Live Time: {liveMatchTime}
+              </div>
+            )} */}
+            {true && (
+              <div className="text-green-400 font-semibold text-sm">
+                Live Time: 55'
+              </div>
+            )}
           </div>
         );
       })()}
@@ -127,11 +131,6 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
         </div>
         <div className="w-16 h-16 bg-[#2A2A2C] rounded-full flex items-center justify-center my-1">
           {logo1 && (
-            // <img
-            //   src={logo1}
-            //   alt={team1}
-            //   className="w-10 h-10 object-contain aspect-square"
-            // />
             <JerseySVG
               bodyColor={home_team_primary_color || "#FFFFFF"}
               accentColor={home_team_secondary_color || "#000000"}
@@ -142,16 +141,22 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
         </div>
 
         {/* VS */}
-        <span className="text-xs font-semibold w-8 text-center">VS</span>
+        {true ? (
+          <span className="text-md font-extrabold text-green-400">2 : 0</span>
+        ) : (
+          <span className="text-xs font-semibold w-8 text-center">VS</span>
+        )}
+        {/* {isLive && liveHomeScore !== null && liveAwayScore !== null ? (
+          <span className="text-md font-extrabold text-green-400">
+            {liveHomeScore} : {liveAwayScore}
+          </span>
+        ) : (
+          <span className="text-xs font-semibold w-8 text-center">VS</span>
+        )} */}
 
         {/* Team 2 */}
         <div className="w-16 h-16 bg-[#2A2A2C] rounded-full flex items-center justify-center my-1">
           {logo2 && (
-            // <img
-            //   src={logo2}
-            //   alt={team2}
-            //   className="w-10 h-10 object-contain aspect-square"
-            // />
             <JerseySVG
               bodyColor={away_team_primary_color || "#FFFFFF"}
               accentColor={away_team_secondary_color || "#000000"}
@@ -167,7 +172,28 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
         </div>
       </div>
 
-      {/* Odds Row */}
+      {/* Live Odds (only show if all live odds are present) */}
+      {[liveHomeOdds, liveDrawOdds, liveAwayOdds].every(
+        (odd) => typeof odd === "number" && odd > 1
+      ) && (
+        <div className="relative z-10 mt-2 flex flex-col items-center w-full">
+          <span className="text-[10px] text-green-400 mb-1 uppercase tracking-wider">
+            Live Odds
+          </span>
+          <div className="flex gap-2">
+            <span className="bg-[#1F4323] px-4 py-1 rounded-lg text-xs border border-green-600 text-green-400">
+              {liveHomeOdds}
+            </span>
+            <span className="bg-[#1F4323] px-4 py-1 rounded-lg text-xs border border-green-600 text-green-400">
+              {liveDrawOdds}
+            </span>
+            <span className="bg-[#1F4323] px-4 py-1 rounded-lg text-xs border border-green-600 text-green-400">
+              {liveAwayOdds}
+            </span>
+          </div>
+        </div>
+      )}
+      {/* pre game odds */}
       <div className="flex gap-2 relative z-10">
         {odds.map((odd, index) => (
           <span
