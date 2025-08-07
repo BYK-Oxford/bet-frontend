@@ -19,15 +19,6 @@ export default function Header() {
     setQuery("");
   }, [pathname]);
 
-  const formatDate = (timestamp: string) => {
-    const date = new Date(timestamp);
-    const options: Intl.DateTimeFormatOptions = {
-      month: "short",
-      day: "numeric",
-    };
-    return date.toLocaleDateString(undefined, options);
-  };
-
   const filtered =
     query.trim() === ""
       ? []
@@ -80,7 +71,7 @@ export default function Header() {
                     const matchData = {
                       matchId: match.odds_calculation_id,
                       league: match.match_league || "Unknown League",
-                      date: formatDate(match.date),
+                      date: match.date,
                       time: match.time.slice(0, 5),
                       team1: match.home_team_name,
                       team2: match.away_team_name,
