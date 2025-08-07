@@ -130,7 +130,9 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
 
           <MatchListHeader
             leagueName={selectedLeague}
-            leagueLogo={`/teamlogo/${matches[0].match_country}.png`}
+            leagueLogo={`/teamlogo/${
+              filteredByLeague[0]?.match_country || "default"
+            }.png`}
           />
           <div className="bg-[#2E2E30] text-white p-2 rounded-xl w-full max-w-[700px] min-h-[200px] h-auto overflow-hidden">
             <div className="space-y-2">
@@ -255,7 +257,11 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
               <div key={league}>
                 <MatchHeader
                   leagueName={league}
-                  leagueLogo={`/teamlogo/${matches[0].match_country}.png`}
+                  leagueLogo={
+                    matchList.length > 0
+                      ? `/teamlogo/${matchList[0].match_country}.png`
+                      : "/default-league-flag.png"
+                  }
                   showSeeAll={true}
                   onSeeAll={() => setSelectedLeague(league)}
                   scrollLeft={() => scrollLeft(index)} // Pass the index
