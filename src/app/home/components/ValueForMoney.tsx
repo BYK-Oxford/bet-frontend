@@ -171,16 +171,18 @@ export default function ValueForMoney({
                 {/* Teams with names below logos */}
                 <div className="flex items-center justify-start gap-2 px-2 flex-1">
                   {/* Home Team */}
-                  <div className="flex flex-col items-center w-[50px]">
+                  <div className="flex flex-col items-center w-[50px] h-[60px]">
                     <JerseySVG
                       bodyColor={match.home_team_primary_color || "#FFFFFF"}
                       accentColor={match.home_team_secondary_color || "#000000"}
                       width={28}
                       height={28}
                     />
-                    <span className="text-[8px] text-center text-gray-300 leading-tight w-full whitespace-normal break-normal">
-                      {match.home_team_name}
-                    </span>
+                    <div className="w-full text-center mt-1 h-[30px] overflow-hidden leading-tight">
+                      <span className="text-[8px] text-gray-300 block">
+                        {match.home_team_name}
+                      </span>
+                    </div>
                   </div>
 
                   {/* VS */}
@@ -189,16 +191,18 @@ export default function ValueForMoney({
                   </div>
 
                   {/* Away Team */}
-                  <div className="flex flex-col items-center w-[50px]">
+                  <div className="flex flex-col items-center w-[50px] h-[60px]">
                     <JerseySVG
                       bodyColor={match.away_team_primary_color || "#FFFFFF"}
                       accentColor={match.away_team_secondary_color || "#000000"}
                       width={28}
                       height={28}
                     />
-                    <span className="text-[8px] text-center text-gray-300 leading-tight w-full whitespace-normal break-normal">
-                      {match.away_team_name}
-                    </span>
+                    <div className="w-full text-center mt-1 h-[30px] overflow-hidden leading-tight">
+                      <span className="text-[8px] text-gray-300 block">
+                        {match.away_team_name}
+                      </span>
+                    </div>
                   </div>
                 </div>
 
