@@ -19,12 +19,20 @@ export default function Header() {
     setQuery("");
   }, [pathname]);
 
-  const formatDate = (timestamp: string) => {
-    const date = new Date(timestamp);
+  const formatDate = (dateStr: string, timeStr: string) => {
+    const datePart = dateStr.split("T")[0]; // "2025-08-08"
+    const isoDateTime = `${datePart}T${timeStr}Z`; // "2025-08-08T16:30:00Z"
+    const date = new Date(isoDateTime);
+
+    if (isNaN(date.getTime())) {
+      return "Invalid Date";
+    }
+
     const options: Intl.DateTimeFormatOptions = {
       month: "short",
       day: "numeric",
     };
+
     return date.toLocaleDateString(undefined, options);
   };
 
@@ -80,7 +88,7 @@ export default function Header() {
                     const matchData = {
                       matchId: match.odds_calculation_id,
                       league: match.match_league || "Unknown League",
-                      date: formatDate(match.date),
+                      date: formatDate(match.date, match.time),
                       time: match.time.slice(0, 5),
                       team1: match.home_team_name,
                       team2: match.away_team_name,
