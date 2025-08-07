@@ -167,16 +167,23 @@ const MatchDetailPage = () => {
           { key: "red_cards", label: "Average Red Cards" },
         ];
 
+        function getStat(
+          statistics: Record<string, number>,
+          key: string
+        ): number {
+          return statistics[key] ?? 0;
+        }
+
         const stats = statLabels.map(({ key, label }) => {
           let totalHome = 0;
           let totalAway = 0;
 
-          rawData.forEach((match: any) => {
-            totalHome += match.statistics[`${key}_home`] || 0;
-            totalAway += match.statistics[`${key}_away`] || 0;
+          rawData.forEach((match: { statistics: Record<string, number> }) => {
+            totalHome += getStat(match.statistics, `${key}_home`);
+            totalAway += getStat(match.statistics, `${key}_away`);
           });
 
-          const count = rawData.length;
+          const count = rawData.length || 1;
 
           return {
             label,
@@ -217,7 +224,7 @@ const MatchDetailPage = () => {
           team2: accuracyAway,
         });
 
-        const matches = rawData.map((match: any) => ({
+        const matches = rawData.map((match: RawMatchDataType) => ({
           date: match.date,
           team1: match.home_team_name,
           team2: match.away_team_name,

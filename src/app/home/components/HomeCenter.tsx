@@ -6,6 +6,7 @@ import MatchCard from "./MatchCard";
 import MatchListContainer from "./MatchListContainer";
 import MatchListHeader from "./MatchListHeader";
 import teamLogos from "./teamLogos";
+import Image from "next/image";
 
 interface LiveData {
   is_live: boolean;
@@ -185,13 +186,12 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
               ) : (
                 <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px]">
                   {/* Background watermark image */}
-                  <img
-                    // src="/BetGenieLogo.png"
+
+                  <Image
                     src="/logo2.png"
                     alt="Bet Genie Logo"
                     className="absolute inset-0 w-32 h-32 mx-auto my-auto object-contain opacity-10 grayscale"
                   />
-
                   {/* Text on top */}
                   <p className="relative z-10">No future matches currently</p>
                 </div>
@@ -273,8 +273,8 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
           {noMatchesAvailable ? (
             <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px]">
               {/* Background watermark image */}
-              <img
-                // src="/BetGenieLogo.png"
+
+              <Image
                 src="/logo2.png"
                 alt="Bet Genie Logo"
                 className="absolute inset-0 w-32 h-32 mx-auto my-auto object-contain opacity-10 grayscale"

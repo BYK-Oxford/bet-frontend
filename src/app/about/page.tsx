@@ -1,5 +1,6 @@
 import { marked } from "marked";
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About | Bet Genie UK",
@@ -51,19 +52,19 @@ const AboutUs = () => {
   return (
     <div className="min-h-screen text-white flex flex-col items-center justify-left align-left py-10">
       {/* Logo Section */}
-      <img
+
+      <Image
         src="/mainLogo.png"
         alt="BetGenie Logo"
         width={150}
         height={150}
         className="rounded-full mb-6"
       />
-
       {/* Render Markdown Content */}
       <div className="relative text-white text-sm text-center p-4 flex items-center justify-center min-h-[150px]">
         {/* Background watermark image */}
-        <img
-          // src="/BetGenieLogo.png"
+
+        <Image
           src="/logo2.png"
           alt="Bet Genie Logo"
           className="absolute inset-0 w-80 mx-auto my-auto object-contain opacity-20"
