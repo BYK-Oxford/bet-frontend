@@ -52,7 +52,7 @@ const CorrelationContainer: React.FC<CorrelationContainerProps> = ({
           className="absolute inset-0 w-80 mx-auto my-auto object-contain opacity-20"
         />
         <p className="relative z-10 text-gray-300 text-sm text-center">
-          No data available to calculate correlation for past 5 years.
+          No data available to calculate correlation for past 3 years.
         </p>
       </div>
     );

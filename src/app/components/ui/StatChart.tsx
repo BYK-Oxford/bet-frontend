@@ -213,7 +213,7 @@ const FootballStatBandedChart: React.FC<FootballStatBandedChartProps> = ({
             <Scatter
               data={chartData}
               dataKey="liveActual"
-              fill="#FF6F61"
+              fill="#088408"
               name="Live"
               shape="circle"
               line={{ connectNulls: false }}

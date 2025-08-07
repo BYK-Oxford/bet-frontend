@@ -202,7 +202,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                   {/* Match Header */}
                   <div className="w-full">
                     <MatchHeader
-                      leagueName="LIVE Matches"
+                      leagueName="In-Play Matches"
                       showSeeAll={false}
                       scrollLeft={() => scrollLeft(-1)}
                       scrollRight={() => scrollRight(-1)}
