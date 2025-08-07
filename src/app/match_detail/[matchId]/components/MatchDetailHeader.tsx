@@ -51,7 +51,7 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
   return (
     <div className="relative bg-[#2E2E30] text-white p-4 flex flex-col rounded-xl items-center w-full sm:max-w-[600px] justify-between gap-4 overflow-hidden">
       {/* Background Logos */}
-      {logo1 && (
+      {home_team_primary_color && (
         <JerseySVG
           bodyColor={home_team_primary_color || "#FFFFFF"}
           accentColor={home_team_secondary_color || "#000000"}
@@ -60,7 +60,7 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
           className="absolute left-1/8 top-1/2 transform -translate-y-1/2 opacity-20 w-24 h-24 sm:w-32 sm:h-32 object-contain filter brightness-25 invert-[15%]"
         />
       )}
-      {logo2 && (
+      {away_team_primary_color && (
         <JerseySVG
           bodyColor={away_team_primary_color || "#FFFFFF"}
           accentColor={away_team_secondary_color || "#000000"}
@@ -125,7 +125,7 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
           </span>
         </div>
         <div className="w-16 h-16 bg-[#2A2A2C] rounded-full flex items-center justify-center my-1">
-          {logo1 && (
+          {home_team_primary_color && (
             <JerseySVG
               bodyColor={home_team_primary_color || "#FFFFFF"}
               accentColor={home_team_secondary_color || "#000000"}
@@ -147,7 +147,7 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
 
         {/* Team 2 */}
         <div className="w-16 h-16 bg-[#2A2A2C] rounded-full flex items-center justify-center my-1">
-          {logo2 && (
+          {away_team_primary_color && (
             <JerseySVG
               bodyColor={away_team_primary_color || "#FFFFFF"}
               accentColor={away_team_secondary_color || "#000000"}
