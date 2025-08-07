@@ -1,16 +1,25 @@
 export function getLocalDateTime(dateStr: string, timeStr: string) {
-  const utcDateTime = new Date(`${dateStr}T${timeStr}Z`);
+  const datePart = dateStr.split("T")[0]; // "2025-08-08"
+  const isoDateTime = `${datePart}T${timeStr}Z`; // "2025-08-08T16:30:00Z"
+  const date = new Date(isoDateTime);
 
-  const localDate = utcDateTime.toLocaleDateString(undefined, {
-    day: "2-digit",
-    month: "short", // e.g. "Aug"
-  });
+  if (isNaN(date.getTime())) {
+    return { localDate: "Invalid Date", localTime: "Invalid Time" };
+  }
 
-  const localTime = utcDateTime.toLocaleTimeString(undefined, {
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    month: "short",
+    day: "numeric",
+  };
+
+  const timeOptions: Intl.DateTimeFormatOptions = {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
-  });
+  };
 
-  return { localDate, localTime };
+  return {
+    localDate: date.toLocaleDateString(undefined, dateOptions),
+    localTime: date.toLocaleTimeString(undefined, timeOptions),
+  };
 }
