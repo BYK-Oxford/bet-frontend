@@ -26,6 +26,11 @@ interface MatchProps {
   isLive?: boolean;
 }
 
+const DEFAULT_HOME_PRIMARY = "#FFFFFF";
+const DEFAULT_HOME_SECONDARY = "#000000";
+const DEFAULT_AWAY_PRIMARY = "#FFFFFF";
+const DEFAULT_AWAY_SECONDARY = "#000000";
+
 const MatchDetailHeader: React.FC<MatchProps> = ({
   league,
   date,
@@ -51,24 +56,20 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
   return (
     <div className="relative bg-[#2E2E30] text-white p-4 flex flex-col rounded-xl items-center w-full sm:max-w-[600px] justify-between gap-4 overflow-hidden">
       {/* Background Logos */}
-      {home_team_primary_color && (
-        <JerseySVG
-          bodyColor={home_team_primary_color || "#FFFFFF"}
-          accentColor={home_team_secondary_color || "#000000"}
-          width={24}
-          height={24}
-          className="absolute left-1/8 top-1/2 transform -translate-y-1/2 opacity-20 w-24 h-24 sm:w-32 sm:h-32 object-contain filter brightness-25 invert-[15%]"
-        />
-      )}
-      {away_team_primary_color && (
-        <JerseySVG
-          bodyColor={away_team_primary_color || "#FFFFFF"}
-          accentColor={away_team_secondary_color || "#000000"}
-          width={24}
-          height={24}
-          className="absolute right-1/8 top-1/2 transform -translate-y-1/2 opacity-20 w-24 h-24 sm:w-32 sm:h-32 object-contain filter brightness-25 invert-[15%]"
-        />
-      )}
+      <JerseySVG
+        bodyColor={home_team_primary_color || DEFAULT_HOME_PRIMARY}
+        accentColor={home_team_secondary_color || DEFAULT_HOME_SECONDARY}
+        width={24}
+        height={24}
+        className="absolute left-1/8 top-1/2 transform -translate-y-1/2 opacity-20 w-24 h-24 sm:w-32 sm:h-32 object-contain filter brightness-25 invert-[15%]"
+      />
+      <JerseySVG
+        bodyColor={away_team_primary_color || DEFAULT_AWAY_PRIMARY}
+        accentColor={away_team_secondary_color || DEFAULT_AWAY_SECONDARY}
+        width={24}
+        height={24}
+        className="absolute right-1/8 top-1/2 transform -translate-y-1/2 opacity-20 w-24 h-24 sm:w-32 sm:h-32 object-contain filter brightness-25 invert-[15%]"
+      />
 
       {/* Header Row */}
       <div className="flex items-center justify-between w-full border-b border-[#464649] pb-2 relative z-10">
@@ -125,14 +126,12 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
           </span>
         </div>
         <div className="w-16 h-16 bg-[#2A2A2C] rounded-full flex items-center justify-center my-1">
-          {home_team_primary_color && (
-            <JerseySVG
-              bodyColor={home_team_primary_color || "#FFFFFF"}
-              accentColor={home_team_secondary_color || "#000000"}
-              width={50}
-              height={50}
-            />
-          )}
+          <JerseySVG
+            bodyColor={home_team_primary_color || DEFAULT_HOME_PRIMARY}
+            accentColor={home_team_secondary_color || DEFAULT_HOME_SECONDARY}
+            width={50}
+            height={50}
+          />
         </div>
 
         {/* VS */}
@@ -147,14 +146,12 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
 
         {/* Team 2 */}
         <div className="w-16 h-16 bg-[#2A2A2C] rounded-full flex items-center justify-center my-1">
-          {away_team_primary_color && (
-            <JerseySVG
-              bodyColor={away_team_primary_color || "#FFFFFF"}
-              accentColor={away_team_secondary_color || "#000000"}
-              width={50}
-              height={50}
-            />
-          )}
+          <JerseySVG
+            bodyColor={away_team_primary_color || DEFAULT_AWAY_PRIMARY}
+            accentColor={away_team_secondary_color || DEFAULT_AWAY_SECONDARY}
+            width={50}
+            height={50}
+          />
         </div>
         <div className="flex items-center gap-2 w-28 justify-start">
           <span className="text-xs sm:text-sm md:text-base break-words leading-tight max-w-[80px] sm:max-w-[100px] md:max-w-none text-left font-bold text-center whitespace-normal">
