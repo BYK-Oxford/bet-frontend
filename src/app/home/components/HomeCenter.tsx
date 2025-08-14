@@ -124,7 +124,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
     "Scottish Premiership": "Scotland",
     "Scottish Championship": "Scotland",
     "Spanish La Liga": "Spain",
-    "Spanish Segunda": "Spain",
+    "Spanish Segunda Division": "Spain",
     "Turkish Super League": "Turkey",
     "French Ligue 1": "France",
   };

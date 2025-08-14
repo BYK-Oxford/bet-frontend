@@ -48,7 +48,7 @@ export default function HomeSidebar({
             { name: "Italian Serie A", src: "/teamlogo/Italy.png" },
             { name: "Italian Serie B", src: "/teamlogo/Italy.png" },
             { name: "Spanish La Liga", src: "/teamlogo/Spain.png" },
-            { name: "Spanish Segunda", src: "/teamlogo/Spain.png" },
+            { name: "Spanish Segunda Division", src: "/teamlogo/Spain.png" },
             { name: "German Bundesliga", src: "/teamlogo/German.png" },
             { name: "German Bundesliga 2", src: "/teamlogo/German.png" },
             { name: "French Ligue 1", src: "/teamlogo/France.png" },
