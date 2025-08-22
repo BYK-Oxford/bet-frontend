@@ -87,7 +87,7 @@ export default function Header() {
                       calculated_home_chance: match.calculated_home_chance,
                       calculated_draw_chance: match.calculated_draw_chance,
                       calculated_away_chance: match.calculated_away_chance,
-                      liveData: match.live_data,
+                      live_data: match.live_data,
                     };
                     sessionStorage.setItem(
                       "matchData",
