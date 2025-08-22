@@ -133,7 +133,7 @@ const MatchCard: React.FC<MatchProps> = ({
 
               {live_data?.is_live && live_data.match_time && (
                 <div className="text-green-400 text-[10px] font-semibold">
-                  In-Play: {live_data.match_time}
+                  In-Play: {live_data.match_time}'
                 </div>
               )}
             </>
