@@ -61,7 +61,7 @@ export default function Header() {
 
           {/* Dropdown Results */}
           {filtered.length > 0 && (
-            <div className="absolute top-full left-0 right-0 bg-[#2E2E30] rounded shadow-lg mt-1 z-10 max-h-60 overflow-y-auto">
+            <div className="absolute top-full left-0 right-0 bg-[#2E2E30] rounded shadow-lg mt-1 z-30 max-h-60 overflow-y-auto">
               {filtered.map((match) => (
                 <div
                   key={match.odds_calculation_id}

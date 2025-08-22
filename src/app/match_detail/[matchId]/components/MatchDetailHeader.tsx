@@ -137,7 +137,7 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
         {/* VS */}
 
         {isLive && liveHomeScore !== null && liveAwayScore !== null ? (
-          <span className="text-md font-extrabold text-green-400">
+          <span className="text-xs font-extrabold text-green-400">
             {liveHomeScore} : {liveAwayScore}
           </span>
         ) : (
