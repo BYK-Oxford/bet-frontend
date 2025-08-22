@@ -110,7 +110,7 @@ const MatchDetailHeader: React.FC<MatchProps> = ({
             {/* Live Match Time below date and time */}
             {isLive && liveMatchTime && (
               <div className="text-green-400 font-semibold text-sm">
-                Live Time: {liveMatchTime}
+                In-Play Time: {liveMatchTime}'
               </div>
             )}
           </div>
