@@ -131,11 +131,13 @@ const MatchCard: React.FC<MatchProps> = ({
                 )}
               </div>
 
-              {live_data?.is_live && live_data.match_time && (
+              {live_data?.is_live && live_data.match_time ? (
                 <div className="text-green-400 text-[10px] font-semibold">
                   In-Play: {live_data.match_time}'
                 </div>
-              )}
+              ) : live_data && !live_data.is_live ? (
+                <div className="text-white text-[10px] font-semibold">FT</div>
+              ) : null}
             </>
           );
         })()}
@@ -163,6 +165,10 @@ const MatchCard: React.FC<MatchProps> = ({
         <div className="flex flex-row items-center min-w-[30px] justify-center h-full">
           {live_data?.is_live ? (
             <span className="text-[12px] font-bold text-green-400">
+              {live_data.live_home_score} : {live_data.live_away_score}
+            </span>
+          ) : live_data ? (
+            <span className="text-[12px] font-bold text-white">
               {live_data.live_home_score} : {live_data.live_away_score}
             </span>
           ) : (
