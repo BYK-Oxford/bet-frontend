@@ -298,42 +298,55 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                     }}
                     className="flex gap-2 pb-2 overflow-x-auto scrollbar-hide"
                   >
-                    {matchList.map((match) => (
-                      <MatchCard
-                        key={match.odds_calculation_id}
-                        matchId={match.odds_calculation_id}
-                        league={match.match_league}
-                        date={match.date}
-                        time={match.time.slice(0, 5)}
-                        team1={match.home_team_name}
-                        team2={match.away_team_name}
-                        home_team_primary_color={match.home_team_primary_color}
-                        home_team_secondary_color={
-                          match.home_team_secondary_color
-                        }
-                        away_team_primary_color={match.away_team_primary_color}
-                        away_team_secondary_color={
-                          match.away_team_secondary_color
-                        }
-                        logo1={
-                          teamLogos[match.home_team_name] ||
-                          match.home_team_logo
-                        }
-                        logo2={
-                          teamLogos[match.away_team_name] ||
-                          match.away_team_logo
-                        }
-                        odds={[
-                          match.home_odds,
-                          match.draw_odds,
-                          match.away_odds,
-                        ]}
-                        calculated_home_chance={match.calculated_home_chance}
-                        calculated_draw_chance={match.calculated_draw_chance}
-                        calculated_away_chance={match.calculated_away_chance}
-                        live_data={match.live_data}
-                      />
-                    ))}
+                    {[...matchList] // copy so we don't mutate original
+                      .sort((a, b) => {
+                        // live matches first
+                        if (a.live_data?.is_live && !b.live_data?.is_live)
+                          return -1;
+                        if (!a.live_data?.is_live && b.live_data?.is_live)
+                          return 1;
+                        return 0; // keep original order otherwise
+                      })
+                      .map((match) => (
+                        <MatchCard
+                          key={match.odds_calculation_id}
+                          matchId={match.odds_calculation_id}
+                          league={match.match_league}
+                          date={match.date}
+                          time={match.time.slice(0, 5)}
+                          team1={match.home_team_name}
+                          team2={match.away_team_name}
+                          home_team_primary_color={
+                            match.home_team_primary_color
+                          }
+                          home_team_secondary_color={
+                            match.home_team_secondary_color
+                          }
+                          away_team_primary_color={
+                            match.away_team_primary_color
+                          }
+                          away_team_secondary_color={
+                            match.away_team_secondary_color
+                          }
+                          logo1={
+                            teamLogos[match.home_team_name] ||
+                            match.home_team_logo
+                          }
+                          logo2={
+                            teamLogos[match.away_team_name] ||
+                            match.away_team_logo
+                          }
+                          odds={[
+                            match.home_odds,
+                            match.draw_odds,
+                            match.away_odds,
+                          ]}
+                          calculated_home_chance={match.calculated_home_chance}
+                          calculated_draw_chance={match.calculated_draw_chance}
+                          calculated_away_chance={match.calculated_away_chance}
+                          live_data={match.live_data}
+                        />
+                      ))}
                   </div>
                 </div>
               );
