@@ -147,7 +147,7 @@ const MatchDetailPage = () => {
 
       try {
         const res = await fetch(
-          `https://bet-backend-1.onrender.com/match-statistics/matches/historic/${currentId}`
+          `https://api.betgenieuk.com/match-statistics/matches/historic/${currentId}`
         );
         const rawData = await res.json();
         setRawMatchData(rawData);
