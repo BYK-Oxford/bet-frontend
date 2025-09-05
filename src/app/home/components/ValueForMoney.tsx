@@ -49,15 +49,20 @@ export default function ValueForMoney({
   const today = new Date();
   const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
-  // Calculate Monday of this week
-  const monday = new Date(today);
-  monday.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
-  monday.setHours(0, 0, 0, 0);
+  // Calculate Tuesday of this week
+  const tuesday = new Date(today);
 
-  // Calculate Sunday of this week
-  const sunday = new Date(monday);
-  sunday.setDate(monday.getDate() + 6);
-  sunday.setHours(23, 59, 59, 999);
+  // JS Sunday = 0, Monday = 1, ..., Saturday = 6
+  // We want week to start on Tuesday (2)
+  const diffToTuesday =
+    dayOfWeek === 0 ? -5 : dayOfWeek === 1 ? 1 : 2 - dayOfWeek;
+  tuesday.setDate(today.getDate() + diffToTuesday);
+  tuesday.setHours(0, 0, 0, 0);
+
+  // Calculate next Monday (end of the week)
+  const nextMonday = new Date(tuesday);
+  nextMonday.setDate(tuesday.getDate() + 6);
+  nextMonday.setHours(23, 59, 59, 999);
 
   if (!matches) {
     return <div className="text-white p-4">Loading matches...</div>; // Show a loading state if matches is undefined
@@ -74,7 +79,7 @@ export default function ValueForMoney({
     .filter((match) => {
       // Week filter
       const matchDate = new Date(match.date);
-      return matchDate >= monday && matchDate <= sunday;
+      return matchDate >= tuesday && matchDate <= nextMonday;
     });
 
   const sortedMatches = [...filteredMatches].sort((a, b) => {
@@ -105,11 +110,6 @@ export default function ValueForMoney({
     );
 
     return maxDiffB - maxDiffA;
-  });
-
-  const thisWeekMatches = matches.filter((match) => {
-    const matchDate = new Date(match.date); // Convert match.date string to Date
-    return matchDate >= monday && matchDate <= sunday;
   });
 
   const handleClick = (match: MatchOdds) => {
