@@ -150,7 +150,7 @@ export default function ValueForMoney({
               match.calculated_away_chance * 100 - bookmakerAwayPct * 100;
 
             const maxDiff = Math.max(diffHome, diffDraw, diffAway);
-            if (maxDiff <= 7.5) return null;
+            if (maxDiff <= 9) return null;
             return (
               <div
                 key={match.odds_calculation_id}
