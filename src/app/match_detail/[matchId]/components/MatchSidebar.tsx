@@ -154,7 +154,7 @@ const MatchSidebar = ({ matchData }: { matchData: MatchData }) => {
                 const diff = betGenieVal - bookmakerVal;
 
                 const isMaxDiff = index === maxDiffIndex;
-                const isPositiveGain = diff > 7.5;
+                const isPositiveGain = diff > 9;
 
                 return isMaxDiff && isPositiveGain ? (
                   <text
