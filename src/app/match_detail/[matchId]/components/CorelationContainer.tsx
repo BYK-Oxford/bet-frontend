@@ -67,7 +67,7 @@ const CorrelationContainer: React.FC<CorrelationContainerProps> = ({
           .slice(0, 3)
       : rawData;
 
-  // Extract arrays
+  // Extract arrays new
   const homeCorners = filteredData.map((m) => m.statistics.corners_home);
   const homeGoals = filteredData.map((m) => m.statistics.full_time_home_goals);
   const homeShotsOnTarget = filteredData.map(
