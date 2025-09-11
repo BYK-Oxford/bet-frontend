@@ -8,6 +8,24 @@ import MatchListHeader from "./MatchListHeader";
 import teamLogos from "./teamLogos";
 import Image from "next/image";
 
+interface StatEntry {
+  time: number;
+  actual: number;
+  stdRange: [number, number];
+}
+
+interface StatCategory {
+  home: StatEntry[];
+  away: StatEntry[];
+  home_correlation: number;
+  away_correlation: number;
+}
+
+interface StatsBandedData {
+  corners: StatCategory;
+  shots_on_target: StatCategory;
+}
+
 interface LiveData {
   is_live: boolean;
   scrape_url: string;
@@ -51,6 +69,7 @@ interface MatchOdds {
   draw_odds: number;
   away_odds: number;
   live_data?: LiveData; // ✅ optional live data
+  stats_banded_data?: StatsBandedData;
 }
 
 interface HomeCenterProps {
@@ -172,6 +191,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                     calculated_draw_chance={match.calculated_draw_chance}
                     calculated_away_chance={match.calculated_away_chance}
                     live_data={match.live_data}
+                    stats_banded_data={match.stats_banded_data}
                   />
                 ))
               ) : (
@@ -255,6 +275,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                       calculated_draw_chance={match.calculated_draw_chance}
                       calculated_away_chance={match.calculated_away_chance}
                       live_data={match.live_data}
+                      stats_banded_data={match.stats_banded_data}
                     />
                   ))}
                 </div>
@@ -296,7 +317,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                     ref={(el) => {
                       scrollContainerRefs.current[index] = el;
                     }}
-                    className="flex gap-2 pb-2 overflow-x-auto scrollbar-hide"
+                    className="flex gap-2 p-2 overflow-x-auto scrollbar-hide "
                   >
                     {[...matchList] // copy so we don't mutate original
                       .sort((a, b) => {
@@ -345,6 +366,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                           calculated_draw_chance={match.calculated_draw_chance}
                           calculated_away_chance={match.calculated_away_chance}
                           live_data={match.live_data}
+                          stats_banded_data={match.stats_banded_data}
                         />
                       ))}
                   </div>

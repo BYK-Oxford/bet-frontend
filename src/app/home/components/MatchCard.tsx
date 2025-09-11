@@ -5,6 +5,24 @@ import { useRouter } from "next/navigation"; // Using next/navigation for client
 import JerseySVG from "../../components/ui/Jersey";
 import { getLocalDateTime } from "../../utils/dateUtils";
 
+interface StatEntry {
+  time: number;
+  actual: number;
+  stdRange: [number, number];
+}
+
+interface StatCategory {
+  home: StatEntry[];
+  away: StatEntry[];
+  home_correlation: number;
+  away_correlation: number;
+}
+
+interface StatsBandedData {
+  corners: StatCategory;
+  shots_on_target: StatCategory;
+}
+
 interface LiveData {
   is_live: boolean;
   scrape_url: string;
@@ -39,6 +57,7 @@ interface MatchProps {
   calculated_draw_chance: number;
   calculated_away_chance: number;
   live_data?: LiveData; // ✅ optional live data
+  stats_banded_data?: StatsBandedData;
 }
 
 const MatchCard: React.FC<MatchProps> = ({
@@ -59,6 +78,7 @@ const MatchCard: React.FC<MatchProps> = ({
   calculated_draw_chance,
   calculated_away_chance,
   live_data,
+  stats_banded_data,
 }) => {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
@@ -88,6 +108,7 @@ const MatchCard: React.FC<MatchProps> = ({
       calculated_draw_chance,
       calculated_away_chance,
       live_data,
+      stats_banded_data,
     };
 
     // Store the data in sessionStorage
@@ -99,10 +120,87 @@ const MatchCard: React.FC<MatchProps> = ({
 
   if (!isClient) return null; // Ensure nothing is rendered on SSR
 
+  let showFireEffect = false;
+
+  if (
+    live_data &&
+    live_data.live_home_odds &&
+    live_data.live_draw_odds &&
+    live_data.live_away_odds
+  ) {
+    // Step 1: Full live bookmaker probability
+    const liveProb =
+      1 / live_data.live_home_odds +
+      1 / live_data.live_draw_odds +
+      1 / live_data.live_away_odds;
+
+    // Step 2: Individual live chances
+    const liveHomeChance = 1 / live_data.live_home_odds / liveProb;
+    const liveDrawChance = 1 / live_data.live_draw_odds / liveProb;
+    const liveAwayChance = 1 / live_data.live_away_odds / liveProb;
+
+    // Step 3: Calculate difference with pre-calculated chances
+    const diffHome = Math.abs(liveHomeChance - calculated_home_chance) * 100;
+    const diffDraw = Math.abs(liveDrawChance - calculated_draw_chance) * 100;
+    const diffAway = Math.abs(liveAwayChance - calculated_away_chance) * 100;
+
+    // Step 4: Trigger effect if difference >= 20% for the largest calculated chance
+    const maxPreCalc = Math.max(
+      calculated_home_chance,
+      calculated_draw_chance,
+      calculated_away_chance
+    );
+
+    // Trigger fire effect only if:
+    // 1) Difference >= 20%
+    // 2) The pre-calculated chance (home/draw/away) is the largest among the three
+    if (
+      (diffHome >= 20 && calculated_home_chance === maxPreCalc) ||
+      (diffDraw >= 20 && calculated_draw_chance === maxPreCalc) ||
+      (diffAway >= 20 && calculated_away_chance === maxPreCalc)
+    ) {
+      showFireEffect = true;
+    }
+
+    // Step 5: Check live stats only if fire effect is not already triggered
+    if (!showFireEffect && stats_banded_data) {
+      const { corners, shots_on_target } = stats_banded_data;
+
+      const checkStat = (
+        liveStatHome: number | null,
+        liveStatAway: number | null,
+        statCategory: StatCategory
+      ) => {
+        if (
+          liveStatHome !== null &&
+          liveStatHome > statCategory.home.slice(-1)[0].stdRange[1]
+        ) {
+          if (statCategory.home_correlation > 0) showFireEffect = true;
+        }
+
+        if (
+          liveStatAway !== null &&
+          liveStatAway > statCategory.away.slice(-1)[0].stdRange[1]
+        ) {
+          if (statCategory.away_correlation > 0) showFireEffect = true;
+        }
+      };
+
+      checkStat(live_data.corners_home, live_data.corners_away, corners);
+      checkStat(
+        live_data.shots_on_target_home,
+        live_data.shots_on_target_away,
+        shots_on_target
+      );
+    }
+  }
+
   return (
     <div
       onClick={handleCardClick}
-      className="space-y-2 bg-[#2E2E30] text-white p-4 rounded-xl flex flex-col items-center w-52 min-h-[160px] cursor-pointer"
+      className={`space-y-2 relative bg-[#2E2E30] text-white p-4 rounded-xl flex flex-col items-center w-52 min-h-[160px] cursor-pointer ${
+        showFireEffect ? "fire-border" : ""
+      }`}
     >
       <div className="text-xs text-gray-400 w-full text-center">
         {(() => {
@@ -110,15 +208,10 @@ const MatchCard: React.FC<MatchProps> = ({
           return (
             <>
               <div className="flex justify-between items-center w-full text-xs text-gray-400">
-                {/* Left Placeholder */}
                 <div className="w-6" />
-
-                {/* Centered Date and Time */}
                 <div className="text-center flex-1">
                   {localDate}, {localTime}
                 </div>
-
-                {/* Right: LIVE Dot */}
                 {live_data?.is_live ? (
                   <div className="flex items-center justify-end w-6">
                     <span className="relative flex h-2 w-2">
@@ -145,7 +238,6 @@ const MatchCard: React.FC<MatchProps> = ({
 
       {/* Teams and VS */}
       <div className="flex items-start justify-center gap-4 mt-3">
-        {/* Team 1 */}
         <div className="flex flex-col items-center w-20">
           <div className="w-12 h-12 bg-[#2A2A2C] rounded-full flex items-center justify-center mb-1">
             <JerseySVG
@@ -159,8 +251,6 @@ const MatchCard: React.FC<MatchProps> = ({
             {team1}
           </span>
         </div>
-
-        {/* VS */}
 
         <div className="flex flex-row items-center min-w-[30px] justify-center h-full">
           {live_data?.is_live ? (
@@ -176,14 +266,8 @@ const MatchCard: React.FC<MatchProps> = ({
           )}
         </div>
 
-        {/* Team 2 */}
         <div className="flex flex-col items-center w-20">
           <div className="w-12 h-12 bg-[#2A2A2C] rounded-full flex items-center justify-center mb-1">
-            {/* <img
-              src={logo2}
-              alt={team2}
-              className="w-10 h-10 object-contain aspect-square"
-            /> */}
             <JerseySVG
               bodyColor={away_team_primary_color || "#FFFFFF"}
               accentColor={away_team_secondary_color || "#000000"}

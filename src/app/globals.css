@@ -3,10 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --dark-bg: #1E1E20;
-  --text-color: #FFFFFF;
-  --secondary-text: #A0A0A0;
-  --selection-color: #03BEC2;
+  --dark-bg: #1e1e20;
+  --text-color: #ffffff;
+  --secondary-text: #a0a0a0;
+  --selection-color: #03bec2;
 }
 
 @theme inline {
@@ -38,8 +38,6 @@ a:hover {
   color: var(--selection-color);
 }
 
-
-
 /* For Sidebar */
 .sidebar {
   background: var(--dark-bg);
@@ -56,7 +54,7 @@ a:hover {
 }
 
 .sidebar-btn.active svg {
-  color: var(--text-color); 
+  color: var(--text-color);
 }
 
 /* Default: bottom indicator for mobile (small screens) */
@@ -113,11 +111,10 @@ a:hover {
 /* Responsive: Smaller size for small screens */
 @media (max-width: 768px) {
   .btn {
-    padding: 0.2rem 0.6rem;  
-    font-size: 0.60rem;       
+    padding: 0.2rem 0.6rem;
+    font-size: 0.6rem;
   }
 }
-
 
 /* Icon Button Variant */
 .btn-icon {
@@ -131,7 +128,6 @@ a:hover {
   border-color: var(--selection-color);
   color: var(--text-color);
 }
-
 
 /* Global Scrollbar Styles for WebKit-based browsers */
 ::-webkit-scrollbar {
@@ -161,10 +157,37 @@ a:hover {
 
 /* Hide scrollbar for all browsers */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;  /* Safari and Chrome */
+  display: none; /* Safari and Chrome */
+}
+
+@keyframes fire-flicker {
+  0% {
+    box-shadow: 0 0 3px #03bec2, 0 0 4px #03f0e0, 0 0 5px #00a9b5;
+  }
+  20% {
+    box-shadow: 0 0 4px #03bec2, 0 0 5px #03f0e0, 0 0 6px #00a9b5;
+  }
+  40% {
+    box-shadow: 0 0 5px #03bec2, 0 0 6px #03f0e0, 0 0 7px #00a9b5;
+  }
+  60% {
+    box-shadow: 0 0 4px #03bec2, 0 0 5px #03f0e0, 0 0 6px #00a9b5;
+  }
+  80% {
+    box-shadow: 0 0 3px #03bec2, 0 0 4px #03f0e0, 0 0 5px #00a9b5;
+  }
+  100% {
+    box-shadow: 0 0 4px #03bec2, 0 0 5px #03f0e0, 0 0 6px #00a9b5;
+  }
+}
+
+.fire-border {
+  border: 1px solid transparent;
+  border-radius: 0.75rem; /* same as rounded-xl */
+  animation: fire-flicker 2s ease-in-out infinite;
 }

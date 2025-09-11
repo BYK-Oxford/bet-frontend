@@ -2,6 +2,24 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 
+interface StatEntry {
+  time: number;
+  actual: number;
+  stdRange: [number, number];
+}
+
+interface StatCategory {
+  home: StatEntry[];
+  away: StatEntry[];
+  home_correlation: number;
+  away_correlation: number;
+}
+
+interface StatsBandedData {
+  corners: StatCategory;
+  shots_on_target: StatCategory;
+}
+
 interface LiveData {
   is_live: boolean;
   scrape_url: string;
@@ -45,6 +63,7 @@ interface MatchOdds {
   draw_odds: number;
   away_odds: number;
   live_data?: LiveData; // ✅ optional live data
+  stats_banded_data?: StatsBandedData;
 }
 
 interface MatchContextType {

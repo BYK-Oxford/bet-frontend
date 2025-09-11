@@ -5,6 +5,24 @@ import { useRouter } from "next/navigation";
 import JerseySVG from "../../components/ui/Jersey";
 import { getLocalDateTime } from "../../utils/dateUtils";
 
+interface StatEntry {
+  time: number;
+  actual: number;
+  stdRange: [number, number];
+}
+
+interface StatCategory {
+  home: StatEntry[];
+  away: StatEntry[];
+  home_correlation: number;
+  away_correlation: number;
+}
+
+interface StatsBandedData {
+  corners: StatCategory;
+  shots_on_target: StatCategory;
+}
+
 interface LiveData {
   is_live: boolean;
   scrape_url: string;
@@ -40,6 +58,7 @@ interface MatchProps {
   calculated_draw_chance: number;
   calculated_away_chance: number;
   live_data?: LiveData; // ✅ optional live data
+  stats_banded_data?: StatsBandedData;
 }
 
 const MatchListContainer: React.FC<MatchProps> = ({
@@ -61,6 +80,7 @@ const MatchListContainer: React.FC<MatchProps> = ({
   calculated_away_chance,
   isLast = false,
   live_data,
+  stats_banded_data,
 }) => {
   const router = useRouter();
 
@@ -84,6 +104,7 @@ const MatchListContainer: React.FC<MatchProps> = ({
       calculated_draw_chance,
       calculated_away_chance,
       live_data,
+      stats_banded_data,
     };
 
     sessionStorage.setItem("matchData", JSON.stringify(matchData));
@@ -92,12 +113,87 @@ const MatchListContainer: React.FC<MatchProps> = ({
     router.push(`/match_detail/${matchId}`);
   };
 
+  let showFireEffect = false;
+
+  if (
+    live_data &&
+    live_data.live_home_odds &&
+    live_data.live_draw_odds &&
+    live_data.live_away_odds
+  ) {
+    // Step 1: Full live bookmaker probability
+    const liveProb =
+      1 / live_data.live_home_odds +
+      1 / live_data.live_draw_odds +
+      1 / live_data.live_away_odds;
+
+    // Step 2: Individual live chances
+    const liveHomeChance = 1 / live_data.live_home_odds / liveProb;
+    const liveDrawChance = 1 / live_data.live_draw_odds / liveProb;
+    const liveAwayChance = 1 / live_data.live_away_odds / liveProb;
+
+    // Step 3: Calculate difference with pre-calculated chances
+    const diffHome = Math.abs(liveHomeChance - calculated_home_chance) * 100;
+    const diffDraw = Math.abs(liveDrawChance - calculated_draw_chance) * 100;
+    const diffAway = Math.abs(liveAwayChance - calculated_away_chance) * 100;
+
+    // Step 4: Trigger effect if difference >= 20% for the largest calculated chance
+    const maxPreCalc = Math.max(
+      calculated_home_chance,
+      calculated_draw_chance,
+      calculated_away_chance
+    );
+
+    // Trigger fire effect only if:
+    // 1) Difference >= 20%
+    // 2) The pre-calculated chance (home/draw/away) is the largest among the three
+    if (
+      (diffHome >= 20 && calculated_home_chance === maxPreCalc) ||
+      (diffDraw >= 20 && calculated_draw_chance === maxPreCalc) ||
+      (diffAway >= 20 && calculated_away_chance === maxPreCalc)
+    ) {
+      showFireEffect = true;
+    }
+
+    // Step 5: Check live stats only if fire effect is not already triggered
+    if (!showFireEffect && stats_banded_data) {
+      const { corners, shots_on_target } = stats_banded_data;
+
+      const checkStat = (
+        liveStatHome: number | null,
+        liveStatAway: number | null,
+        statCategory: StatCategory
+      ) => {
+        if (
+          liveStatHome !== null &&
+          liveStatHome > statCategory.home.slice(-1)[0].stdRange[1]
+        ) {
+          if (statCategory.home_correlation > 0) showFireEffect = true;
+        }
+
+        if (
+          liveStatAway !== null &&
+          liveStatAway > statCategory.away.slice(-1)[0].stdRange[1]
+        ) {
+          if (statCategory.away_correlation > 0) showFireEffect = true;
+        }
+      };
+
+      checkStat(live_data.corners_home, live_data.corners_away, corners);
+      checkStat(
+        live_data.shots_on_target_home,
+        live_data.shots_on_target_away,
+        shots_on_target
+      );
+    }
+  }
+
   return (
     <div
       onClick={handleClick}
       className={`cursor-pointer hover:bg-[#1a1a1a] transition-all hover:rounded-lg text-white p-2 flex flex-col sm:flex-row items-center w-full sm:min-w-[400px] max-w-[700px] justify-between gap-4 ${
         isLast ? "" : "border-b border-[#3a3a3a] pb-4 mb-2"
-      }`}
+      } ${showFireEffect ? "fire-border" : ""}`}
     >
       <div className="flex flex-col items-start text-left gap-1">
         {live_data?.is_live ? (
