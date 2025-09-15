@@ -149,7 +149,6 @@ const MatchListContainer: React.FC<MatchProps> = ({
     // 2) The pre-calculated chance (home/draw/away) is the largest among the three
     if (
       (diffHome >= 20 && calculated_home_chance === maxPreCalc) ||
-      (diffDraw >= 20 && calculated_draw_chance === maxPreCalc) ||
       (diffAway >= 20 && calculated_away_chance === maxPreCalc)
     ) {
       showFireEffect = true;
