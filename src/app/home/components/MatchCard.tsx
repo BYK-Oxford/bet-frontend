@@ -128,69 +128,74 @@ const MatchCard: React.FC<MatchProps> = ({
     live_data.live_draw_odds &&
     live_data.live_away_odds
   ) {
-    // Step 1: Full live bookmaker probability
-    const liveProb =
-      1 / live_data.live_home_odds +
-      1 / live_data.live_draw_odds +
-      1 / live_data.live_away_odds;
+    // ❌ Disable fire effect if match is full-time
+    if (live_data.match_time === "FT") {
+      showFireEffect = false;
+    } else {
+      // Step 1: Full live bookmaker probability
+      const liveProb =
+        1 / live_data.live_home_odds +
+        1 / live_data.live_draw_odds +
+        1 / live_data.live_away_odds;
 
-    // Step 2: Individual live chances
-    const liveHomeChance = 1 / live_data.live_home_odds / liveProb;
-    const liveDrawChance = 1 / live_data.live_draw_odds / liveProb;
-    const liveAwayChance = 1 / live_data.live_away_odds / liveProb;
+      // Step 2: Individual live chances
+      const liveHomeChance = 1 / live_data.live_home_odds / liveProb;
+      const liveDrawChance = 1 / live_data.live_draw_odds / liveProb;
+      const liveAwayChance = 1 / live_data.live_away_odds / liveProb;
 
-    // Step 3: Calculate difference with pre-calculated chances
-    const diffHome = Math.abs(liveHomeChance - calculated_home_chance) * 100;
-    const diffDraw = Math.abs(liveDrawChance - calculated_draw_chance) * 100;
-    const diffAway = Math.abs(liveAwayChance - calculated_away_chance) * 100;
+      // Step 3: Calculate difference with pre-calculated chances
+      const diffHome = Math.abs(liveHomeChance - calculated_home_chance) * 100;
+      const diffDraw = Math.abs(liveDrawChance - calculated_draw_chance) * 100;
+      const diffAway = Math.abs(liveAwayChance - calculated_away_chance) * 100;
 
-    // Step 4: Trigger effect if difference >= 20% for the largest calculated chance
-    const maxPreCalc = Math.max(
-      calculated_home_chance,
-      calculated_draw_chance,
-      calculated_away_chance
-    );
-
-    // Trigger fire effect only if:
-    // 1) Difference >= 20%
-    // 2) The pre-calculated chance (home/draw/away) is the largest among the three
-    if (
-      (diffHome >= 20 && calculated_home_chance === maxPreCalc) ||
-      (diffAway >= 20 && calculated_away_chance === maxPreCalc)
-    ) {
-      showFireEffect = true;
-    }
-
-    // Step 5: Check live stats only if fire effect is not already triggered
-    if (!showFireEffect && stats_banded_data) {
-      const { corners, shots_on_target } = stats_banded_data;
-
-      const checkStat = (
-        liveStatHome: number | null,
-        liveStatAway: number | null,
-        statCategory: StatCategory
-      ) => {
-        if (
-          liveStatHome !== null &&
-          liveStatHome > statCategory.home.slice(-1)[0].stdRange[1]
-        ) {
-          if (statCategory.home_correlation > 0) showFireEffect = true;
-        }
-
-        if (
-          liveStatAway !== null &&
-          liveStatAway > statCategory.away.slice(-1)[0].stdRange[1]
-        ) {
-          if (statCategory.away_correlation > 0) showFireEffect = true;
-        }
-      };
-
-      checkStat(live_data.corners_home, live_data.corners_away, corners);
-      checkStat(
-        live_data.shots_on_target_home,
-        live_data.shots_on_target_away,
-        shots_on_target
+      // Step 4: Trigger effect if difference >= 20% for the largest calculated chance
+      const maxPreCalc = Math.max(
+        calculated_home_chance,
+        calculated_draw_chance,
+        calculated_away_chance
       );
+
+      // Trigger fire effect only if:
+      // 1) Difference >= 20%
+      // 2) The pre-calculated chance (home/draw/away) is the largest among the three
+      if (
+        (diffHome >= 20 && calculated_home_chance === maxPreCalc) ||
+        (diffAway >= 20 && calculated_away_chance === maxPreCalc)
+      ) {
+        showFireEffect = true;
+      }
+
+      // Step 5: Check live stats only if fire effect is not already triggered
+      if (!showFireEffect && stats_banded_data) {
+        const { corners, shots_on_target } = stats_banded_data;
+
+        const checkStat = (
+          liveStatHome: number | null,
+          liveStatAway: number | null,
+          statCategory: StatCategory
+        ) => {
+          if (
+            liveStatHome !== null &&
+            liveStatHome > statCategory.home.slice(-1)[0].stdRange[1]
+          ) {
+            if (statCategory.home_correlation > 0) showFireEffect = true;
+          }
+
+          if (
+            liveStatAway !== null &&
+            liveStatAway > statCategory.away.slice(-1)[0].stdRange[1]
+          ) {
+            if (statCategory.away_correlation > 0) showFireEffect = true;
+          }
+        };
+
+        checkStat(live_data.corners_home, live_data.corners_away, corners);
+        checkStat(
+          live_data.shots_on_target_home,
+          live_data.shots_on_target_away,
+          shots_on_target
+        );
+      }
     }
   }
 
