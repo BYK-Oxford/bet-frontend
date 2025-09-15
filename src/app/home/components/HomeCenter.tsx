@@ -245,7 +245,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                   ref={(el) => {
                     scrollContainerRefs.current[-1] = el; // optional: assign a ref index for live
                   }}
-                  className="flex gap-2 pb-2 overflow-x-auto scrollbar-hide"
+                  className="flex gap-2 p-2 overflow-x-auto scrollbar-hide"
                 >
                   {liveMatches.map((match) => (
                     <MatchCard

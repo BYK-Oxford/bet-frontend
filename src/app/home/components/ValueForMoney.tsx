@@ -5,6 +5,22 @@ import { useRouter } from "next/navigation";
 import teamLogos from "./teamLogos";
 import JerseySVG from "../../components/ui/Jersey";
 
+interface LiveData {
+  is_live: boolean;
+  scrape_url: string;
+  live_home_score: number | null;
+  live_away_score: number | null;
+  match_time: string | null;
+  live_home_odds: number | null;
+  live_draw_odds: number | null;
+  live_away_odds: number | null;
+  shots_on_target_home: number | null;
+  shots_on_target_away: number | null;
+  corners_home: number | null;
+  corners_away: number | null;
+  last_updated: string | null;
+}
+
 interface MatchOdds {
   odds_calculation_id: string;
   date: string;
@@ -31,6 +47,7 @@ interface MatchOdds {
   home_odds: number;
   draw_odds: number;
   away_odds: number;
+  live_data?: LiveData;
 }
 
 interface Props {
@@ -130,6 +147,7 @@ export default function ValueForMoney({
       calculated_home_chance: match.calculated_home_chance,
       calculated_draw_chance: match.calculated_draw_chance,
       calculated_away_chance: match.calculated_away_chance,
+      live_data: match.live_data || null,
     };
 
     sessionStorage.setItem("matchData", JSON.stringify(matchData));
