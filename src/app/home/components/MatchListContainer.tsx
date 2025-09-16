@@ -4,6 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import JerseySVG from "../../components/ui/Jersey";
 import { getLocalDateTime } from "../../utils/dateUtils";
+import Image from "next/image";
 
 interface StatEntry {
   time: number;
@@ -195,7 +196,7 @@ const MatchListContainer: React.FC<MatchProps> = ({
   return (
     <div
       onClick={handleClick}
-      className={`cursor-pointer hover:bg-[#1a1a1a] transition-all hover:rounded-lg text-white p-2 flex flex-col sm:flex-row items-center w-full sm:min-w-[400px] max-w-[700px] justify-between gap-4 ${
+      className={`relative cursor-pointer hover:bg-[#1a1a1a] transition-all hover:rounded-lg text-white p-2 flex flex-col sm:flex-row items-center w-full sm:min-w-[400px] max-w-[700px] justify-between gap-4 ${
         isLast ? "" : "border-b border-[#3a3a3a] pb-4 mb-2"
       } ${showFireEffect ? "fire-border" : ""}`}
     >
@@ -279,6 +280,13 @@ const MatchListContainer: React.FC<MatchProps> = ({
           </span>
         ))}
       </div>
+
+      {/* Flame at Top-Right */}
+      {showFireEffect && (
+        <div className="absolute top-0 right-0 -m-2 -mr-3 w-6">
+          <Image src="/burning.png" alt="fire icon" width={15} height={15} />
+        </div>
+      )}
     </div>
   );
 };

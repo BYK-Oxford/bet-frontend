@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Using next/navigation for client-side navigation
 import JerseySVG from "../../components/ui/Jersey";
 import { getLocalDateTime } from "../../utils/dateUtils";
+import Image from "next/image";
 
 interface StatEntry {
   time: number;
@@ -212,7 +213,18 @@ const MatchCard: React.FC<MatchProps> = ({
           return (
             <>
               <div className="flex justify-between items-center w-full text-xs text-gray-400">
-                <div className="w-6" />
+                {showFireEffect && live_data?.is_live ? (
+                  <div className="absolute top-0 left-0 w-6 -m-1 -mt-2">
+                    <Image
+                      src="/burning.png"
+                      alt="fire Image"
+                      width={15}
+                      height={15}
+                    />
+                  </div>
+                ) : (
+                  <div className="w-6" />
+                )}
                 <div className="text-center flex-1">
                   {localDate}, {localTime}
                 </div>
