@@ -198,103 +198,123 @@ export default function ValueForMoney({
               <div
                 key={match.odds_calculation_id}
                 onClick={() => handleClick(match)}
-                className={`cursor-pointer flex items-center justify-between hover:bg-[#1a1a1a] transition-all hover:rounded-lg ${
+                className={`cursor-pointer flex flex-col items-center justify-between hover:bg-[#1a1a1a] transition-all hover:rounded-lg ${
                   index !== 12 ? "border-b border-[#3a3a3a] py-2 mb-2" : ""
                 }`}
               >
-                {/* Teams with names below logos */}
-                <div className="flex items-center justify-start gap-2 px-2 flex-1">
-                  {/* Home Team */}
-                  <div className="flex flex-col items-center w-[50px] h-[60px]">
-                    <JerseySVG
-                      bodyColor={match.home_team_primary_color || "#FFFFFF"}
-                      accentColor={match.home_team_secondary_color || "#000000"}
-                      width={28}
-                      height={28}
-                    />
-                    <div className="w-full text-center mt-1 h-[30px] overflow-hidden leading-tight">
-                      <span className="text-[8px] text-gray-300 block">
-                        {match.home_team_name}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* VS */}
-                  <div className="w-[10px] flex justify-center">
-                    <span className="text-gray-400 text-[8px]">vs</span>
-                  </div>
-
-                  {/* Away Team */}
-                  <div className="flex flex-col items-center w-[50px] h-[60px]">
-                    <JerseySVG
-                      bodyColor={match.away_team_primary_color || "#FFFFFF"}
-                      accentColor={match.away_team_secondary_color || "#000000"}
-                      width={28}
-                      height={28}
-                    />
-                    <div className="w-full text-center mt-1 h-[30px] overflow-hidden leading-tight">
-                      <span className="text-[8px] text-gray-300 block">
-                        {match.away_team_name}
-                      </span>
-                    </div>
-                  </div>
+                {/* Small text row above */}
+                <div className="w-full text-[8px] text-gray-400 px-2 mb-3 flex justify-center">
+                  <span>
+                    {new Date(match.date).toLocaleDateString("en-GB", {
+                      day: "2-digit",
+                      month: "short",
+                    })}
+                    {", "}
+                    {match.time.slice(0, 5)}
+                  </span>
+                  <span className="mx-1"> - </span>
+                  <span> {match.match_league}</span>
                 </div>
-
-                {/* Differences */}
-                <div className="flex flex-col text-[8px] font-mono items-end px-2">
-                  <span
-                    className={`flex items-center gap-1 ${
-                      diffHome === maxDiff
-                        ? "text-[#03BEC2] text-[12px] font-bold"
-                        : "text-gray-400"
-                    }`}
-                  >
-                    {diffHome === maxDiff && (
-                      <>
-                        <span className="w-6 h-6 flex items-center justify-center text-[8px] border border-[#03BEC2] rounded-full">
-                          V4M
+                {/* Main row: Teams + Differences */}
+                <div className="flex flex-row justify-between items-center w-full">
+                  {/* Teams with names below logos */}
+                  <div className="flex items-center justify-start gap-2 px-2 flex-1">
+                    {/* Home Team */}
+                    <div className="flex flex-col items-center w-[50px] h-[60px]">
+                      <JerseySVG
+                        bodyColor={match.home_team_primary_color || "#FFFFFF"}
+                        accentColor={
+                          match.home_team_secondary_color || "#000000"
+                        }
+                        width={28}
+                        height={28}
+                      />
+                      <div className="w-full text-center mt-1 h-[30px] overflow-hidden leading-tight">
+                        <span className="text-[8px] text-gray-300 block">
+                          {match.home_team_name}
                         </span>
-                        <span className="text-[#03BEC2]">-</span>
-                      </>
-                    )}
-                    Home
-                  </span>
+                      </div>
+                    </div>
 
-                  <span
-                    className={`flex items-center gap-1 ${
-                      diffDraw === maxDiff
-                        ? "text-[#03BEC2] text-[12px] font-bold"
-                        : "text-gray-400"
-                    }`}
-                  >
-                    {diffDraw === maxDiff && (
-                      <>
-                        <span className="w-6 h-6 flex items-center justify-center text-[8px] border border-[#03BEC2] rounded-full">
-                          V4M
-                        </span>
-                        <span className="text-[#03BEC2]">-</span>
-                      </>
-                    )}
-                    Draw
-                  </span>
+                    {/* VS */}
+                    <div className="w-[10px] flex justify-center">
+                      <span className="text-gray-400 text-[8px]">vs</span>
+                    </div>
 
-                  <span
-                    className={`flex items-center gap-1 ${
-                      diffAway === maxDiff
-                        ? "text-[#03BEC2] text-[12px] font-bold"
-                        : "text-gray-400"
-                    }`}
-                  >
-                    {diffAway === maxDiff && (
-                      <>
-                        <span className="w-6 h-6 flex items-center justify-center text-[8px] border border-[#03BEC2] rounded-full">
-                          V4M
+                    {/* Away Team */}
+                    <div className="flex flex-col items-center w-[50px] h-[60px]">
+                      <JerseySVG
+                        bodyColor={match.away_team_primary_color || "#FFFFFF"}
+                        accentColor={
+                          match.away_team_secondary_color || "#000000"
+                        }
+                        width={28}
+                        height={28}
+                      />
+                      <div className="w-full text-center mt-1 h-[30px] overflow-hidden leading-tight">
+                        <span className="text-[8px] text-gray-300 block">
+                          {match.away_team_name}
                         </span>
-                        <span className="text-[#03BEC2]">-</span>
-                      </>
-                    )}
-                    Away
-                  </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Differences */}
+                  <div className="flex flex-col text-[8px] font-mono items-end px-2">
+                    <span
+                      className={`flex items-center gap-1 ${
+                        diffHome === maxDiff
+                          ? "text-[#03BEC2] text-[12px] font-bold"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      {diffHome === maxDiff && (
+                        <>
+                          <span className="w-6 h-6 flex items-center justify-center text-[8px] border border-[#03BEC2] rounded-full">
+                            V4M
+                          </span>
+                          <span className="text-[#03BEC2]">-</span>
+                        </>
+                      )}
+                      Home
+                    </span>
+
+                    <span
+                      className={`flex items-center gap-1 ${
+                        diffDraw === maxDiff
+                          ? "text-[#03BEC2] text-[12px] font-bold"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      {diffDraw === maxDiff && (
+                        <>
+                          <span className="w-6 h-6 flex items-center justify-center text-[8px] border border-[#03BEC2] rounded-full">
+                            V4M
+                          </span>
+                          <span className="text-[#03BEC2]">-</span>
+                        </>
+                      )}
+                      Draw
+                    </span>
+
+                    <span
+                      className={`flex items-center gap-1 ${
+                        diffAway === maxDiff
+                          ? "text-[#03BEC2] text-[12px] font-bold"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      {diffAway === maxDiff && (
+                        <>
+                          <span className="w-6 h-6 flex items-center justify-center text-[8px] border border-[#03BEC2] rounded-full">
+                            V4M
+                          </span>
+                          <span className="text-[#03BEC2]">-</span>
+                        </>
+                      )}
+                      Away
+                    </span>
+                  </div>
                 </div>
               </div>
             );
