@@ -12,6 +12,7 @@ export default function HomeContent() {
   const [width, setWidth] = useState(0);
   const [showTerms, setShowTerms] = useState(false);
   const { matches, loading } = useMatchContext();
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   let leftContainer = 200;
   let rightContainer = 240;
@@ -30,6 +31,19 @@ export default function HomeContent() {
       setShowTerms(true);
     }
   }, []);
+
+  // Show scroll-to-top button when user scrolls down
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300); // show after 300px scroll
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const handleAccept = () => setShowTerms(false);
 
@@ -80,6 +94,19 @@ export default function HomeContent() {
           selectedLeague={selectedLeague}
         />
       </div>
+
+      {/* Floating Action Button */}
+      <button
+        onClick={scrollToTop}
+        className={`
+        fixed bottom-5 right-5 z-50 w-12 h-12 rounded-full bg-[#03bec2] text-white shadow-lg 
+        flex items-center justify-center transition-all duration-300
+        ${showScrollTop ? "opacity-100" : "opacity-0 pointer-events-none"}
+      `}
+        aria-label="Scroll to top"
+      >
+        ⮝
+      </button>
     </div>
   );
 }
