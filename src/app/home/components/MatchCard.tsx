@@ -130,7 +130,7 @@ const MatchCard: React.FC<MatchProps> = ({
     live_data.live_away_odds
   ) {
     // ❌ Disable fire effect if match is full-time
-    if (live_data.match_time === "FT") {
+    if (live_data.is_live == false) {
       showFireEffect = false;
     } else {
       // Step 1: Full live bookmaker probability
@@ -146,13 +146,12 @@ const MatchCard: React.FC<MatchProps> = ({
 
       // Step 3: Calculate difference with pre-calculated chances
       const diffHome = Math.abs(liveHomeChance - calculated_home_chance) * 100;
-      const diffDraw = Math.abs(liveDrawChance - calculated_draw_chance) * 100;
+      // const diffDraw = Math.abs(liveDrawChance - calculated_draw_chance) * 100;
       const diffAway = Math.abs(liveAwayChance - calculated_away_chance) * 100;
 
       // Step 4: Trigger effect if difference >= 20% for the largest calculated chance
       const maxPreCalc = Math.max(
         calculated_home_chance,
-        calculated_draw_chance,
         calculated_away_chance
       );
 
@@ -179,14 +178,22 @@ const MatchCard: React.FC<MatchProps> = ({
             liveStatHome !== null &&
             liveStatHome > statCategory.home.slice(-1)[0].stdRange[1]
           ) {
-            if (statCategory.home_correlation > 0) showFireEffect = true;
+            if (statCategory.home_correlation > 0) {
+              showFireEffect = true;
+            } else {
+              showFireEffect = false;
+            }
           }
 
           if (
             liveStatAway !== null &&
             liveStatAway > statCategory.away.slice(-1)[0].stdRange[1]
           ) {
-            if (statCategory.away_correlation > 0) showFireEffect = true;
+            if (statCategory.away_correlation > 0) {
+              showFireEffect = true;
+            } else {
+              showFireEffect = false;
+            }
           }
         };
 
