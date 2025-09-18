@@ -88,6 +88,14 @@ const MatchCard: React.FC<MatchProps> = ({
     setIsClient(true); // This will be triggered only on the client side
   }, []);
 
+  // Utility to find the closest StatEntry to live minute
+  const getRelevantEntry = (entries: StatEntry[], liveMinute: number) => {
+    return (
+      [...entries].reverse().find((entry) => liveMinute >= entry.time) ||
+      entries[0]
+    ); // fallback to first
+  };
+
   const handleCardClick = () => {
     if (!isClient) return;
 
@@ -145,11 +153,11 @@ const MatchCard: React.FC<MatchProps> = ({
       const liveAwayChance = 1 / live_data.live_away_odds / liveProb;
 
       // Step 3: Calculate difference with pre-calculated chances
-      const diffHome = Math.abs(liveHomeChance - calculated_home_chance) * 100;
+      const diffHome = Math.abs(calculated_home_chance - liveHomeChance) * 100;
       // const diffDraw = Math.abs(liveDrawChance - calculated_draw_chance) * 100;
-      const diffAway = Math.abs(liveAwayChance - calculated_away_chance) * 100;
+      const diffAway = Math.abs(calculated_away_chance - liveAwayChance) * 100;
 
-      // Step 4: Trigger effect if difference >= 20% for the largest calculated chance
+      // Step 4: identify who was favorite pre game.
       const maxPreCalc = Math.max(
         calculated_home_chance,
         calculated_away_chance
@@ -159,8 +167,8 @@ const MatchCard: React.FC<MatchProps> = ({
       // 1) Difference >= 20%
       // 2) The pre-calculated chance (home/draw/away) is the largest among the three
       if (
-        (diffHome >= 20 && calculated_home_chance === maxPreCalc) ||
-        (diffAway >= 20 && calculated_away_chance === maxPreCalc)
+        (diffHome >= 15 && calculated_home_chance === maxPreCalc) ||
+        (diffAway >= 15 && calculated_away_chance === maxPreCalc)
       ) {
         showFireEffect = true;
       }
@@ -172,37 +180,46 @@ const MatchCard: React.FC<MatchProps> = ({
         const checkStat = (
           liveStatHome: number | null,
           liveStatAway: number | null,
-          statCategory: StatCategory
+          statCategory: StatCategory,
+          liveMinute: number
         ) => {
-          if (
-            liveStatHome !== null &&
-            liveStatHome > statCategory.home.slice(-1)[0].stdRange[1]
-          ) {
-            if (statCategory.home_correlation > 0) {
-              showFireEffect = true;
-            } else {
-              showFireEffect = false;
+          if (liveStatHome !== null && statCategory.home.length > 0) {
+            const homeEntry = getRelevantEntry(statCategory.home, liveMinute);
+
+            if (liveStatHome > homeEntry.actual) {
+              showFireEffect = statCategory.home_correlation >= 0;
             }
           }
 
-          if (
-            liveStatAway !== null &&
-            liveStatAway > statCategory.away.slice(-1)[0].stdRange[1]
-          ) {
-            if (statCategory.away_correlation > 0) {
-              showFireEffect = true;
-            } else {
-              showFireEffect = false;
+          if (liveStatAway !== null && statCategory.away.length > 0) {
+            const awayEntry = getRelevantEntry(statCategory.away, liveMinute);
+
+            if (liveStatAway > awayEntry.actual) {
+              showFireEffect = statCategory.away_correlation >= 0;
             }
           }
         };
 
-        checkStat(live_data.corners_home, live_data.corners_away, corners);
-        checkStat(
-          live_data.shots_on_target_home,
-          live_data.shots_on_target_away,
-          shots_on_target
-        );
+        if (!showFireEffect && stats_banded_data && live_data?.match_time) {
+          const { corners, shots_on_target } = stats_banded_data;
+          const liveMinute = parseInt(
+            live_data.match_time.replace("'", ""),
+            10
+          );
+
+          checkStat(
+            live_data.corners_home,
+            live_data.corners_away,
+            corners,
+            liveMinute
+          );
+          checkStat(
+            live_data.shots_on_target_home,
+            live_data.shots_on_target_away,
+            shots_on_target,
+            liveMinute
+          );
+        }
       }
     }
   }
