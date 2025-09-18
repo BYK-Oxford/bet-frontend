@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import HomeBanner from "./HomeBanner";
 import MatchHeader from "./MatchHeader";
 import MatchCard from "./MatchCard";
@@ -87,6 +87,8 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
 }) => {
   // Create an array of refs for scroll containers
   const scrollContainerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const countryCardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const leagueContainerRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   // Scroll left
   const scrollLeft = (index: number) => {
@@ -152,6 +154,26 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
     filteredByLeague.length === 0 &&
     (selectedCountry !== null || selectedLeague !== null);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return; // SSR check
+
+    const isMobile = window.innerWidth <= 768;
+
+    if (!isMobile) return; // only scroll on mobile
+
+    if (selectedCountry && !selectedLeague) {
+      const card = countryCardRefs.current[selectedCountry];
+      if (card) {
+        card.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else if (selectedLeague) {
+      const container = leagueContainerRefs.current[selectedLeague];
+      if (container) {
+        container.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, [selectedCountry, selectedLeague]);
+
   return (
     <>
       {selectedLeague ? (
@@ -167,32 +189,49 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
             <div className="space-y-2">
               {!noMatchesAvailable ? (
                 filteredByLeague.map((match, index) => (
-                  <MatchListContainer
-                    key={match.odds_calculation_id}
-                    league={match.match_league}
-                    matchId={match.odds_calculation_id}
-                    date={match.date}
-                    time={match.time.slice(0, 5)}
-                    team1={match.home_team_name}
-                    home_team_primary_color={match.home_team_primary_color}
-                    home_team_secondary_color={match.home_team_secondary_color}
-                    away_team_primary_color={match.away_team_primary_color}
-                    away_team_secondary_color={match.away_team_secondary_color}
-                    team2={match.away_team_name}
-                    logo1={
-                      teamLogos[match.home_team_name] || match.home_team_logo
-                    }
-                    logo2={
-                      teamLogos[match.away_team_name] || match.away_team_logo
-                    }
-                    odds={[match.home_odds, match.draw_odds, match.away_odds]}
-                    isLast={index === filteredByLeague.length - 1}
-                    calculated_home_chance={match.calculated_home_chance}
-                    calculated_draw_chance={match.calculated_draw_chance}
-                    calculated_away_chance={match.calculated_away_chance}
-                    live_data={match.live_data}
-                    stats_banded_data={match.stats_banded_data}
-                  />
+                  <div
+                    key={`${match.match_league}-${match.odds_calculation_id}`} // unique
+                    id={`league-container-${match.match_league.replace(
+                      /\s+/g,
+                      "-"
+                    )}`}
+                    ref={(el) => {
+                      if (index === 0) {
+                        leagueContainerRefs.current[match.match_league] = el;
+                      }
+                    }}
+                    className="flex gap-2 p-2 overflow-x-auto scrollbar-hide"
+                  >
+                    <MatchListContainer
+                      league={match.match_league}
+                      matchId={match.odds_calculation_id}
+                      date={match.date}
+                      time={match.time.slice(0, 5)}
+                      team1={match.home_team_name}
+                      home_team_primary_color={match.home_team_primary_color}
+                      home_team_secondary_color={
+                        match.home_team_secondary_color
+                      }
+                      away_team_primary_color={match.away_team_primary_color}
+                      away_team_secondary_color={
+                        match.away_team_secondary_color
+                      }
+                      team2={match.away_team_name}
+                      logo1={
+                        teamLogos[match.home_team_name] || match.home_team_logo
+                      }
+                      logo2={
+                        teamLogos[match.away_team_name] || match.away_team_logo
+                      }
+                      odds={[match.home_odds, match.draw_odds, match.away_odds]}
+                      isLast={index === filteredByLeague.length - 1}
+                      calculated_home_chance={match.calculated_home_chance}
+                      calculated_draw_chance={match.calculated_draw_chance}
+                      calculated_away_chance={match.calculated_away_chance}
+                      live_data={match.live_data}
+                      stats_banded_data={match.stats_banded_data}
+                    />
+                  </div>
                 ))
               ) : (
                 <div className="relative text-gray-400 text-sm text-center p-4 flex items-center justify-center min-h-[150px]">
@@ -249,7 +288,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                 >
                   {liveMatches.map((match) => (
                     <MatchCard
-                      key={match.odds_calculation_id}
+                      key={`live-${match.odds_calculation_id}`}
                       matchId={match.odds_calculation_id}
                       league={match.match_league}
                       date={match.date}
@@ -298,7 +337,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
           ) : (
             Object.entries(groupedMatches).map(([league, matchList], index) => {
               return (
-                <div key={league}>
+                <div key={`league-${league}`}>
                   <MatchHeader
                     leagueName={league}
                     leagueLogo={
@@ -328,46 +367,60 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                           return 1;
                         return 0; // keep original order otherwise
                       })
-                      .map((match) => (
-                        <MatchCard
-                          key={match.odds_calculation_id}
-                          matchId={match.odds_calculation_id}
-                          league={match.match_league}
-                          date={match.date}
-                          time={match.time.slice(0, 5)}
-                          team1={match.home_team_name}
-                          team2={match.away_team_name}
-                          home_team_primary_color={
-                            match.home_team_primary_color
-                          }
-                          home_team_secondary_color={
-                            match.home_team_secondary_color
-                          }
-                          away_team_primary_color={
-                            match.away_team_primary_color
-                          }
-                          away_team_secondary_color={
-                            match.away_team_secondary_color
-                          }
-                          logo1={
-                            teamLogos[match.home_team_name] ||
-                            match.home_team_logo
-                          }
-                          logo2={
-                            teamLogos[match.away_team_name] ||
-                            match.away_team_logo
-                          }
-                          odds={[
-                            match.home_odds,
-                            match.draw_odds,
-                            match.away_odds,
-                          ]}
-                          calculated_home_chance={match.calculated_home_chance}
-                          calculated_draw_chance={match.calculated_draw_chance}
-                          calculated_away_chance={match.calculated_away_chance}
-                          live_data={match.live_data}
-                          stats_banded_data={match.stats_banded_data}
-                        />
+                      .map((match, i) => (
+                        <div
+                          key={`league-${league}-match-${match.odds_calculation_id}`}
+                          ref={(el) => {
+                            if (i === 0) {
+                              countryCardRefs.current[match.match_country] = el;
+                            }
+                          }}
+                        >
+                          <MatchCard
+                            matchId={match.odds_calculation_id}
+                            league={match.match_league}
+                            date={match.date}
+                            time={match.time.slice(0, 5)}
+                            team1={match.home_team_name}
+                            team2={match.away_team_name}
+                            home_team_primary_color={
+                              match.home_team_primary_color
+                            }
+                            home_team_secondary_color={
+                              match.home_team_secondary_color
+                            }
+                            away_team_primary_color={
+                              match.away_team_primary_color
+                            }
+                            away_team_secondary_color={
+                              match.away_team_secondary_color
+                            }
+                            logo1={
+                              teamLogos[match.home_team_name] ||
+                              match.home_team_logo
+                            }
+                            logo2={
+                              teamLogos[match.away_team_name] ||
+                              match.away_team_logo
+                            }
+                            odds={[
+                              match.home_odds,
+                              match.draw_odds,
+                              match.away_odds,
+                            ]}
+                            calculated_home_chance={
+                              match.calculated_home_chance
+                            }
+                            calculated_draw_chance={
+                              match.calculated_draw_chance
+                            }
+                            calculated_away_chance={
+                              match.calculated_away_chance
+                            }
+                            live_data={match.live_data}
+                            stats_banded_data={match.stats_banded_data}
+                          />
+                        </div>
                       ))}
                   </div>
                 </div>

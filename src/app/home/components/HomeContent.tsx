@@ -6,8 +6,6 @@ import ValueForMoney from "./ValueForMoney";
 import { useMatchContext } from "../../../context/MatchContext";
 import TermsModal from "./../../components/ui/TermsModal";
 
-
-
 export default function HomeContent() {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [selectedLeague, setSelectedLeague] = useState<string | null>(null);
@@ -41,12 +39,12 @@ export default function HomeContent() {
 
       {/* Sidebar comes first on small screen */}
       <div
-          className={`order-1 md:order-none`}
-          style={{
-            width: width >= 1024 ? `${leftContainer}px` : "100%",
-            flexShrink: 0
-          }}
-        >
+        className={`order-1 md:order-none`}
+        style={{
+          width: width >= 1024 ? `${leftContainer}px` : "100%",
+          flexShrink: 0,
+        }}
+      >
         <HomeSidebar
           onSelectCountry={setSelectedCountry}
           onSelectLeague={setSelectedLeague}
@@ -71,12 +69,16 @@ export default function HomeContent() {
       {/* ValueForMoney comes last on all screens */}
       <div
         className="w-full md:w-1/4 lg:w-1/5 order-3 md:order-none"
-        style={{ width: width >= 1024 ? rightContainer : "100%" }}
+        style={{
+          width: width >= 1024 ? rightContainer : "100%",
+          minHeight: 500,
+        }}
       >
-        <ValueForMoney 
+        <ValueForMoney
           matches={matches}
           selectedCountry={selectedCountry}
-          selectedLeague={selectedLeague} />
+          selectedLeague={selectedLeague}
+        />
       </div>
     </div>
   );
