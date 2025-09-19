@@ -99,13 +99,13 @@ export default function HomeContent() {
       <button
         onClick={scrollToTop}
         className={`
-        fixed bottom-5 right-5 z-50 w-12 h-12 rounded-full bg-[#03bec2] text-white shadow-lg 
+        fixed bottom-5 pt-2 right-5 z-50 w-12 h-12 rounded-full bg-[#03bec2] text-white shadow-lg 
         flex items-center justify-center transition-all duration-300
         ${showScrollTop ? "opacity-100" : "opacity-0 pointer-events-none"}
       `}
         aria-label="Scroll to top"
       >
-        ⮝
+        ^
       </button>
     </div>
   );
