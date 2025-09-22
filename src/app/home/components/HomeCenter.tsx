@@ -164,7 +164,8 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
     if (selectedCountry && !selectedLeague) {
       const card = countryCardRefs.current[selectedCountry];
       if (card) {
-        card.scrollIntoView({ behavior: "smooth", block: "start" });
+        const y = card.getBoundingClientRect().top + window.scrollY - 150; // offset 150px
+        window.scrollTo({ top: y, behavior: "smooth" });
       }
     } else if (selectedLeague) {
       const container = leagueContainerRefs.current[selectedLeague];
