@@ -183,19 +183,33 @@ const MatchCard: React.FC<MatchProps> = ({
           statCategory: StatCategory,
           liveMinute: number
         ) => {
-          if (liveStatHome !== null && statCategory.home.length > 0) {
+          //if home live score < = away live score
+
+          if (
+            liveStatHome !== null &&
+            liveStatAway !== null &&
+            liveStatHome <= liveStatAway &&
+            statCategory.home.length > 0
+          ) {
             const homeEntry = getRelevantEntry(statCategory.home, liveMinute);
 
             if (liveStatHome > homeEntry.actual) {
-              showFireEffect = statCategory.home_correlation >= 0;
+              showFireEffect = statCategory.home_correlation > 0;
             }
           }
 
-          if (liveStatAway !== null && statCategory.away.length > 0) {
+          // if away live score < = home live score
+
+          if (
+            liveStatHome !== null &&
+            liveStatAway !== null &&
+            liveStatAway <= liveStatHome &&
+            statCategory.away.length > 0
+          ) {
             const awayEntry = getRelevantEntry(statCategory.away, liveMinute);
 
             if (liveStatAway > awayEntry.actual) {
-              showFireEffect = statCategory.away_correlation >= 0;
+              showFireEffect = statCategory.away_correlation > 0;
             }
           }
         };
