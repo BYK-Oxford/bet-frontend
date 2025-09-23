@@ -85,6 +85,14 @@ const MatchListContainer: React.FC<MatchProps> = ({
 }) => {
   const router = useRouter();
 
+  // Utility to find the closest StatEntry to live minute
+  const getRelevantEntry = (entries: StatEntry[], liveMinute: number) => {
+    return (
+      [...entries].reverse().find((entry) => liveMinute >= entry.time) ||
+      entries[0]
+    ); // fallback to first
+  };
+
   const handleClick = () => {
     // Save match data in sessionStorage
     const matchData = {
@@ -165,37 +173,60 @@ const MatchListContainer: React.FC<MatchProps> = ({
         const checkStat = (
           liveStatHome: number | null,
           liveStatAway: number | null,
-          statCategory: StatCategory
+          statCategory: StatCategory,
+          liveMinute: number
         ) => {
+          //if home live score < = away live score
+
           if (
             liveStatHome !== null &&
-            liveStatHome > statCategory.home.slice(-1)[0].stdRange[1]
+            liveStatAway !== null &&
+            liveStatHome <= liveStatAway &&
+            statCategory.home.length > 0
           ) {
-            if (statCategory.home_correlation > 0) {
-              showFireEffect = true;
-            } else {
-              showFireEffect = false;
+            const homeEntry = getRelevantEntry(statCategory.home, liveMinute);
+
+            if (liveStatHome > homeEntry.actual) {
+              showFireEffect = statCategory.home_correlation > 0;
             }
           }
 
+          // if away live score < = home live score
+
           if (
+            liveStatHome !== null &&
             liveStatAway !== null &&
-            liveStatAway > statCategory.away.slice(-1)[0].stdRange[1]
+            liveStatAway <= liveStatHome &&
+            statCategory.away.length > 0
           ) {
-            if (statCategory.away_correlation > 0) {
-              showFireEffect = true;
-            } else {
-              showFireEffect = false;
+            const awayEntry = getRelevantEntry(statCategory.away, liveMinute);
+
+            if (liveStatAway > awayEntry.actual) {
+              showFireEffect = statCategory.away_correlation > 0;
             }
           }
         };
 
-        checkStat(live_data.corners_home, live_data.corners_away, corners);
-        checkStat(
-          live_data.shots_on_target_home,
-          live_data.shots_on_target_away,
-          shots_on_target
-        );
+        if (!showFireEffect && stats_banded_data && live_data?.match_time) {
+          const { corners, shots_on_target } = stats_banded_data;
+          const liveMinute = parseInt(
+            live_data.match_time.replace("'", ""),
+            10
+          );
+
+          checkStat(
+            live_data.corners_home,
+            live_data.corners_away,
+            corners,
+            liveMinute
+          );
+          checkStat(
+            live_data.shots_on_target_home,
+            live_data.shots_on_target_away,
+            shots_on_target,
+            liveMinute
+          );
+        }
       }
     }
   }
