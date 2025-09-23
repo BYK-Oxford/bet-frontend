@@ -181,15 +181,18 @@ const MatchCard: React.FC<MatchProps> = ({
           liveStatHome: number | null,
           liveStatAway: number | null,
           statCategory: StatCategory,
-          liveMinute: number
+          liveMinute: number,
+          liveHomeScore: number | null,
+          liveAwayScore: number | null
         ) => {
           //if home live score < = away live score
 
           if (
             liveStatHome !== null &&
-            liveStatAway !== null &&
-            liveStatHome <= liveStatAway &&
-            statCategory.home.length > 0
+            statCategory.home.length > 0 &&
+            liveHomeScore !== null &&
+            liveAwayScore !== null &&
+            liveHomeScore <= liveAwayScore
           ) {
             const homeEntry = getRelevantEntry(statCategory.home, liveMinute);
 
@@ -201,10 +204,11 @@ const MatchCard: React.FC<MatchProps> = ({
           // if away live score < = home live score
 
           if (
-            liveStatHome !== null &&
             liveStatAway !== null &&
-            liveStatAway <= liveStatHome &&
-            statCategory.away.length > 0
+            statCategory.away.length > 0 &&
+            liveHomeScore !== null &&
+            liveAwayScore !== null &&
+            liveAwayScore <= liveHomeScore
           ) {
             const awayEntry = getRelevantEntry(statCategory.away, liveMinute);
 
@@ -225,13 +229,17 @@ const MatchCard: React.FC<MatchProps> = ({
             live_data.corners_home,
             live_data.corners_away,
             corners,
-            liveMinute
+            liveMinute,
+            live_data.live_home_score,
+            live_data.live_away_score
           );
           checkStat(
             live_data.shots_on_target_home,
             live_data.shots_on_target_away,
             shots_on_target,
-            liveMinute
+            liveMinute,
+            live_data.live_home_score,
+            live_data.live_away_score
           );
         }
       }
