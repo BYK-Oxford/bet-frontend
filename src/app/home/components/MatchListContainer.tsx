@@ -131,7 +131,7 @@ const MatchListContainer: React.FC<MatchProps> = ({
     live_data.live_away_odds
   ) {
     // ❌ Disable fire effect if match is full-time
-    if (live_data.match_time === "FT") {
+    if (live_data.is_live == false) {
       showFireEffect = false;
     } else {
       // Step 1: Full live bookmaker probability
