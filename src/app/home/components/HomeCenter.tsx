@@ -148,6 +148,8 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
     "Spanish Segunda Division": "Spain",
     "Turkish Super League": "Turkey",
     "French Ligue 1": "France",
+    "Dutch Eredivisie": "Netherland",
+    "Portuguese Primeira Liga": "Portugal",
   };
 
   const noMatchesAvailable =
@@ -241,6 +243,8 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
                   <Image
                     src="/logo2.png"
                     alt="Bet Genie Logo"
+                    width={128}
+                    height={128}
                     className="absolute inset-0 w-32 h-32 mx-auto my-auto object-contain opacity-10 grayscale"
                   />
                   {/* Text on top */}
@@ -329,6 +333,8 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
               <Image
                 src="/logo2.png"
                 alt="Bet Genie Logo"
+                width={128}
+                height={128}
                 className="absolute inset-0 w-32 h-32 mx-auto my-auto object-contain opacity-10 grayscale"
               />
 
