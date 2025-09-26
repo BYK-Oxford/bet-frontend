@@ -54,7 +54,7 @@ export default function HomeSidebar({
             { name: "French Ligue 1", src: "/teamlogo/France.png" },
             { name: "Turkish Super League", src: "/teamlogo/Turkey.png" },
             { name: "Portuguese Primeira Liga", src: "/teamlogo/Portugal.png" },
-            { name: "Dutch Eredivisie", src: "/teamlogo/Netherland.png" },
+            { name: "Dutch Eredivisie", src: "/teamlogo/Netherlands.png" },
           ]}
           onItemClick={handleLeagueClick}
           selectedItem={selectedLeague}
@@ -74,7 +74,7 @@ export default function HomeSidebar({
             { name: "France", src: "/teamlogo/France.png" },
             { name: "Turkey", src: "/teamlogo/Turkey.png" },
             { name: "Portugal", src: "/teamlogo/Portugal.png" },
-            { name: "Netherlands", src: "/teamlogo/Netherland.png" },
+            { name: "Netherlands", src: "/teamlogo/Netherlands.png" },
           ]}
           onItemClick={handleCountryClick}
           selectedItem={selectedCountry}
