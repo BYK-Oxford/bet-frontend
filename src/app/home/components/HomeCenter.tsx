@@ -148,7 +148,7 @@ const HomeCenter: React.FC<HomeCenterProps> = ({
     "Spanish Segunda Division": "Spain",
     "Turkish Super League": "Turkey",
     "French Ligue 1": "France",
-    "Dutch Eredivisie": "Netherland",
+    "Dutch Eredivisie": "Netherlands",
     "Portuguese Primeira Liga": "Portugal",
   };
 

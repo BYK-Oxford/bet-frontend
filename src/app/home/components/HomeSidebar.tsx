@@ -74,7 +74,7 @@ export default function HomeSidebar({
             { name: "France", src: "/teamlogo/France.png" },
             { name: "Turkey", src: "/teamlogo/Turkey.png" },
             { name: "Portugal", src: "/teamlogo/Portugal.png" },
-            { name: "Netherland", src: "/teamlogo/Netherland.png" },
+            { name: "Netherlands", src: "/teamlogo/Netherland.png" },
           ]}
           onItemClick={handleCountryClick}
           selectedItem={selectedCountry}
