@@ -110,8 +110,8 @@ export function MatchProvider({ children }: { children: React.ReactNode }) {
     fetchMatches();
 
     const intervalId = setInterval(() => {
-      fetchMatches(); // Poll every 5 minutes
-    }, 5 * 60 * 1000);
+      fetchMatches(); // Poll every 3 minutes
+    }, 3 * 60 * 1000);
 
     return () => clearInterval(intervalId);
   }, []);
